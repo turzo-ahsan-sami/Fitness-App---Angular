@@ -22,8 +22,8 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                 </label>
             </div>
 
-            <button class="button" type="button"(click)="dispatchMeal()">
-              Create 
+            <button class="button" type="button" (click)="dispatchMeal()">
+                Create 
             </button>
         </form>
     `

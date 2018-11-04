@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
     Hi
     <app-header></app-header>
     <meal-recipe></meal-recipe>
+   
   `
 })
 export class AppComponent {
