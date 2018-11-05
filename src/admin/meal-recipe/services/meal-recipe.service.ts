@@ -15,7 +15,17 @@ export class MealRecipeService{
     ){}
 
     async createMealRecipe(value){
-        await this.af.list('meal-recipes').push({value});
+        await this.af.list('meal-recipes').push(value);
         console.log('Done');
     }
+
+    getRecipes(){
+        return this.af.list('meal-recipes').valueChanges(); 
+    }
+
+    deleteRecipes(key: any){
+        return this.af.list('meal-recipes').remove(key);
+    }
+
+    
 }

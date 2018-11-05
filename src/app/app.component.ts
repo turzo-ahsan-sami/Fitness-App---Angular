@@ -7,8 +7,7 @@ import { Component } from '@angular/core';
   template: `
     Hi
     <app-header></app-header>
-    <meal-recipe></meal-recipe>
-   
+    <router-outlet></router-outlet>
   `
 })
 export class AppComponent {

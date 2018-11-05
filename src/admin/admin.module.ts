@@ -1,3 +1,6 @@
+import { ListItemsComponent } from './shared/components/list-items/list-items.component';
+import { MealRecipeListComponent } from './meal-recipe/containers/meal-recipe-list/meal-recipe-list.component';
+import { MealRecipeModule } from './meal-recipe/meal-recipe.module';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { MealRecipeService } from './meal-recipe/services/meal-recipe.service';
 import { WorkoutGuideFormComponent } from './workout-guide/components/workout-guide/workout-guide-form.component';
@@ -11,6 +14,11 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+
+export const ROUTES: Routes = [
+  { path: 'meal-recipe', loadChildren: () => MealRecipeModule } 
+]
 
 @NgModule({
   imports: [
@@ -18,18 +26,21 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFirestoreModule,
     AngularFireDatabaseModule,
     CommonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule.forChild(ROUTES),
+    MealRecipeModule,
   ],
   declarations: [
-    MealRecipeComponent,
-    MealRecipeFormComponent,
+    
     WorkoutGuideFormComponent,
     WorkoutGuideComponent,
     WorkoutTypeComponent
   ],
   exports:[
     MealRecipeComponent,
+    MealRecipeListComponent,
     MealRecipeFormComponent,
+    ListItemsComponent,
     WorkoutGuideFormComponent,
     WorkoutGuideComponent,
     WorkoutTypeComponent

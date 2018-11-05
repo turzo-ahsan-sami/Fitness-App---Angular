@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { MealRecipeService } from '../../services/meal-recipe.service';
 import { Router } from '@angular/router';
 
-
-
 @Component({
     selector: 'meal-recipe',
     template: `
@@ -22,10 +20,8 @@ export class MealRecipeComponent{
         private fs: MealRecipeService
     ){}
 
-    createMeal(event: any){
-        this.fs.createMealRecipe(event);
-       
-        
+    async createMeal(event: any){
+        await this.fs.createMealRecipe(event);      
        // this.router.navigate(['/home']);
     }
 }

@@ -1,3 +1,5 @@
+import { MealRecipeModule } from 'src/admin/meal-recipe/meal-recipe.module';
+import { Routes, RouterModule } from '@angular/router';
 import { AdminModule } from './../admin/admin.module';
 import { AppHeaderComponent } from './app-header/app-header.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -5,14 +7,20 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
+export const ROUTES: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'meal-recipe' }
+];
+
+
 @NgModule({
   declarations: [
     AppComponent,
-    AppHeaderComponent
+    AppHeaderComponent,
   ],
   imports: [
     BrowserModule,
-    AdminModule
+    AdminModule,
+    RouterModule.forRoot(ROUTES),
   ],
   providers: [],
   bootstrap: [AppComponent]
