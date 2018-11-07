@@ -4,16 +4,27 @@ import { WorkoutGuideFormComponent } from './components/workout-guide/workout-gu
 import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
+import { RouterModule, Routes } from '@angular/router';
+
+export const ROUTES: Routes = [
+    { path: 'create', component: WorkoutGuideComponent },
+];
 
 @NgModule({
     imports:[
         CommonModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule.forChild(ROUTES)
     ],
     declarations:[
-        // WorkoutGuideFormComponent,
-        // WorkoutGuideComponent,
-        // WorkoutTypeComponent
+        WorkoutGuideFormComponent,
+        WorkoutGuideComponent,
+        WorkoutTypeComponent
+    ],
+    exports: [
+        WorkoutGuideFormComponent,
+        WorkoutGuideComponent,
+        WorkoutTypeComponent
     ]
 })
 

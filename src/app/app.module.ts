@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { AuthModule } from 'src/auth/auth.module';
 
 export const ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'meal-recipe' }
@@ -21,6 +22,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     AdminModule,
     RouterModule.forRoot(ROUTES),
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

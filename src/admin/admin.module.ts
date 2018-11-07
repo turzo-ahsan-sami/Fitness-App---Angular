@@ -15,9 +15,11 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
+import { WorkoutGuideModule } from './workout-guide/workout-guide.module';
 
 export const ROUTES: Routes = [
-  { path: 'meal-recipe', loadChildren: () => MealRecipeModule } 
+  { path: 'meal-recipe', loadChildren: () => MealRecipeModule },
+  { path: 'workout-guide', loadChildren: () => WorkoutGuideModule }  
 ]
 
 @NgModule({
@@ -29,12 +31,11 @@ export const ROUTES: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(ROUTES),
     MealRecipeModule,
+    WorkoutGuideModule
   ],
   declarations: [
     
-    WorkoutGuideFormComponent,
-    WorkoutGuideComponent,
-    WorkoutTypeComponent
+    
   ],
   exports:[
     MealRecipeComponent,

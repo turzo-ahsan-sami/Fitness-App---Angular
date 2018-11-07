@@ -3,9 +3,13 @@ import { Component, Input, EventEmitter, Output } from "@angular/core";
 @Component({
     selector: 'list-items',
     template: `
-        {{ item | json }}
-        
-        <button type="button" (click)="removeItem(item.key)">Remove</button>
+        <li>
+            {{ item | json }}
+            {{ item.payload.val() }}
+            
+            <button type="button" (click)="removeItem(item.key)">Remove</button>
+            <a [routerLink]="getRouteType(item)">Edit</a>
+        </li>
     `
 })
 
@@ -18,5 +22,9 @@ export class ListItemsComponent{
 
     removeItem(item: any){
         this.remove.emit(item);
+    }
+
+    getRouteType(item: any){
+        return [`../${item.ingredients? 'workout-guide': 'meal-recipe'}`, item.key];
     }
 }

@@ -7,6 +7,8 @@ import { Observable, Subscription } from 'rxjs';
     selector: 'meal-recipe-list',
     template: `
         <ul>
+            <a [routerLink]="['../meal-recipe/create']">Create</a>
+
             <list-items *ngFor="let item of items | async" [item]="item" (remove)="RemoveRecipe($event)">
             </list-items>
         </ul>

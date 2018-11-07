@@ -6,25 +6,27 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
     template: `
         Form
         <form [formGroup]="form">
-            <input type="text" formControlName="name">
+            Name<input type="text" formControlName="name">
 
             <button type="button" (click)="addIngredient()">+</button>
             <div formArrayName="ingredients">
                 <label *ngFor="let ingredient of ingredients.controls; index as i;">
-                    <input [formControlName]="i">
+                    Ingredients<input [formControlName]="i">
                 </label>
             </div>
 
             <button type="button" (click)="addInstructions()">+</button>
             <div formArrayName="instructions">
                 <label *ngFor="let instruction of instructions.controls; index as i;">
-                    <input [formControlName]="i">
+                    Instructions<input [formControlName]="i">
                 </label>
             </div>
 
             <button class="button" type="button" (click)="dispatchMeal()">
                 Create 
             </button>
+
+            <a [routerLink]="['../']">Back</a>
         </form>
     `
 })
@@ -35,7 +37,10 @@ export class MealRecipeFormComponent implements OnChanges{
     form = this.fb.group({
         name: ['', Validators.required],
         ingredients: this.fb.array(['']),
-        instructions: this.fb.array([''])
+        instructions: this.fb.array(['']),
+        calorie: ['', Validators.required],
+        targetedBody: this.fb.array(['']),
+        type: ['', this.fb.array([''])]
     });
 
     ngOnChanges(){

@@ -8,9 +8,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { ListItemsComponent } from '../shared/components/list-items/list-items.component';
 
 export const ROUTES: Routes = [
+    { path: '', redirectTo: '/list', pathMatch: 'full' },
+    { path: 'list', component: MealRecipeListComponent },
     { path: 'create', component: MealRecipeComponent },
-    { path: '', component: MealRecipeListComponent }
-  ];
+    { path: ':id', component: MealRecipeComponent }
+];
 
 @NgModule({
     imports:[
