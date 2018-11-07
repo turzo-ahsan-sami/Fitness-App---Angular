@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../../shared/services/authentication.service';
 import { FormGroup } from '@angular/forms';
 import { Component } from "@angular/core";
 
@@ -15,9 +16,11 @@ import { Component } from "@angular/core";
 
 export class RegisterComponent{
 
-    constructor(){}
+    constructor(
+        private as: AuthenticationService
+    ){}
 
-    createUser(event: FormGroup){
-        console.log(event);
+    async createUser(event: FormGroup){
+        await this.as.registerUser(event.value.email, event.value.password);
     }  
 }
