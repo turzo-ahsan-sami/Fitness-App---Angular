@@ -1,3 +1,4 @@
+import { ControlDaysComponent } from './components/control-days/control-days.component';
 import { SchedulePlanService } from './services/schedule-plan.service';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { SchedulePlanComponent } from './containers/schedule-plan/schedule-plan.component';
@@ -17,7 +18,8 @@ export const ROUTES: Routes = [
     ],
     declarations: [
         SchedulePlanComponent,
-        CalendarComponent
+        CalendarComponent,
+        ControlDaysComponent
     ],
     providers: [
         SchedulePlanService

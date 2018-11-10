@@ -9,10 +9,10 @@ import { Component } from '@angular/core';
     template: `
         Calendar section
        
-        {{ date }}
         <button *ngFor="let day of days; let i = index;" (click)="selectDay(i)" type="button">
             {{ day }}
         </button>
+        <control-days (switch)="changeWeek($event)" [currentDate]="chosenDay"></control-days>
     `
 })
 
@@ -20,18 +20,19 @@ export class CalendarComponent implements OnChanges{
 
     constructor(public spService: SchedulePlanService){}
 
-    days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     
     chosenDay: Date = new Date();
     
     @Input() 
-    date: Date;
+    set date(date: Date){
+        this.chosenDay = new Date(date.getTime());
+    }
     
-
-    //firstDayOfWeek: Date;
-    firstDayOfWeek: Date = this.getFirstDayOfWeek(new Date(this.chosenDay));
+    firstDayOfWeek: Date;
+    
     ngOnChanges(){
-        
+        this.firstDayOfWeek = this.getFirstDayOfWeek(new Date(this.chosenDay));
     }
 
     getFirstDayOfWeek(date: Date){
@@ -40,17 +41,21 @@ export class CalendarComponent implements OnChanges{
         return new Date(date.setDate(x));
     }
 
-    getTodayDate(date: Date){
-
-    }
-
     @Output()
-    change = new EventEmitter<Date>();
+    changeDate = new EventEmitter<Date>();
 
     selectDay(i){
         const day = new Date(this.firstDayOfWeek);
         day.setDate(day.getDate() + i);
-        this.change.emit(day);
+        this.changeDate.emit(day);
+    }
+
+    changeWeek(event){
+        const firstDayOfWeek = this.getFirstDayOfWeek(new Date());
+        const firstdate = (new Date(firstDayOfWeek.getFullYear(), firstDayOfWeek.getMonth(), firstDayOfWeek.getDate()));
+        firstdate.setDate(firstdate.getDate() + (7 * event));
+        this.changeDate.emit(firstdate);
+        console.log(firstdate);
     }
 
 }

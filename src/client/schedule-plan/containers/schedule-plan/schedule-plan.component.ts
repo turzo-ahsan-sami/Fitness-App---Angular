@@ -5,9 +5,10 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'schedule-plan',
+    styleUrls: ['schedule-plan.component.scss'],
     template: `
         <div *ngIf="date$ | async as date">
-            <calendar (change)="changeDate($event)"  [date]="date"></calendar>
+            <calendar (changeDate)="changeDate($event)" [date]="date"></calendar>
         </div>
     `
 })
@@ -34,6 +35,7 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     }
 
     changeDate(event: Date){
-        return this.spService.changeDate(event);    
+        return this.spService.changeDate(event); 
+        console.log(event);   
     }
 }
