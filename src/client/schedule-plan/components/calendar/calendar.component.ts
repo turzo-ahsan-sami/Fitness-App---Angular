@@ -8,11 +8,12 @@ import { Component } from '@angular/core';
     selector: 'calendar',
     template: `
         Calendar section
-       
+        
         <button *ngFor="let day of days; let i = index;" (click)="selectDay(i)" type="button">
             {{ day }}
         </button>
         <control-days (switch)="changeWeek($event)" [currentDate]="chosenDay"></control-days>
+        <section-plan *ngFor="let section of sections" (selected)="addSection($event)" [section]="section"></section-plan>
     `
 })
 
@@ -21,6 +22,8 @@ export class CalendarComponent implements OnChanges{
     constructor(public spService: SchedulePlanService){}
 
     days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    sections = ['Breakfast', 'Lunch', 'Dinner', 'Supper', 'Workout'];
     
     chosenDay: Date = new Date();
     
@@ -56,6 +59,10 @@ export class CalendarComponent implements OnChanges{
         firstdate.setDate(firstdate.getDate() + (7 * event));
         this.changeDate.emit(firstdate);
         console.log(firstdate);
+    }
+
+    addSection(event){
+        console.log(event);
     }
 
 }
