@@ -1,0 +1,29 @@
+:host {
+    width: 100%;
+}
+
+.container {
+    max-width: 120rem;
+    margin: 8rem auto;
+    background-color: royalblue;
+}
+
+.content {
+    display: flex;
+    @media only screen and (max-width: 56.25em) {
+        flex-direction: column;
+    }
+}
+
+.sidebar {
+    flex: 0 0 17%;
+    display: flex;
+    background-color: var(--color-grey-dark-1);
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.content-view {
+    flex: 1;
+    background-color: #fff;
+}
