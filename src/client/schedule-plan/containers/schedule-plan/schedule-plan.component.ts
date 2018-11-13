@@ -5,10 +5,11 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'schedule-plan',
-    //styleUrls: ['schedule-plan.component.scss'],
+    styleUrls: ['schedule-plan.component.scss'],
     template: `
         <div *ngIf="date$ | async as date">
-            <calendar (changeDate)="changeDate($event)" [date]="date"></calendar>
+            <calendar (changeDate)="changeDate($event)" (open)="openSection($event)" [date]="date"></calendar>
+            <assign-plan *ngIf="openModal"></assign-plan>
         </div>
     `
 })
@@ -36,5 +37,12 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
 
     changeDate(event: Date){
         return this.spService.changeDate(event); 
+    }
+
+    openModal = false;
+
+    openSection(event){
+        this.openModal = true;
+        console.log(event);
     }
 }

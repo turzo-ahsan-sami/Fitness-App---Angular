@@ -1,3 +1,4 @@
+import { AssignPlanComponent } from './components/assign-plan/assign-plan.component';
 import { SectionPlanComponent } from './components/section-plan/section-plan.component';
 import { ControlDaysComponent } from './components/control-days/control-days.component';
 import { SchedulePlanService } from './services/schedule-plan.service';
@@ -21,7 +22,8 @@ export const ROUTES: Routes = [
         SchedulePlanComponent,
         CalendarComponent,
         ControlDaysComponent,
-        SectionPlanComponent
+        SectionPlanComponent,
+        AssignPlanComponent
     ],
     providers: [
         SchedulePlanService

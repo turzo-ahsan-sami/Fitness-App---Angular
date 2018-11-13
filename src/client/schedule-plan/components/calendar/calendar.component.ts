@@ -44,8 +44,7 @@ export class CalendarComponent implements OnChanges{
         return new Date(date.setDate(x));
     }
 
-    @Output()
-    changeDate = new EventEmitter<Date>();
+    @Output() changeDate = new EventEmitter<Date>();
 
     selectDay(i){
         const day = new Date(this.firstDayOfWeek);
@@ -61,8 +60,10 @@ export class CalendarComponent implements OnChanges{
         console.log(firstdate);
     }
 
+    @Output() open = new EventEmitter<any>();
+
     addSection(event){
-        console.log(event);
+        this.open.emit(event);
     }
 
 }
