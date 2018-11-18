@@ -1,3 +1,5 @@
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './../shared/shared.module';
 import { AssignPlanComponent } from './components/assign-plan/assign-plan.component';
 import { SectionPlanComponent } from './components/section-plan/section-plan.component';
 import { ControlDaysComponent } from './components/control-days/control-days.component';
@@ -16,7 +18,9 @@ export const ROUTES: Routes = [
 @NgModule({
     imports: [
         CommonModule,
-        RouterModule.forChild(ROUTES)
+        SharedModule,
+        RouterModule.forChild(ROUTES),
+        ReactiveFormsModule
     ],
     declarations: [
         SchedulePlanComponent,
@@ -26,7 +30,7 @@ export const ROUTES: Routes = [
         AssignPlanComponent
     ],
     providers: [
-        SchedulePlanService
+        
     ]
 })
 

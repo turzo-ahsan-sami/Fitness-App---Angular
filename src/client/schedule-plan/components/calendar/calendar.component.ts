@@ -6,14 +6,24 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar',
+    styleUrls: ['calendar.component.scss'],
     template: `
         Calendar section
-        
-        <button *ngFor="let day of days; let i = index;" (click)="selectDay(i)" type="button">
-            {{ day }}
-        </button>
         <control-days (switch)="changeWeek($event)" [currentDate]="chosenDay"></control-days>
-        <section-plan *ngFor="let section of sections" (selected)="addSection($event)" [section]="section"></section-plan>
+        <div class="wrap">
+            <div class="days">
+                <button class="day" *ngFor="let day of days; let i = index;" (click)="selectDay(i)" type="button">
+                    <span>{{ day }}</span>
+                </button>
+            </div>
+            <div class="sections">
+                <section-plan *ngFor="let section of sections" (selected)="addSection($event)" [section]="getType(section)" [type]="section"></section-plan>
+            </div>
+            <div *ngFor="let item of items">
+                {{ item.section }}
+            </div>
+            
+        </div>
     `
 })
 
@@ -62,8 +72,16 @@ export class CalendarComponent implements OnChanges{
 
     @Output() open = new EventEmitter<any>();
 
-    addSection(event){
-        this.open.emit(event);
+    addSection({type, selection, data}){
+        const selectedDay = this.chosenDay;
+        this.open.emit({type, selection, data, selectedDay});  
+    }
+
+    @Input() items: any;
+
+    ///
+    getType(type: string): any {
+        return this.items && this.items[name] || {};
     }
 
 }

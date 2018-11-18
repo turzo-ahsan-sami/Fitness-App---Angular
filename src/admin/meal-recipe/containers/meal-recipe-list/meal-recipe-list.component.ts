@@ -12,7 +12,6 @@ import { Observable, Subscription } from 'rxjs';
             <list-items *ngFor="let item of items | async" [item]="item" (remove)="RemoveRecipe($event)">
             </list-items>
         </ul>
-        
     `
 })
 
@@ -21,12 +20,12 @@ export class MealRecipeListComponent implements OnInit{
     subscription: Subscription;
     items: Observable<any[]>;
     // items: Array<any>;
-    
+    favMealList:Observable<any[]>;
 
     constructor(
         public mealRecipeService: MealRecipeService,
         public db: AngularFireDatabase){
-         this.items = db.list('meal-recipes').snapshotChanges();
+        this.items = db.list('meal-recipes').snapshotChanges();
         //this.mealRecipeService.getRecipes().subscribe(result => { this.items = result; })
     }
 

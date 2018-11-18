@@ -18,4 +18,8 @@ export class AuthenticationService{
         return this.af.auth.signOut();
     }
 
+    get loggedInUser(){
+        return this.af.auth.currentUser;
+    }
+
 }

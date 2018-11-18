@@ -3,12 +3,17 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'auth-form',
+    styleUrls: ['auth-form.component.scss'],
     template: `
-        <form [formGroup]="form" (ngSubmit)="submitForm()">
-            <input formControlName="email" type="email" />
-            <input formControlName="password" type="password" />
-            <ng-content select="button"></ng-content>
-        </form>
+        <div class="form">
+            <div class="auth-form">
+                <form [formGroup]="form" (ngSubmit)="submitForm()">
+                    <label><input formControlName="email" type="email" placeholder="Email" /></label>
+                    <label><input formControlName="password" type="password" placeholder="Password" /></label>
+                    <div class="auth-form__btn"><ng-content select="button"></ng-content></div>     
+                </form>
+            </div>
+        </div>
     `
 })
 
