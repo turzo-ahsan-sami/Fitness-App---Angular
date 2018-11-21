@@ -146,11 +146,11 @@
     color: #008463;
   }
   input[type="range"]:before{
-    content: "Very Healthy";
+    content: "50";
     left: -100px;
   }
   input[type="range"]:after{
-    content: "Very Unhealthy";
+    content: "250";
     right: -120px;
   }
   input[type="range"] {

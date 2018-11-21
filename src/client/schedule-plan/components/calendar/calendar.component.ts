@@ -19,9 +19,7 @@ import { Component } from '@angular/core';
             <div class="sections">
                 <section-plan *ngFor="let section of sections" (selected)="addSection($event)" [section]="getType(section)" [type]="section"></section-plan>
             </div>
-            <div *ngFor="let item of items">
-                {{ item.section }}
-            </div>
+            
             
         </div>
     `
@@ -80,8 +78,8 @@ export class CalendarComponent implements OnChanges{
     @Input() items: any;
 
     ///
-    getType(type: string): any {
-        return this.items && this.items[name] || {};
+    getType(section: string): any {
+        return this.items && this.items[section] || {};
     }
 
 }

@@ -8,6 +8,10 @@ import { environment } from './../environments/environment';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './shared/store/reducers/auth.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { schedulePlanReducer } from 'src/client/schedule-plan/store/reducers/schedule-plan.reducer';
 
 export const ROUTES: Routes = [
     {
@@ -26,7 +30,15 @@ export const ROUTES: Routes = [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         AngularFireAuthModule,   
-        SharedModule
+        SharedModule,
+        StoreModule.forRoot({
+            user: authReducer,
+            schedule: schedulePlanReducer
+        }),
+        
+        // EffectsModule.forRoot([
+        //     UserEffects
+        // ]),
     ],
     declarations:[
         

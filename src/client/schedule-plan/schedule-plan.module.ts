@@ -20,7 +20,8 @@ export const ROUTES: Routes = [
         CommonModule,
         SharedModule,
         RouterModule.forChild(ROUTES),
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        
     ],
     declarations: [
         SchedulePlanComponent,

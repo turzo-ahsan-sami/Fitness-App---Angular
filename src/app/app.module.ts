@@ -1,3 +1,4 @@
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MealRecipeModule } from 'src/admin/meal-recipe/meal-recipe.module';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminModule } from './../admin/admin.module';
@@ -26,7 +27,10 @@ export const ROUTES: Routes = [
     AdminModule,
     RouterModule.forRoot(ROUTES),
     AuthModule,
-    ClientModule
+    ClientModule,
+    StoreDevtoolsModule.instrument({
+     
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

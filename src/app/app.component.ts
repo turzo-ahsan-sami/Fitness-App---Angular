@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import * as authActions from './../auth/shared/store/actions/auth.action';
+import { User } from './../auth/shared/models/auth.model';
+import { AppState } from './app.state';
+import { Subscription, Observable } from 'rxjs';
+import { AuthenticationService } from 'src/auth/shared/services/authentication.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
 
 
 @Component({
@@ -9,7 +16,7 @@ import { Component } from '@angular/core';
     <div class="container">
       <app-header></app-header>
       <div class="content">
-        <app-sidebar></app-sidebar>
+        <app-sidebar *ngIf="(user$ | async)?.authenticated"></app-sidebar>
         <main class="content-view">
           <router-outlet></router-outlet>
         </main>
@@ -17,10 +24,26 @@ import { Component } from '@angular/core';
     </div>
   `
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy{
   title = 'fit';
+  subscription: Subscription;
+
+  
 
   constructor(
-     
+     private as: AuthenticationService,
+     private store: Store<AppState>
   ){}
+
+  user$: Observable<User>;
+    
+  ngOnInit(){
+    this.subscription = this.as.auth$.subscribe();
+    this.user$ = this.store.select('user');
+    //this.store.dispatch(new authActions.GetUser());
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
 }

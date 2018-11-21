@@ -1,3 +1,6 @@
+import * as FromScheduleActions from './../store/actions/schedule-plan.action';
+import { AppState } from './../../../app/app.state';
+import { Store } from '@ngrx/store';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
@@ -18,7 +21,8 @@ export class SchedulePlanService{
 
     constructor(
         private as: AuthenticationService,
-        private af: AngularFireDatabase
+        private af: AngularFireDatabase,
+        private store: Store<AppState>
     ){}
 
     date$ = new BehaviorSubject(new Date());
@@ -77,7 +81,7 @@ export class SchedulePlanService{
             return mapped;
     
         }),
-        tap((next: any) => next) 
+        tap((next: any) => this.store.dispatch(new FromScheduleActions.LoadPlan(next)))
     );
 
     changeDate(date: Date){

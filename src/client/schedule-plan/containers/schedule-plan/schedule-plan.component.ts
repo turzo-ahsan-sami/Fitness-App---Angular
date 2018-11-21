@@ -1,3 +1,5 @@
+import { AppState } from './../../../../app/app.state';
+import { Store } from '@ngrx/store';
 import { MealPlanService } from './../../../meal-plan/services/meal-plan.service';
 import { async } from '@angular/core/testing';
 import { AngularFireDatabase } from '@angular/fire/database';
@@ -14,12 +16,12 @@ import { tap, map, switchMap } from 'rxjs/operators';
     styleUrls: ['schedule-plan.component.scss'],
     template: `
         <div *ngIf="date$ | async as date">
-            <calendar (changeDate)="changeDate($event)" (open)="openSection($event)" [date]="date" [items]="schedule$"></calendar>
+            <calendar (changeDate)="changeDate($event)" (open)="openSection($event)" [date]="date" [items]="schedule$ | async"></calendar>
             <assign-plan *ngIf="openModal" [meals]="meals | async" (add)="createScheduleData($event)" [type]="type$" (close)="closeModal()"></assign-plan>
+            {{ schedule$ | json }}    
+            <div *ngFor="let schedule of schedule$ | async">{{ schedule | json }}</div>
             
-            <div *ngFor="let schedule of schedule$">{{ schedule.workout }}</div>
-            {{ schedule$  }}
-           
+        
         </div>
     `
 })
@@ -29,6 +31,7 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
         public spService: SchedulePlanService,
         private mpService: MealPlanService,
         private af: AngularFireDatabase,
+        private store: Store<AppState>
         
     ){}
 
@@ -37,15 +40,16 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     date$:Observable<Date>;
     type$: Observable<any>;
     meals: Observable<any>;
-    scheule$: any[];
+    schedule$: Observable<any>;
 
     ngOnInit(){
        this.date$ = this.spService.date$;
        // this.type$ = this.spService.type$;
+       this.schedule$ = this.store.select('schedule');
 
         this.sub = [
             this.spService.type$.subscribe(x => this.type$ = x),
-            this.spService.scheuleItems$.subscribe(y => console.log(y)),
+            this.spService.scheuleItems$.subscribe(),
             this.spService.list$.subscribe(),
             this.spService.items$.subscribe(),
             
