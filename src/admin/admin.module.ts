@@ -18,8 +18,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { WorkoutGuideModule } from './workout-guide/workout-guide.module';
 
 export const ROUTES: Routes = [
-  { path: 'meal-recipe', loadChildren: () => MealRecipeModule },
-  { path: 'workout-guide', loadChildren: () => WorkoutGuideModule }  
+  { path: 'admin/meal-recipe', loadChildren: () => MealRecipeModule },
+  { path: 'admin/workout-guide', loadChildren: () => WorkoutGuideModule }  
 ]
 
 @NgModule({

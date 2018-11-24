@@ -1,3 +1,4 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable } from 'rxjs';
@@ -13,11 +14,13 @@ import { map, filter, scan } from 'rxjs/operators';
 export class MealRecipeService{
 
     constructor(
-        public af:AngularFireDatabase
+        public af:AngularFireDatabase,
+        public afs: AngularFirestore
     ){}
 
     async createMealRecipe(value){
-        await this.af.list('meal-recipes').push(value);
+        this.afs.collection('meal-recipes').add(value);
+        //await this.af.list('meal-recipes').push(value);
         console.log('Done');
     }
 
@@ -41,6 +44,7 @@ export class MealRecipeService{
     }
 
     getRecipes(){
+          //  return this.af.list('meal-recipes', ref => ref.orderByChild('ingredients').equalTo('')).valueChanges();
         return this.af.list('meal-recipes').valueChanges(); 
     }
 

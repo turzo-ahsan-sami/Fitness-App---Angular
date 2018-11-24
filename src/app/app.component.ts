@@ -18,7 +18,9 @@ import { Store } from '@ngrx/store';
       <div class="content">
         <app-sidebar *ngIf="(user$ | async)?.authenticated"></app-sidebar>
         <main class="content-view">
-          <router-outlet></router-outlet>
+          <div class="overview">
+            <router-outlet></router-outlet>
+          </div>
         </main>
       </div>
     </div>

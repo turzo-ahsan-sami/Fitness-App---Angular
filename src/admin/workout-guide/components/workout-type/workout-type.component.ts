@@ -10,6 +10,7 @@ export const TYPE_CONTROL_ACCESSOR = {
 
 @Component({
     selector: 'workout-type',
+    styleUrls: ['workout-type.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TYPE_CONTROL_ACCESSOR],
     template: `

@@ -7,6 +7,10 @@
     top: 0;
     left: 0;
     bottom: 0;
+    z-index: 200; 
+
+    
+    
   
     transition: all .3s;
     align-items: center;
@@ -14,6 +18,23 @@
     display: flex;
     
     &__list {
+        display: flex;
+        border-bottom: 1px solid #c1cedb;
+        transition: all .2s ease-in-out;
+        &:hover {
+            background-color: #f9f9f9;
+        }
+        p {
+            margin: 0;
+        }
+        &__name {
+            flex-grow: 1;
+        }
+        &__items {
+            font-size: 12px;
+            color: #8ea6bd;
+            font-style: italic;
+        }
         div {
             &.active {
                 color: royalblue;
@@ -47,11 +68,6 @@
         display: table-cell;
         vertical-align: middle;
         padding: 3rem 5rem;
-    }
-
-    &__img {
-        display: block;
-        width: 100%;
     }
 
     &__text {
@@ -100,4 +116,103 @@
             color: #b3b3b3;
         }
     }
+}
+
+
+.list-item {
+    padding: 1rem;
+    transition: all .2s ease-in-out;
+    border-bottom: 1px solid #c1cedb;
+    p {
+        margin: 0;
+    }
+    &__name {
+        flex-grow: 1;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    &:hover {
+      background-color: #f9f9f9;
+    }
+    &__list {
+        color: #8ea6bd;
+        font-size: 13px;
+        font-style: italic;
+    }
+    
+}
+
+// CSS Style by https://codepen.io/oknoblich/pen/tfjFl
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html,body{height:100vh;}body{display:flex;align-items:center;justify-content:center;padding:40px;font:14px/1.5 'Open Sans',sans-serif;color:#345;background:#f0f2f4;}
+
+p:not(:last-child) {
+  margin: 0 0 20px;
+}
+
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #abc;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #abc;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before { content: '\f1cb'; }
+label[for*='2']:before { content: '\f17d'; }
+label[for*='3']:before { content: '\f16c'; }
+label[for*='4']:before { content: '\f171'; }
+
+label:hover {
+  color: #789;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #0af;
+  border: 1px solid #abc;
+  border-top: 2px solid #0af;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 800px) {
+  label {
+    font-size: 0;
+  }
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  label {
+    padding: 15px;
+  }
 }

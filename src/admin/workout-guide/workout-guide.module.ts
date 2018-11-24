@@ -5,9 +5,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { RouterModule, Routes } from '@angular/router';
+import { WorkoutGuideService } from './services/workoutguide.service';
 
 export const ROUTES: Routes = [
+    { path: '', redirectTo: '/list', pathMatch: 'full' },
+   // { path: 'list', component: MealRecipeListComponent },
     { path: 'create', component: WorkoutGuideComponent },
+    { path: ':id', component: WorkoutGuideComponent }
 ];
 
 @NgModule({
@@ -25,6 +29,9 @@ export const ROUTES: Routes = [
         WorkoutGuideFormComponent,
         WorkoutGuideComponent,
         WorkoutTypeComponent
+    ],
+    providers: [
+        WorkoutGuideService
     ]
 })
 

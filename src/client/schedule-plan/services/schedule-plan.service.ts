@@ -1,3 +1,4 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as FromScheduleActions from './../store/actions/schedule-plan.action';
 import { AppState } from './../../../app/app.state';
 import { Store } from '@ngrx/store';
@@ -22,7 +23,8 @@ export class SchedulePlanService{
     constructor(
         private as: AuthenticationService,
         private af: AngularFireDatabase,
-        private store: Store<AppState>
+        private store: Store<AppState>,
+        private afs: AngularFirestore
     ){}
 
     date$ = new BehaviorSubject(new Date());
@@ -41,12 +43,14 @@ export class SchedulePlanService{
         map(([ items, section ]: any[]) => {
 
         const id = section.data.$key;
-        
+        console.log(id);
+
         console.log(items);
         const defaults: any = {
             workout: null,
             supper: null,
             section: section.type,
+          
             timestamp: new Date(section.selectedDay).getTime()
         };
 
@@ -119,6 +123,8 @@ export class SchedulePlanService{
     //
     //
     private getSchedule(start: number, end: number) {
+        //    return this.afs.collection('schedule').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).valueChanges();
+          
         return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`, ref => ref.orderByChild('timestamp').startAt(start).endAt(end)).valueChanges();
     }
 
@@ -128,12 +134,16 @@ export class SchedulePlanService{
 
     //
     private createPlan(assignedSchedule: any) {
+        //  const id = this.afs.createId();
+        //  return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(id).set(assignedSchedule);
+        //return this.afs.collection('schedule').doc(`${this.user}`).set(assignedSchedule);
         return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`).push(assignedSchedule);
         //console.log(payload);
     }
     
     //
     private updatePlan(key: string, assignedSchedule: any) {
+        console.log(key);
         return this.af.object(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3/${key}`).update(assignedSchedule);
     }
 

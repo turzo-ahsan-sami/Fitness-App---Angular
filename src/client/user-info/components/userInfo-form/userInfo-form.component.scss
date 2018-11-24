@@ -1,0 +1,188 @@
+form p {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 18px;
+    margin: 50px 0 20px; 
+    line-height: 1.6;
+  }
+  form p,
+  label[for="comfort"],
+  label[for="explain"] {
+    padding-bottom: 6px;
+    border-bottom: 2.5px solid #00BF8F;
+  }
+  
+  /* HEADER */
+  header {
+    position: relative;
+    padding: 180px 0px 30px;
+    color: #fff;
+    background: linear-gradient(to bottom, rgba(43,38,96,0) 0%, rgba(0,0,0,0.9) 70%, rgba(0,0,0,1) 100%), url(https://images.unsplash.com/photo-1436985487860-712a3b558087) no-repeat;
+    background-size: cover;
+    background-position: bottom;
+  }
+  
+  /* SECTION */
+  section {
+    background: #ffffff;
+    padding: 20px 0;
+  }
+  
+  /* FORM STYLES */
+  .input-wrap {
+    margin-bottom: 5px;
+  }
+  select {
+    display: block;
+    margin-bottom: 50px;
+  }
+  input[type="checkbox"], input[type="radio"] {
+    margin-right: 5px;
+  }
+  label[for="comfort"],
+  label[for="explain"]{
+    display: block;
+    margin-bottom: 20px;
+    font-family: 'Libre Baskerville', serif;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  input[type="text"],
+  textarea {
+    width: 80%;
+    padding: 6px;
+    font-size: 16px;
+    border: 1px solid #00BF8F;
+    background: #DAEAE6;
+    margin-bottom: 50px;
+  }
+  input[type="text"]{
+    width: 50%;
+  }
+  .input-wrap.select-box {
+    border: 1px solid #00BF8F;
+    background: #DAEAE6;
+    width: 50%;
+    height: 34px;
+    padding: 0px 10px;
+    margin-bottom: 50px;
+  }
+  input[type="date"],
+  input[type="time"]{
+    border: none;
+    border: 1px solid #00BF8F;
+    background: #DAEAE6;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+    height: 34px;
+    padding: 0 10px;
+    margin-bottom: 50px;
+    width: 50%;
+  }
+  .input-wrap.select-box:hover {
+    background: #00BF8F;
+  }
+  
+  .input-wrap.select-box:hover select {
+     color: #fff;   
+  }
+  
+  textarea {
+    min-height: 100px;
+  }
+  select {
+    border: none;
+    background: transparent;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+    height: 34px;
+    width: 100%;
+  }
+  select:hover {
+    cursor: pointer;
+  }
+  input[type="submit"] {
+    display: block;
+    margin: 20px auto 50px;
+    height: 34px;
+    width: 125px;
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 0.5px;
+    background: #008463;
+    border: 0px solid;
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.25px;
+  }
+  input[type="submit"]:hover {
+    background: #00BF8F;
+    cursor: pointer;
+  }
+  
+  /* SLIDER */
+  input[type="range"] {
+    position: relative;
+    margin: 0 90px;
+  }
+  input[type="range"]:before,
+  input[type="range"]:after {
+    position: absolute;
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    font-size: 12px; 
+    letter-spacing: 0.5px;
+    top: -2px;
+    color: #008463;
+  }
+  input[type="range"]:before{
+    content: "50";
+    left: -100px;
+  }
+  input[type="range"]:after{
+    content: "250";
+    right: -120px;
+  }
+  input[type="range"] {
+    -webkit-appearance: none !important;
+    display: inline-block;
+    height: 10px;
+    width: 250px;
+    margin: 26px 0px 50px 100px;
+    background: #DAEAE6;
+    border: 1px solid #00BF8F;
+    border-radius: 10px;
+    display: block;
+  }
+  input[type="range"]:focus {
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    background: #008463;
+    height: 15px;
+    width: 15px;
+    border: 4px solid #00BF8F;
+    border-radius: 20px;
+    box-shadow: 0 0 0 1px #00BF8F, 0 0 8px #008463 inset;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover, input[type="range"]::-webkit-slider-thumb:active {
+    height: 20px;
+    width: 20px;
+    border: 6px solid #008463;
+    background: #fff;
+    box-shadow: 0 0 0 0px #00BF8F, 0 0 8px #00BF8F inset;
+  }
+
+  .error {
+    color: #a94442;
+    background: #f2dede;
+    border: 1px solid #e4b3b3;
+    border-radius: 2px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 10px 0 0;
+  }

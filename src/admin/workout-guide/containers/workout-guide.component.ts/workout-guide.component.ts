@@ -1,3 +1,4 @@
+import { WorkoutGuideService } from './../../services/workoutguide.service';
 import { Component } from "@angular/core";
 
 @Component({
@@ -11,7 +12,10 @@ import { Component } from "@angular/core";
 })
 
 export class WorkoutGuideComponent{
+
+    constructor(private wgService: WorkoutGuideService){}
+
     createWorkout(event: any){
-        console.log(event);
+        this.wgService.createWorkout(event);
     }
 }

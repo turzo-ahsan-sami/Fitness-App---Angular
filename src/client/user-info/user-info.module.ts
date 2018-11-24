@@ -1,3 +1,5 @@
+import { UserInfoService } from './services/user-info.service';
+import { UserInfoFormComponent } from './components/userInfo-form/userInfo-form.component';
 import { CommonModule } from '@angular/common';
 import { UserInfoComponent } from './containers/user-info/user-info.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,7 +17,11 @@ export const ROUTES : Routes = [
         CommonModule
    ],
    declarations:[
-        UserInfoComponent
+        UserInfoComponent,
+        UserInfoFormComponent
+   ],
+   providers: [
+       UserInfoService
    ]
 })
 

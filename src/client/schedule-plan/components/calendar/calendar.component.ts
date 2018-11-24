@@ -1,4 +1,4 @@
-import { Input } from '@angular/core';
+import { Input, ChangeDetectionStrategy } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { SchedulePlanService } from './../../services/schedule-plan.service';
 import { OnChanges, Output } from '@angular/core';
@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 
 @Component({
     selector: 'calendar',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['calendar.component.scss'],
     template: `
         Calendar section
@@ -18,9 +19,7 @@ import { Component } from '@angular/core';
             </div>
             <div class="sections">
                 <section-plan *ngFor="let section of sections" (selected)="addSection($event)" [section]="getType(section)" [type]="section"></section-plan>
-            </div>
-            
-            
+            </div> 
         </div>
     `
 })

@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
     styleUrls: ['app-header.component.scss'],
     template: `
         <div class="header">
+            <img src="" alt="logo" class="logo">
             <form class="search">
                 <input class="search__input" type="text" placeholder="Search..">
                 <button class="search__button">

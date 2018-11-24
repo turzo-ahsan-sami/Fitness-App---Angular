@@ -1,7 +1,6 @@
 import { AppState } from './../../../../app/app.state';
 import { Store } from '@ngrx/store';
 import { MealPlanService } from './../../../meal-plan/services/meal-plan.service';
-import { async } from '@angular/core/testing';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Subscription, Observable, BehaviorSubject } from 'rxjs';
 import { OnInit, OnDestroy } from '@angular/core';
@@ -9,13 +8,11 @@ import { SchedulePlanService, ScheduleItem } from './../../services/schedule-pla
 import { Component } from '@angular/core';
 
 
-import { tap, map, switchMap } from 'rxjs/operators';
-
 @Component({
     selector: 'schedule-plan',
     styleUrls: ['schedule-plan.component.scss'],
     template: `
-        <div *ngIf="date$ | async as date">
+        <div class="schedule-plan" *ngIf="date$ | async as date">
             <calendar (changeDate)="changeDate($event)" (open)="openSection($event)" [date]="date" [items]="schedule$ | async"></calendar>
             <assign-plan *ngIf="openModal" [meals]="meals | async" (add)="createScheduleData($event)" [type]="type$" (close)="closeModal()"></assign-plan>
             {{ schedule$ | json }}    
@@ -40,12 +37,12 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     date$:Observable<Date>;
     type$: Observable<any>;
     meals: Observable<any>;
-    schedule$: Observable<any>;
+    schedule$: Observable<any[]>;
 
     ngOnInit(){
        this.date$ = this.spService.date$;
        // this.type$ = this.spService.type$;
-       this.schedule$ = this.store.select('schedule');
+      // this.schedule$ = this.store.select('schedule');
 
         this.sub = [
             this.spService.type$.subscribe(x => this.type$ = x),
