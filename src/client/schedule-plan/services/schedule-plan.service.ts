@@ -123,9 +123,9 @@ export class SchedulePlanService{
     //
     //
     private getSchedule(start: number, end: number) {
-        //    return this.afs.collection('schedule').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).valueChanges();
+        return this.afs.collection('schedule').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).valueChanges();
           
-        return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`, ref => ref.orderByChild('timestamp').startAt(start).endAt(end)).valueChanges();
+     //   return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`, ref => ref.orderByChild('timestamp').startAt(start).endAt(end)).valueChanges();
     }
 
     getType(event) {
@@ -134,10 +134,10 @@ export class SchedulePlanService{
 
     //
     private createPlan(assignedSchedule: any) {
-        //  const id = this.afs.createId();
-        //  return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(id).set(assignedSchedule);
+          const id = this.afs.createId();
+          return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(id).set(assignedSchedule);
         //return this.afs.collection('schedule').doc(`${this.user}`).set(assignedSchedule);
-        return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`).push(assignedSchedule);
+        //return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`).push(assignedSchedule);
         //console.log(payload);
     }
     

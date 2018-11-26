@@ -1,3 +1,4 @@
+import { DataListComponent } from './data-list/data-list.component';
 import { SchedulePlanService } from './../schedule-plan/services/schedule-plan.service';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { MealPlanService } from './../meal-plan/services/meal-plan.service';
@@ -9,10 +10,13 @@ import { NgModule, ModuleWithProviders } from "@angular/core";
     imports: [
         RouterModule,
         CommonModule,
-        AngularFireDatabaseModule
+        AngularFireDatabaseModule,
     ],
     declarations: [
-
+        DataListComponent
+    ],
+    exports: [
+        DataListComponent
     ]
 })
 

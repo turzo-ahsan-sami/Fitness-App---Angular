@@ -1,0 +1,22 @@
+.list-item {
+    padding: 1rem;
+    transition: all .2s ease-in-out;
+    border-bottom: 1px solid #c1cedb;
+    p {
+        margin: 0;
+    }
+    &__name {
+        flex-grow: 1;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    &:hover {
+      background-color: #f9f9f9;
+    }
+    &__list {
+        color: #8ea6bd;
+        font-size: 13px;
+        font-style: italic;
+    }
+    
+}

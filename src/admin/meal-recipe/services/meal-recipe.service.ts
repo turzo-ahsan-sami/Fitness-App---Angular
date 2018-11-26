@@ -1,9 +1,8 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable } from 'rxjs';
-
-import { map, filter, scan } from 'rxjs/operators';
+import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { map, filter, scan, withLatestFrom, switchMap } from 'rxjs/operators';
 
 
 
@@ -13,10 +12,28 @@ import { map, filter, scan } from 'rxjs/operators';
 
 export class MealRecipeService{
 
+    filterItems$: Observable<any[]>;
+
     constructor(
         public af:AngularFireDatabase,
         public afs: AngularFirestore
-    ){}
+    ){
+        this.filterItems$ = combineLatest(
+            this.filter$
+            ).pipe(
+            switchMap(([item]) => 
+                this.afs.collection('meal-recipes', ref => {
+                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+                if (item) { query = query.where('ingredients', 'array-contains', item) };
+               
+                console.log(query);
+                return query;
+                }).valueChanges()
+            )
+        );
+    }
+
+    
 
     async createMealRecipe(value){
         this.afs.collection('meal-recipes').add(value);
@@ -50,6 +67,16 @@ export class MealRecipeService{
 
     deleteRecipes(key: any){
         return this.af.list('meal-recipes').remove(key);
+    }
+
+    //filter$: BehaviorSubject<string|null>;
+
+    private filter$ = new BehaviorSubject(null);
+    
+    
+
+    filterByItem(item: string|null){
+        this.filter$.next(item); 
     }
 
     

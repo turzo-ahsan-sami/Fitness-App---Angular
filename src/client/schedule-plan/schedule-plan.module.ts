@@ -1,3 +1,4 @@
+import { WorkoutGuideModule } from './../../admin/workout-guide/workout-guide.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
 import { AssignPlanComponent } from './components/assign-plan/assign-plan.component';
@@ -9,6 +10,8 @@ import { SchedulePlanComponent } from './containers/schedule-plan/schedule-plan.
 import { CommonModule } from '@angular/common';
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from '@angular/router';
+import { CreateMealComponent } from './components/create-meal/create-meal.component';
+import { CreateWorkoutComponent } from './components/create-workout/create-workout.component';
 
 export const ROUTES: Routes = [
     {
@@ -21,14 +24,16 @@ export const ROUTES: Routes = [
         SharedModule,
         RouterModule.forChild(ROUTES),
         ReactiveFormsModule,
-        
+        WorkoutGuideModule
     ],
     declarations: [
         SchedulePlanComponent,
         CalendarComponent,
         ControlDaysComponent,
         SectionPlanComponent,
-        AssignPlanComponent
+        AssignPlanComponent,
+        CreateMealComponent,
+        CreateWorkoutComponent
     ],
     providers: [
         

@@ -8,7 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { WorkoutGuideService } from './services/workoutguide.service';
 
 export const ROUTES: Routes = [
-    { path: '', redirectTo: '/list', pathMatch: 'full' },
+  //  { path: '', redirectTo: '/list', pathMatch: 'full' },
    // { path: 'list', component: MealRecipeListComponent },
     { path: 'create', component: WorkoutGuideComponent },
     { path: ':id', component: WorkoutGuideComponent }
@@ -18,7 +18,7 @@ export const ROUTES: Routes = [
     imports:[
         CommonModule,
         ReactiveFormsModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
     ],
     declarations:[
         WorkoutGuideFormComponent,
@@ -32,7 +32,8 @@ export const ROUTES: Routes = [
     ],
     providers: [
         WorkoutGuideService
-    ]
+    ],
+
 })
 
 export class WorkoutGuideModule{
