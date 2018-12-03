@@ -5,6 +5,7 @@ import { MealPlanService } from './../meal-plan/services/meal-plan.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from "@angular/core";
+import { UserInfoService } from '../user-info/services/user-info.service';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ export class SharedModule{
             ngModule: SharedModule,
             providers: [
                 MealPlanService,
-                SchedulePlanService
+                SchedulePlanService,
+                UserInfoService
             ]
         }
     }

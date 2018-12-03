@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthenticationService } from './../../../shared/services/authentication.service';
 import { FormGroup } from '@angular/forms';
 import { Component } from "@angular/core";
@@ -19,14 +20,17 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class ClientLoginComponent{
     constructor(
         public as: AuthenticationService,
-        public afAuth: AngularFireAuth){}
+        public afAuth: AngularFireAuth,
+        private router: Router){}
+    
+    err;
 
-    async userLogin(event: FormGroup){
-        await this.as.loginUser(event.value.email, event.value.password);
+    async userLogin(event: FormGroup){ 
         try{
-            console.log('Logged in success');
-        }catch(err){
-            console.log(err);
+            await this.as.loginUser(event.value.email, event.value.password);
+            this.router.navigate(['/user/info']);
+        }catch(error){
+            this.err = error.message;
         }
         
     }

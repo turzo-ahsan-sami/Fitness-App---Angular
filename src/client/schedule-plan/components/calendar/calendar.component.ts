@@ -14,7 +14,7 @@ import { Component } from '@angular/core';
         <div class="wrap">
             <div class="days">
                 <button class="day" *ngFor="let day of days; let i = index;" (click)="selectDay(i)" type="button">
-                    <span>{{ day }}</span>
+                    <span [class.active]="i === chosenDay">{{ day }}</span>
                 </button>
             </div>
             <div class="sections">
@@ -77,8 +77,10 @@ export class CalendarComponent implements OnChanges{
     @Input() items: any;
 
     ///
-    getType(section: string): any {
+    getType(section): any {
+        console.log(this.items);
         return this.items && this.items[section] || {};
+        
     }
 
 }

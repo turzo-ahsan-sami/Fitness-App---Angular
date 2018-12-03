@@ -1,3 +1,4 @@
+import { AssignWorkoutComponent } from './components/assign-workout/assign-workout.component';
 import { WorkoutGuideModule } from './../../admin/workout-guide/workout-guide.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
@@ -33,7 +34,8 @@ export const ROUTES: Routes = [
         SectionPlanComponent,
         AssignPlanComponent,
         CreateMealComponent,
-        CreateWorkoutComponent
+        CreateWorkoutComponent,
+        AssignWorkoutComponent
     ],
     providers: [
         

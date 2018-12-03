@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
     selector: 'assign-plan',
@@ -9,6 +9,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
             <div class="assign-plan__content">
                 <div class="assign-plan__right">
                     <main>
+                    
                         <input id="tab1" type="radio" name="tabs" checked>
                         <label for="tab1">Our Suggestions</label>
                     
@@ -19,11 +20,12 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
                         <label for="tab3">Create your own</label>
                 
                         <section id="content1">
-                            <data-list [type]="type" [meals]="meals" (filter)="filterBy($event)" (add)="createPlan($event)"></data-list>
+                            {{ type.type }}
+                            <data-list [type]="type" [userInfo]="user" [meals]="meals" (filter)="filterBy($event)" (add)="createPlan($event)" (close)="closeModal()"></data-list>
                         </section>
                 
                         <section id="content2">
-                            <create-workout></create-workout>
+                            
                         </section>
 
                         <section id="content3">
@@ -37,7 +39,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
     `
 })
 
-export class AssignPlanComponent{
+export class AssignPlanComponent implements OnInit{
     @Input() open: boolean;
 
     @Input() type: any;
@@ -48,9 +50,17 @@ export class AssignPlanComponent{
 
     @Output() close = new EventEmitter<any>();
 
-    constructor(){}
+    @Input() user: any;
 
-    
+    constructor(){
+        
+        console.log(this.type);
+    }
+
+    ngOnInit(){
+        console.log(this.user);
+    }
+
     createPlan(event){
         this.add.emit({ [this.type.type]: event });
     }
@@ -58,8 +68,6 @@ export class AssignPlanComponent{
     closeModal() {
         this.close.emit();
     }
-
-    
 
     @Output() ownMeal = new EventEmitter<any>();
     addMealPlan(event){

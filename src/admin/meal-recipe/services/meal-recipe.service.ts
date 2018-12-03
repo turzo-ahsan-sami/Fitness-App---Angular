@@ -36,7 +36,7 @@ export class MealRecipeService{
     
 
     async createMealRecipe(value){
-        this.afs.collection('meal-recipes').add(value);
+        await this.afs.collection('meal-recipes').add(value);
         //await this.af.list('meal-recipes').push(value);
         console.log('Done');
     }

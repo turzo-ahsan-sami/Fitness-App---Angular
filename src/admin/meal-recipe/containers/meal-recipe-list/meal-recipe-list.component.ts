@@ -14,7 +14,7 @@ import { Observable, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
             <list-items *ngFor="let item of items | async" [item]="item" (remove)="RemoveRecipe($event)">
             </list-items>
         </ul>
-        <button (click)="filterByIngredients('potato')">Red</button>
+        <button (click)="filterByIngredients('app')">Red</button>
     `
 })
 
@@ -26,9 +26,9 @@ export class MealRecipeListComponent implements OnInit{
     favMealList:Observable<any[]>;
     size$: BehaviorSubject<string|null>;
 
-
     items$: Observable<any[]>;
     sizeFilter$: BehaviorSubject<string|null>;
+    sizee = ['app', 'potato']
     constructor(
         public mealRecipeService: MealRecipeService,
         public db: AngularFireDatabase,
@@ -39,10 +39,12 @@ export class MealRecipeListComponent implements OnInit{
             this.items = combineLatest(
             this.sizeFilter$
             ).pipe(
-            switchMap(([size]) => 
+            switchMap(([sizee]) => 
                 afs.collection('meal-recipes', ref => {
                 let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-                if (size) { query = query.where('ingredients', 'array-contains', size) };
+                
+                if (sizee)
+                    { query = query.where('ingredients', 'array-contains', sizee) };
                
                 return query;
                 }).valueChanges()

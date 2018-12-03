@@ -1,4 +1,4 @@
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import * as FromScheduleActions from './../store/actions/schedule-plan.action';
 import { AppState } from './../../../app/app.state';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { tap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { AuthenticationService } from 'src/auth/shared/services/authentication.service';
+
 
 export interface ScheduleItem {
     Supper: any[],
@@ -31,7 +32,16 @@ export class SchedulePlanService{
     private category$ = new Subject();
     
     //
-    type$ = this.category$.pipe(tap((next: any) => next));
+    // this.userInfo = this.usersCollection.snapshotChanges().pipe(
+    //     map(actions => actions.map(a => {
+    //       const data = a.payload.doc.data();
+    //       const id = a.payload.doc.id;
+    //       return { id, ...data };
+    //      // return a;
+    //     }))
+    //   );
+    type$ = this.category$.pipe(
+        tap((next: any) => next));
 
     //
     list$ = this.category$.pipe(map((value: any) => value), tap((next: any) => next));
@@ -47,8 +57,8 @@ export class SchedulePlanService{
 
         console.log(items);
         const defaults: any = {
-            workout: null,
-            supper: null,
+            // workout: null,
+            // supper: null,
             section: section.type,
           
             timestamp: new Date(section.selectedDay).getTime()
@@ -153,4 +163,20 @@ export class SchedulePlanService{
     }
 
     //list$ = this.category$.pipe(map((value: any) => console.log(value)));
+
+    // userInfo$ = this.afs.collection('user-info').snapshotChanges().pipe(
+    //       map(actions => actions.map(a => {
+    //         const data = a.payload.doc.data();
+    //         const id = a.payload.doc.id;
+            
+    //         return { id, ...data };
+    //         //return a;
+    //       })),
+    //       tap(next => next)
+    //     );
+
+    userInfo$ = this.afs.doc('user-info/5I8TTANA98Zt4SPo4gKi1J2tdru1').valueChanges();
+    
+
+    
 }

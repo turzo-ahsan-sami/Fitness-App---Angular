@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
     selector: 'section-plan',
     styleUrls: ['section-plan.component.scss'],
     template: `
-        {{ section }}
-        <div *ngIf="section.workout; else existingItem">{{ section.workout }}</div>
+        
+        <div *ngIf="section.Workout; else existingItem">{{ section.Workout.Workout }}</div>
         <ng-template #existingItem>
             <div class="section-plan" (click)="selectSection(type)">Add {{ type }}
                 

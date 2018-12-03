@@ -1,3 +1,5 @@
+import { filter } from 'rxjs/operators';
+import { OnInit } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
@@ -16,41 +18,104 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
             <button (click)="filterBy('snacks')">Snacks</button>
             <button (click)="filterBy('cusine')">Cusine</button>
             {{ type.type }}     
+            {{ (userInfo)?.allergries }}
         </p>
 
-        <div class="list-item" *ngFor="let meal of meals" (click)="toggleItem(meal.name)" [class.active]="existingItem(meal.name)">
-            <p class="list-item__name">{{ meal.name }}</p>
-            <p class="list-item__list">Ingredients: <span>{{ meal.ingredients }}</span></p>
-            <span (click)="expanded = true">more</span>
-            <span *ngIf="expanded == true">
-                <ul>
-                <li *ngFor="let ele of meal.instructions" >{{ ele }}</li> 
-                </ul>
-            </span>
+        <div *ngIf="type.type == 'Workout'; else showMeal">
+            <div class="list-item" *ngFor="let meal of meals; let i = index" (click)="toggleItem(meal)" [class.active]="existingItem(meal.name)">
+                <p class="list-item__name">{{ meal.name }}</p>
+                <p *ngIf="meal.weight.reps" class="list-item__list">
+                    Reps: <span>{{ meal.weight.reps }}</span>
+                    Sets: <span>{{ meal.weight.sets }}</span>
+                </p>
+                <p *ngIf="meal.cardio.distance" class="list-item__list">
+                    Distance: <span>{{ meal.cardio.distance }}</span>
+                    Duration: <span>{{ meal.cardio.duration }}</span>
+                </p>
+                <span (click)="toggleExpand()">more</span>
+                <span *ngIf="expanded == true">
+                    <ul>
+                        <li *ngFor="let ele of meal.instructions" >{{ ele }}</li> 
+                    </ul>
+                </span>
+            </div>
         </div>
+
+        <ng-template #showMeal>
+            <div class="list-item" *ngFor="let meal of meals; let i = index" (click)="toggleItem(meal, i)" [class.active]="existingItem(meal.name)">
+                <p class="list-item__name">{{ meal.name }}</p>
+                <p class="list-item__list">Ingredients: <span>{{ meal.ingredients }}</span></p>
+                <span (click)="expanded[i] =! expanded[i]">more</span>
+                <span *ngIf="expanded[i]">
+                    <ul>
+                        <li *ngFor="let ele of meal.instructions; let i = index" >{{ i + 1}}. {{ ele }}</li> 
+                    </ul>
+                </span>
+                <span *ngIf="checkAllergy[i]">Allergy!</span>
+            </div>
+        </ng-template>
 
         <button (click)="createPlan()" type="button">Update</button>
         <button (click)="closeModal()">x</button>
     `
 })
 
-export class DataListComponent{
+export class DataListComponent implements OnInit{
     constructor(){}
 
-    expanded: false;
+    chosenItem = [];
+    ngOnInit(){
+        console.log(this.userInfo.allergries);
+        this.chosenItem = [
+            ...this.type.selection
+        ],
+        console.log(this.type);
+    }
+
+    //expanded: boolean = false;
+    expanded = [];
+
+    toggleExpand(i){
+        this.expanded[i] =! this.expanded[i];
+    }
 
     @Input() type;
     @Input() meals: any;
+    @Input() userInfo;
 
-    chosenItem: string[] = [];
+    checkAllergy =[];
+    
+    toggleItem(item, i) {
+            var allergy = item.ingredients;
+            if(allergy){
+                 this.userInfo.allergries.filter(y => {
+                    if(allergy.find(x => x == y)){
+                        this.checkAllergy[i] = true;
+                    }
+                    return this.checkAllergy[i];
+                    
+                 }
+                 
+                    
+                //   this.userInfo.allergries.filter(x => x === y)
+                //  y === 'Eggs' 
+                )
+            }
+            console.log(this.checkAllergy);
+            
+                
+                
+            
+            
+        
 
-    toggleItem(item: string) {
+
         if (this.existingItem(item)) {
-            this.chosenItem = this.chosenItem.filter(x => x !== item);
+            this.chosenItem = this.chosenItem.filter(x => x !== item.name);
         } else {
-            this.chosenItem = [...this.chosenItem, item];
+            this.chosenItem = [...this.chosenItem, item.name];
         }
-        console.log(item);
+        console.log(item.name);
     }
 
     @Output() add = new EventEmitter<any>();
@@ -71,4 +136,11 @@ export class DataListComponent{
     filterBy(item: string|null){
         this.filter.emit(item);
     }
+
+    @Output() close = new EventEmitter<any>();
+    closeModal() {
+        this.close.emit();
+    }
+
+    
 }
