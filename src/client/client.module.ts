@@ -16,6 +16,9 @@ export const ROUTES: Routes = [
         },
         {
             path: 'info', loadChildren: () => UserInfoModule
+        },
+        {
+            path: 'suggestion', loadChildren: () => UserInfoModule
         }
     ]}
 ]

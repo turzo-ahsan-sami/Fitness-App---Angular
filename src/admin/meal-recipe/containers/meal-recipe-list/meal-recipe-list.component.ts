@@ -4,6 +4,7 @@ import { MealRecipeService } from './../../services/meal-recipe.service';
 import { Component, OnInit } from "@angular/core";
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'meal-recipe-list',
@@ -35,21 +36,31 @@ export class MealRecipeListComponent implements OnInit{
         afs: AngularFirestore){
 
             this.sizeFilter$ = new BehaviorSubject(null);
+
             
-            this.items = combineLatest(
-            this.sizeFilter$
-            ).pipe(
-            switchMap(([sizee]) => 
+           
+            this.items = 
                 afs.collection('meal-recipes', ref => {
                 let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
                 
-                if (sizee)
-                    { query = query.where('ingredients', 'array-contains', sizee) };
+                 
+                    
+                   
+                        query = query.where('ingredients', 'array-contains', 'potato')
+                        query = query.where('calorie', '==', '200')
+                        query.get().then(snapshot => {
+                            snapshot.forEach(res => console.log(res.data()))
+                        })
+                       
+                    
+                    
+                
                
                 return query;
                 }).valueChanges()
-            )
-            );
+                
+            
+            ;
         //const col = afs.collection('meal-recipes', ref => ref.where('ingredients', 'array-contains', 'potato'));
        
         

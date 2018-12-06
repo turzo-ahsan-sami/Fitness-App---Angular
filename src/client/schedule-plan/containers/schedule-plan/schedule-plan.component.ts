@@ -21,12 +21,12 @@ import { Component } from '@angular/core';
         <div class="schedule-plan" *ngIf="date$ | async as date">
             <calendar (changeDate)="changeDate($event)" (open)="openSection($event)" [date]="date" [items]="schedule$"></calendar>
             <assign-plan *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" (add)="createScheduleData($event)" (ownMeal)="createScheduleData($event)" [type]="type$" (close)="closeModal()" (filter)="filterBy($event)"></assign-plan>
-            <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" (close)="closeModal()" (filter)="filterBy($event)" [type]="type$" ></assign-workout>
+            <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" (add)="createScheduleData($event)" (close)="closeModal()" (filter)="filterBy($event)" [type]="type$" ></assign-workout>
             
           <!--  <div *ngFor="let schedule of type$ | async">{{ schedule$ | json }}</div>-->
             
-          <!--  <div *ngFor="let schedule of userInfo">{{ schedule.favFoodGroup }}</div> -->
-        
+            {{ schedule$ | json }}
+           
         </div>
     `
 })
@@ -135,6 +135,7 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
 
     closeModal() {
         this.openModalForMeal = false;
+        this.openModalForWorkout = false;
     }
 
     openSection(event){

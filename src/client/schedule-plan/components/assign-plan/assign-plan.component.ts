@@ -8,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
         <div class="assign-plan">
             <div class="assign-plan__content">
                 <div class="assign-plan__right">
+                    <a (click)="closeModal()" class="assign-plan__close">&times;</a>
                     <main>
                     
                         <input id="tab1" type="radio" name="tabs" checked>
@@ -20,7 +21,6 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
                         <label for="tab3">Create your own</label>
                 
                         <section id="content1">
-                            {{ type.type }}
                             <data-list [type]="type" [userInfo]="user" [meals]="meals" (filter)="filterBy($event)" (add)="createPlan($event)" (close)="closeModal()"></data-list>
                         </section>
                 
@@ -62,13 +62,14 @@ export class AssignPlanComponent implements OnInit{
     }
 
     createPlan(event){
-        this.add.emit({ [this.type.type]: event });
+        this.add.emit(event);
     }
 
     closeModal() {
         this.close.emit();
     }
 
+    ////// FIX THIS ////////////
     @Output() ownMeal = new EventEmitter<any>();
     addMealPlan(event){
         this.ownMeal.emit({ [this.type.type]: event });

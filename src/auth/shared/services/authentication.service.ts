@@ -11,9 +11,12 @@ export type Action = userAction.AuthAction;
 @Injectable()
 
 export class AuthenticationService{
+    currentUser;
     constructor(
         private af: AngularFireAuth,
-        private store: Store<AppState>){}
+        private store: Store<AppState>){
+            this.currentUser = this.af.auth.currentUser;
+        }
 
     auth$ = this.af.authState
     .pipe(tap(next => {
@@ -55,4 +58,15 @@ export class AuthenticationService{
     get authState() {
         return this.af.authState;
     }
+
+    // get current(){
+    //     return this.af.authState.subscribe(user => {
+    //         if(user){
+    //             return user.uid
+    //         }
+    //     })
+    // }
+
+
+   
 }

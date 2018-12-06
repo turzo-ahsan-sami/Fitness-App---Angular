@@ -86,11 +86,13 @@ export class SchedulePlanService{
         map((data: any) => {
             
             const mapped: any = {};
+            //let mapped: any = {};
     
             for (const prop of data) {
                 if (!mapped[prop.section]) {
                     mapped[prop.section] = prop;
                 }
+                //mapped = prop;
             }
             return mapped;
     
@@ -130,6 +132,8 @@ export class SchedulePlanService{
         //     }
         // ));  
     }
+
+    
     //
     //
     private getSchedule(start: number, end: number) {

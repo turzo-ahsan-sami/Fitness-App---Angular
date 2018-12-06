@@ -8,6 +8,7 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
         <div class="assign-plan">
             <div class="assign-plan__content">
                 <div class="assign-plan__right">
+                    <a (click)="closeModal()" class="assign-plan__close">&times;</a>
                     <main>
                         <input id="tab1" type="radio" name="tabs" checked>
                         <label for="tab1">Our Suggestions</label>
@@ -57,13 +58,14 @@ export class AssignWorkoutComponent{
     }
 
     createPlan(event){
-        this.add.emit({ [this.type.type]: event });
+        this.add.emit(event);
     }
 
     closeModal() {
         this.close.emit();
     }
 
+    //// FIX /////
     @Output() ownWorkout = new EventEmitter<any>();
     addMealPlan(event){
         this.ownWorkout.emit({ [this.type.type]: event });

@@ -14,8 +14,13 @@ export const TYPE_CONTROL_ACCESSOR = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TYPE_CONTROL_ACCESSOR],
     template: `
-        <div *ngFor="let type of types" (click)="onSelect(type)" [class.active]="type === selection">
-            <h3>{{ type }}</h3>
+        <div class="workout-type">
+            <div *ngFor="let type of types" (click)="onSelect(type)" [class.active]="type === selection">
+                <div class="workout-type__section">
+                    <img src="/assets/{{ type }}.svg">
+                    <h3>{{ type }}</h3>
+                </div>
+            </div>
         </div>
     `
 })

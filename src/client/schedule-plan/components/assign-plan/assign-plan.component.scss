@@ -95,17 +95,29 @@
     }
 
     &__close {
+        color: #232323;
+        position: absolute;
+        top: 2.0rem;
+        right: 2.0rem;
+        font-size: 3rem;
+        text-decoration: none;
+        display: inline-block;
+        transition: all .2s;
+        line-height: 1;
+        cursor: pointer;
+            
         &:link,
         &:visited {
             color: #232323;
             position: absolute;
-            top: 2.5rem;
-            right: 2.5rem;
+            top: -2.5rem;
+            right: -2.5rem;
             font-size: 3rem;
             text-decoration: none;
             display: inline-block;
             transition: all .2s;
             line-height: 1;
+            
         }
 
         &:hover {

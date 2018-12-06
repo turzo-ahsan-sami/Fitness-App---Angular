@@ -5,9 +5,11 @@ import { UserInfoComponent } from './containers/user-info/user-info.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { SuggestionPlanComponent } from './containers/suggestion-plan/suggestion-plan.component';
 
 export const ROUTES : Routes = [
-    { path: '', component: UserInfoComponent }
+    { path: '', component: UserInfoComponent },
+    { path: 'plan', component: SuggestionPlanComponent }
 ]
 
 @NgModule({
@@ -18,7 +20,8 @@ export const ROUTES : Routes = [
    ],
    declarations:[
         UserInfoComponent,
-        UserInfoFormComponent
+        UserInfoFormComponent,
+        SuggestionPlanComponent
    ],
    providers: [
        UserInfoService

@@ -10,7 +10,7 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter } from "@angul
         <form [formGroup]="form">
             <div class="create-workout__row">
                 <div class="col-25">
-                    <label>Meal Title</label>
+                    <label>Workout Title</label>
                 </div>
                 <div class="col-75">
                     <input type="text" formControlName="name">
