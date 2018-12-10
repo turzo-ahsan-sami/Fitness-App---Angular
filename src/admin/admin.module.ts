@@ -16,10 +16,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { WorkoutGuideModule } from './workout-guide/workout-guide.module';
+import { NutritionInfoModule } from './nutrition-info/nutrition-info.module';
 
 export const ROUTES: Routes = [
   { path: 'admin/meal-recipe', loadChildren: () => MealRecipeModule },
-  { path: 'admin/workout-guide', loadChildren: () => WorkoutGuideModule }  
+  { path: 'admin/workout-guide', loadChildren: () => WorkoutGuideModule },
+  { path: 'admin/nutrition-info', loadChildren: () => NutritionInfoModule }  
 ]
 
 @NgModule({
@@ -31,7 +33,9 @@ export const ROUTES: Routes = [
     ReactiveFormsModule,
     RouterModule.forChild(ROUTES),
     MealRecipeModule,
-    WorkoutGuideModule
+    WorkoutGuideModule,
+    NutritionInfoModule
+
   ],
   declarations: [
     

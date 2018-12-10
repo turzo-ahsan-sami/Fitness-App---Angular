@@ -92,7 +92,7 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                         <label>Est Calories Burned</label>
                     </div>
                     <div class="col-75">
-                        <input type="number" formControlName="calorieBurned">
+                        <input type="number" formControlName="calorie">
                     </div>
                     <div class="error" *ngIf="form.get('name').hasError('required') && form.get('name').touched"> 
                         Required Field. 
@@ -120,7 +120,7 @@ export class WorkoutGuideFormComponent implements OnChanges{
         cardio: this.fb.group({ duration: 0 , distance: 0 }),
         weight: this.fb.group({ weight: 0, reps: 0, sets: 0 }),
         instructions: this.fb.array(['']),
-        calorieBurned: ['', Validators.required]
+        calorie: ['', Validators.required]
     });
 
     ngOnChanges(){

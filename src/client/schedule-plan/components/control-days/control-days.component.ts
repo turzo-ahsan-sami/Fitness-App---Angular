@@ -7,9 +7,11 @@ import { Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['control-days.component.scss'],
     template: `
+        <div class="control-days">
             <button (click)="switchDate(x-1)"><</button>
             <button (click)="switchDate(x+1)">></button>
-            {{ currentDate | date:'yMMMMd' }}
+            <span>{{ currentDate | date:'MMMM/dd/yyyy' }}</span>
+        <div>
     `
 })
 

@@ -50,6 +50,16 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter } from "@angul
                             <input formControlName="duration" type="number"/>
                         </div>
                     </div>
+
+                    <div class="create-workout__row">
+                        <div class="col-25">
+                            <label>Est Calories Burned</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="number" formControlName="calorie">
+                            {{ calorie }}
+                        </div>
+                    </div>
                 </div>
             </div>
         
@@ -108,7 +118,7 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter } from "@angul
                             <label>Est Calories Burned</label>
                         </div>
                         <div class="col-75">
-                            <input type="number" [value]="form.get('weight').get('duration').value * form.get('weight').get('intensityValue').value" formControlName="calorieBurned">
+                            <input type="number" [value]="form.get('weight').get('duration').value * form.get('weight').get('intensityValue').value" formControlName="calorie">
                             {{ calorie }}
                         </div>
                     </div>
@@ -145,7 +155,7 @@ export class CreateWorkoutComponent{
         cardio: this.fb.group({ 
             duration: 0 , 
             distance: 0,
-            //calorieBurned: [0, [Validators.required, Validators.pattern(this.numberPatern)]],
+            calorie: [0, [Validators.required, Validators.pattern(this.numberPatern)]],
         }), 
         weight: this.fb.group({ 
             weight: 0, 
@@ -153,7 +163,7 @@ export class CreateWorkoutComponent{
             sets: 0 , 
             duration: [ 0, [Validators.required, Validators.pattern(this.numberPatern)]], 
             intensityValue: [ 0, Validators.required],
-            calorieBurned: [0, [Validators.required, Validators.pattern(this.numberPatern)]],
+            calorie: [0, [Validators.required, Validators.pattern(this.numberPatern)]],
         }),
     })
 

@@ -54,6 +54,8 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
         </ng-template>
 
         <button class="button button--create" (click)="createPlan()" type="button">Add</button>
+
+        
     `
 })
 
@@ -83,10 +85,10 @@ export class DataListComponent implements OnInit{
     
     toggleItem(item, i) {
         
-        var allergy = item.ingredients;
-        if(allergy){
+        if(item.ingredients) 
+        {
             this.userInfo.allergries.filter(y => {
-                if(allergy.find(x => x == y)){
+                if(item.ingredients.find(x => x == y)){
                     this.checkAllergy[i] = true;
                 }
                 return this.checkAllergy[i];     

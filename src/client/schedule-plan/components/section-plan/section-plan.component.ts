@@ -7,66 +7,59 @@ import { Component } from '@angular/core';
     selector: 'section-plan',
     styleUrls: ['section-plan.component.scss'],
     template: `
-        <div *ngFor="let sec of sections">
-            {{ sec }}
-        </div>
-
         <div *ngIf="section?.Breakfast || section?.Lunch || section?.Supper || section?.Dinner">
             {{  totalCalorieForBreakfast + totalCalorieForLunch + totalCalorieForDinner + totalCalorieForSupper }}
         </div>
-       
-        <!--<div *ngIf="section?.Supper; else existingSupper">
-            <div *ngFor="let s of section?.Supper">
-                {{ s.calorie }} 
-                {{ s.name }}
-            </div>
-        </div>-->
 
-        <div *ngIf="section?.Breakfast; else existingBreakfast">
-            {{ section?.Breakfast.Breakfast }}
-        </div>
-        <ng-template #existingBreakfast>
-            <div class="section-plan" (click)="selectSection('Breakfast')">Add Breakfast
-                
+        <div class="section-plan">
+            <div class="section-plan__bar">Breakfast</div>
+            <div class="section-plan__list" *ngIf="section?.Breakfast; else existingBreakfast" (click)="selectSection('Breakfast', 'edit', section?.Breakfast.Breakfast)">
+                {{ section?.Breakfast.Breakfast }}
             </div>
-        </ng-template> 
+            <ng-template #existingBreakfast>
+                <div class="section-plan__list" (click)="selectSection('Breakfast','new')">Add Breakfast</div>
+            </ng-template> 
+        </div>
 
-        <div *ngIf="section?.Lunch; else existingLunch">
-            {{ section?.Lunch.Lunch }}
-        </div>
-        <ng-template #existingLunch>
-            <div class="section-plan" (click)="selectSection('Lunch')">Add Lunch
-                
+        <div class="section-plan">
+            <div class="section-plan__bar">Lunch</div>
+            <div class="section-plan__list" *ngIf="section?.Lunch; else existingLunch" (click)="selectSection('Lunch', 'edit', section?.Lunch.Lunch)">
+                {{ section?.Lunch.Lunch }}
             </div>
-        </ng-template> 
+            <ng-template #existingLunch>
+                <div class="section-plan__list" (click)="selectSection('Lunch','new')">Add Lunch</div>
+            </ng-template>
+        </div> 
 
-       <!-- {{ section?.Supper | json }} -->
-       <div *ngIf="section?.Dinner; else existingDinner">
-            {{ section?.Dinner.Dinner }}
-        </div>
-        <ng-template #existingDinner>
-            <div class="section-plan" (click)="selectSection('Dinner')">Add Dinner
-                
+        <div class="section-plan">
+            <div class="section-plan__bar">Dinner</div>
+            <div class="section-plan__list" *ngIf="section?.Dinner; else existingDinner" (click)="selectSection('Dinner', 'edit', section?.Dinner.Dinner)">
+                {{ section?.Dinner.Dinner }}
             </div>
-        </ng-template> 
+            <ng-template #existingDinner>
+                <div class="section-plan__list" (click)="selectSection('Dinner', 'new')">Add Dinner</div>
+            </ng-template> 
+        </div>
 
-        <div *ngIf="section?.Supper; else existingSupper">
-            {{ section?.Supper.Supper }}
-        </div>
-        <ng-template #existingSupper>
-            <div class="section-plan" (click)="selectSection('Supper')">Add Supper
-                
+        <div class="section-plan">
+            <div class="section-plan__bar">Supper</div>
+            <div class="section-plan__list" *ngIf="section?.Supper; else existingSupper" (click)="selectSection('Supper',  'edit', section?.Supper.Supper)">
+                {{ section?.Supper.Supper }}
             </div>
-        </ng-template> 
+            <ng-template #existingSupper>
+                <div class="section-plan__list" (click)="selectSection('Supper','new')">Add Supper</div>
+            </ng-template>
+        </div> 
 
-        <div *ngIf="section?.Workout; else existingWorkout">
-            {{ section?.Workout.name }}
-        </div>
-        <ng-template #existingWorkout>
-            <div class="section-plan" (click)="selectSection('Workout')">Add Workout
-                
+        <div class="section-plan">
+            <div class="section-plan__bar">Workout</div>
+            <div class="section-plan__list" *ngIf="section?.Workout; else existingWorkout" (click)="selectSection('Workout', 'edit', section?.Workout.Workout)">
+                {{ section?.Workout.Workout }}
             </div>
-        </ng-template> 
+            <ng-template #existingWorkout>
+                <div class="section-plan__list" (click)="selectSection('Workout','new')">Add Workout</div>
+            </ng-template>
+        </div> 
            
 <!--
         <div *ngIf="sec.Workout; else existingWorkout">{{ sec.Workout.Workout }}</div> 
@@ -87,9 +80,9 @@ export class SectionPlanComponent implements OnInit{
      @Input() section: any;
      @Input() type: string;
 
-    selectSection(type: string, selection: string[] = []){
+    selectSection(type: string, checkEdit: string, selection: string[] = []){
         const data = this.section;
-        this.selected.emit({ type, selection, data})
+        this.selected.emit({ type, checkEdit, selection, data})
     }
 
 
@@ -101,7 +94,7 @@ export class SectionPlanComponent implements OnInit{
    
     ngOnInit(){
         this.sec = this.items || {};
-        console.log(this.section);
+        console.log(this.items);
     }
 
     get totalCalorieForDinner(){

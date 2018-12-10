@@ -11,10 +11,10 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
                     <a (click)="closeModal()" class="assign-plan__close">&times;</a>
                     <main>
                         <input id="tab1" type="radio" name="tabs" checked>
-                        <label for="tab1">Our Suggestions</label>
+                        <label for="tab1">All Workout List</label>
                     
                         <input id="tab2" type="radio" name="tabs">
-                        <label for="tab2">All Workout List</label>
+                        <label for="tab2">Our Suggestions</label>
 
                         <input id="tab3" type="radio" name="tabs">
                         <label for="tab3">Add your own workout</label>

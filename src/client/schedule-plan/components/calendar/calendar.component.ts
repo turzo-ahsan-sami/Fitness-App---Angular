@@ -9,18 +9,19 @@ import { Component } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['calendar.component.scss'],
     template: `
-        Calendar section
         <control-days (switch)="changeWeek($event)" [currentDate]="chosenDay"></control-days>
         <div class="wrap">
             <div class="days">
                 <button class="day" *ngFor="let day of days; let i = index;" (click)="selectDay(i)" type="button">
-                    <span [class.active]="i === chosenDay">{{ day }}</span>
+                    <span class="point-btn" [class.active]="i === selectedIndexDay">{{ day }}</span>
                 </button>
             </div>
             <div class="sections">
                 <section-plan [sections]="sections" [section]="getType()" (selected)="addSection($event)" [items]="items"></section-plan>
             </div> 
         </div>
+        
+       
     `
 })
 
@@ -40,9 +41,11 @@ export class CalendarComponent implements OnChanges{
     }
     
     firstDayOfWeek: Date;
+    selectedIndexDay: number;
     
     ngOnChanges(){
         this.firstDayOfWeek = this.getFirstDayOfWeek(new Date(this.chosenDay));
+        this.selectedIndexDay = this.getCurrentDay(this.chosenDay);
     }
 
     getFirstDayOfWeek(date: Date){
@@ -69,9 +72,10 @@ export class CalendarComponent implements OnChanges{
 
     @Output() open = new EventEmitter<any>();
 
-    addSection({type, selection, data}){
+    addSection({type, checkEdit, selection, data}){
         const selectedDay = this.chosenDay;
-        this.open.emit({type, selection, data, selectedDay});  
+        this.open.emit({type, checkEdit, selection, data, selectedDay});  
+        console.log(checkEdit)
     }
 
     @Input() items: any;
@@ -82,5 +86,11 @@ export class CalendarComponent implements OnChanges{
         return this.items || {};
         
     }
+
+    private getCurrentDay(date: Date) {
+        let today = date.getDay();
+        return today;
+    }
+    
 
 }

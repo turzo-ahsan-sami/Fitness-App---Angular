@@ -67,6 +67,10 @@ export class AuthenticationService{
     //     })
     // }
 
+    get authenticated(): boolean {
+        return this.authState !== null;
+    }
+
 
    
 }

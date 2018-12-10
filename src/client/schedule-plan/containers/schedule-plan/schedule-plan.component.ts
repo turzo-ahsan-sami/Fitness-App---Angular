@@ -20,12 +20,12 @@ import { Component } from '@angular/core';
     template: `
         <div class="schedule-plan" *ngIf="date$ | async as date">
             <calendar (changeDate)="changeDate($event)" (open)="openSection($event)" [date]="date" [items]="schedule$"></calendar>
-            <assign-plan *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" (add)="createScheduleData($event)" (ownMeal)="createScheduleData($event)" [type]="type$" (close)="closeModal()" (filter)="filterBy($event)"></assign-plan>
+            <assign-plan *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" [suggestMeals]="suggestMeals$" (add)="createScheduleData($event)" (ownMeal)="createScheduleData($event)" [type]="type$" (close)="closeModal()" (filter)="filterBy($event)"></assign-plan>
             <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" (add)="createScheduleData($event)" (close)="closeModal()" (filter)="filterBy($event)" [type]="type$" ></assign-workout>
             
           <!--  <div *ngFor="let schedule of type$ | async">{{ schedule$ | json }}</div>-->
             
-            {{ schedule$ | json }}
+          <!--  {{ schedule$ | json }} -->
            
         </div>
     `
@@ -78,6 +78,7 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     usersCollection:AngularFirestoreCollection<any>;;
 
     schedule$: any[];
+    suggestMeals$;
 
     ngOnInit(){
        this.date$ = this.spService.date$;
@@ -92,7 +93,7 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
             this.mrService.filterItems$.subscribe(y => this.items$ = y),
             this.wgService.filterItems$.subscribe(x => this.workouts$ = x),
             this.spService.userInfo$.subscribe(x => this.userInfo = x),
-           
+            this.mpService.suggestedMeal$.subscribe(x => this.suggestMeals$ = x)
             // this.spService.scheule$.subscribe({
             //     next: (v) => console.log(v)
             // })
@@ -101,25 +102,7 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
         ];
         
         this.meals = this.mpService.getRecipes();
-        // this.uiService.getUserInfo().subscribe(result => {
-        //     this.userInfo = result;
-        // });
-
-        // this.usersCollection = this.afs.collection('user-info');
        
-        // this.userInfo = this.usersCollection.snapshotChanges().pipe(
-        //   map(actions => actions.map(a => {
-        //     const data = a.payload.doc.data();
-        //     const id = a.payload.doc.id;
-        //     return { id, ...data };
-        //     //return a;
-        //   }))
-        // );
-
-        //console.log(this.userInfo);
-        //this.spService.getFavMealList();
-
-        //this.favMealList$ = this.af.list(`meal-recipes/-LQYleqiEAmkElaKZ-eJ`).valueChanges().pipe(map(val => console.log(val)));
     }
 
     ngOnDestroy(){
@@ -147,18 +130,16 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
         }
         
         this.spService.getType(event);
-        console.log(event.type);
+        console.log(event);
     }
 
     createScheduleData(items: string[]) {
-        console.log(items);
         this.spService.addScheduleItem(items);
         this.closeModal();
     }
 
     filterBy(event){
         return this.mrService.filterByItem(event);
-        
     }
 
 } 

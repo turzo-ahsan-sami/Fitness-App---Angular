@@ -35,8 +35,7 @@
     }
 
     &__input {
-        font-family: inherit;
-        font-size: inherit;
+        font-size: 14px;
         color: inherit;
         background-color: #f4f2f2;
         border: none;
@@ -75,9 +74,4 @@
         }
     }
 
-    &__icon {
-        height: 2rem;
-        width: 2rem;
-        fill: #999;
-    }
 }

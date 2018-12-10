@@ -35,48 +35,23 @@ export class MealRecipeListComponent implements OnInit{
         public db: AngularFireDatabase,
         afs: AngularFirestore){
 
-            this.sizeFilter$ = new BehaviorSubject(null);
-
-            
+            this.sizeFilter$ = new BehaviorSubject(null);    
            
             this.items = 
                 afs.collection('meal-recipes', ref => {
-                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-                
-                 
-                    
+                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;      
                    
-                        query = query.where('ingredients', 'array-contains', 'potato')
-                        query = query.where('calorie', '==', '200')
-                        query.get().then(snapshot => {
-                            snapshot.forEach(res => console.log(res.data()))
-                        })
-                       
-                    
-                    
-                
-               
+                    query = query.where('ingredients', 'array-contains', 'potato')
+                    query = query.where('calorie', '==', '200')
+                    query.get().then(snapshot => {
+                        snapshot.forEach(res => console.log(res.data()))
+                    })
                 return query;
                 }).valueChanges()
                 
             
             ;
         //const col = afs.collection('meal-recipes', ref => ref.where('ingredients', 'array-contains', 'potato'));
-       
-        
-
-
-
-        // this.items = this.size$.pipe(
-        //     switchMap(ingredients => 
-        //       db.list('/meal-recipes', ref =>
-        //         ingredients ? ref.orderByChild('ingredients').equalTo('yoghurt') : ref
-        //       ).snapshotChanges()
-        //     )
-        //   );
-        //this.items = this.db.list('meal-recipes', ref => ref.orderByChild('ingredients').equalTo('yoghurt')).snapshotChanges();
-        //this.items = db.list('meal-recipes').snapshotChanges();
-        //this.mealRecipeService.getRecipes().subscribe(result => { this.items = result; })
     }
 
     ngOnInit(){

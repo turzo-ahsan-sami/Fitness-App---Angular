@@ -34,13 +34,7 @@ export class MealListComponent implements OnInit{
     private userDoc: AngularFirestoreDocument<any>;
     item: Observable<any>;
 
-    dispatchFavMealList(key){
-        return this.mealService.addToList(key);
-
-        //this.userDoc = this.afs.doc<any>('user/david');
-        //this.item = this.userDoc.collection<any>('tasks');
-        //this.item = this.userDoc.valueChanges();
-    }
+    
 
     
 

@@ -1,3 +1,4 @@
+import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Component, ChangeDetectionStrategy, EventEmitter } from '@angular/core';
@@ -53,10 +54,14 @@ export class CreateMealComponent{
         calorie: ['', Validators.pattern('[0-9]+')]
     })
 
+    @Input() type;
+
     @Output() meal = new EventEmitter<any>();
     dispatchMeal(){
         if(this.form.valid){
-            this.meal.emit(this.form.value);
+            this.meal.emit(
+                { [this.type.type]: [this.form.value.name], ['calorie']: [this.form.value.calorie] }
+            );
         }
     }
 }

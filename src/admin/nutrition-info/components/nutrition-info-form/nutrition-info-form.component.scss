@@ -1,0 +1,109 @@
+// CSS designs from Jonathan Harrell
+* {
+    box-sizing: border-box;
+}
+
+.nutrition-info-form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    &__row{
+        padding: 10px;
+    }
+    
+    &__row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.col-75 {
+    float: left;
+    width: 95%;
+    margin-top: 6px;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+textarea{
+    width: 100%;
+    padding: 12px;
+    height: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+label {
+    padding: 12px 12px 12px 0;
+}
+
+
+.button{
+    color: white;
+    padding: 12px 21px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    font-size: 13px;
+    display: flex;
+   
+    &--create{
+        background-color: #4CAF50;
+        margin-left: 30px;
+    }
+    &--cancel{
+        background-color: #f37c4c;
+    }
+    &:disabled {
+        cursor: not-allowed;
+        opacity: .5;
+    }
+}
+
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+@media screen and (max-width: 600px) {
+    .col-25, .col-75, input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+    }
+}
+
+.array{
+    margin-right: 10px;
+}
+
+.ingredients, .instructions{
+    width: 20px;
+    margin: 20px 0 10px 0;
+}
+
+.error {
+    color: #a94442;
+    background: #f2dede;
+    border: 1px solid #e4b3b3;
+    border-radius: 2px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 10px 0 0;
+}
+

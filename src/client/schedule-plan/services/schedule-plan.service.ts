@@ -52,27 +52,32 @@ export class SchedulePlanService{
         withLatestFrom(this.category$),
         map(([ items, section ]: any[]) => {
 
-        const id = section.data.$key;
-        console.log(id);
+            const checkEdit = section.checkEdit;
 
-        console.log(items);
-        const defaults: any = {
-            // workout: null,
-            // supper: null,
-            section: section.type,
-          
-            timestamp: new Date(section.selectedDay).getTime()
-        };
+            console.log(items);
+            const defaults: any = {
+                section: section.type,
+               
+                timestamp: new Date(section.selectedDay).getTime()
+            };
 
-        const assignedSchedule = { ...(id ? section.data : defaults), ...items };
+            const assignedSchedule = { ...(checkEdit == 'edit' ? section.data.Dinner : defaults), ...items };
 
-        if (id) {
-            return this.updatePlan(id, assignedSchedule);
-        } else {
-            return this.createPlan(assignedSchedule);
-        }
+            //////
+            
+            console.log(section.data.Dinner)
+           // const key = section.data.Dinner.id;
 
-    }));
+            if (checkEdit == 'new') {
+                return this.createPlan(assignedSchedule);
+            } else {
+                if(section.type == 'Dinner'){
+                    const key = section.data.Dinner.id;
+                    return this.updatePlan(key, assignedSchedule);
+                }
+            }
+        })
+    );
 
     scheuleItems$: Observable<any[]> = this.date$.pipe(
         tap((next: any) => next),
@@ -108,36 +113,19 @@ export class SchedulePlanService{
         return this.as.loggedInUser.uid;
     }
 
-
-
-    feeds: Observable<any>;
-    getFavMealList(){
-
-        return this.af.list(`fav-meal-list/XrEd4vW6fLXr00iaNBsEw3PDlTA3`).snapshotChanges().pipe(
-            map(actions => actions.map(a => {
-                const data = a.payload.val();
-                const id = a.payload.key;
-                console.log(this.user,id, data);
-                return this.af.list(`meal-recipes/-LQYlOUQ4pMWpopTRc81`).valueChanges();
-                         
-                //return { id, data };
-            }))
-          );
-
-        // return this.af.list(`fav-meal-list/XrEd4vW6fLXr00iaNBsEw3PDlTA3`).valueChanges().pipe(map(
-        //     (keys) => {
-        //         return keys.map(key => {
-        //             return this.af.list(`meal-recipes/${key}`);
-        //         })
-        //     }
-        // ));  
-    }
-
     
     //
     //
     private getSchedule(start: number, end: number) {
-        return this.afs.collection('schedule').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).valueChanges();
+        return this.afs.collection('schedule').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).snapshotChanges()
+        .pipe(map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+              
+            });
+        }));
           
      //   return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`, ref => ref.orderByChild('timestamp').startAt(start).endAt(end)).valueChanges();
     }
@@ -158,7 +146,9 @@ export class SchedulePlanService{
     //
     private updatePlan(key: string, assignedSchedule: any) {
         console.log(key);
-        return this.af.object(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3/${key}`).update(assignedSchedule);
+        
+        return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(key).set(assignedSchedule);
+        //return this.af.object(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3/${key}`).update(assignedSchedule);
     }
 
     addScheduleItem(items: string[]) {

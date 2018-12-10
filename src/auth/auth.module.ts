@@ -30,7 +30,7 @@ export const ROUTES: Routes = [
         AngularFireModule.initializeApp(environment.firebase),
         AngularFireDatabaseModule,
         AngularFireAuthModule,   
-        SharedModule,
+        SharedModule.forRoot(),
         StoreModule.forRoot({
             user: authReducer,
             schedule: schedulePlanReducer
