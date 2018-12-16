@@ -3,12 +3,6 @@ import { Action } from '@ngrx/store'
 import * as FromScheduleActions from './../actions/schedule-plan.action';
 
 const initialState: ScheduleItem = {
-    $key: null,
-    Breakfast: [],
-    Lunch: [],
-    Dinner: [],
-    Supper: [],
-    Workout: [],
     section: null,
     timestamp: null,
 }

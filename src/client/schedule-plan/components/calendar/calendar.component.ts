@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
                 </button>
             </div>
             <div class="sections">
-                <section-plan [sections]="sections" [section]="getType()" (selected)="addSection($event)" [items]="items"></section-plan>
+                <section-plan [sections]="sections" [section]="getType()" [calories]="calorieInfo?.marcos" (selected)="addSection($event)" (caloriesTotal)="totalCalories($event)" [items]="items"></section-plan>
             </div> 
         </div>
         
@@ -34,6 +34,8 @@ export class CalendarComponent implements OnChanges{
     sections = ['Breakfast', 'Lunch', 'Dinner', 'Supper', 'Workout'];
     
     chosenDay: Date = new Date();
+
+    @Input() calorieInfo: any;
     
     @Input() 
     set date(date: Date){
@@ -85,6 +87,12 @@ export class CalendarComponent implements OnChanges{
         console.log(this.items);
         return this.items || {};
         
+    }
+
+    currentCalories: number;
+    totalCalories(event){
+        console.log(event);
+        this.currentCalories = event;
     }
 
     private getCurrentDay(date: Date) {

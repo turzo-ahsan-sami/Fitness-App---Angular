@@ -1,0 +1,41 @@
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { WorkoutProgramService } from './../../services/workout-program.service';
+import { Component, OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from '@angular/router';
+
+@Component({
+    selector: 'workout-program',
+    styleUrls: ['workout-program.component.scss'],
+    template:  `
+        <div *ngIf="workoutProgram$ | async as workoutProgram">
+            <workout-program-form [doc]="workoutProgram" (create)="createItem($event)" (update)="updateItem($event)"></workout-program-form>
+        </div>
+        <div *ngIf="err">{{ err }}</div>
+    `
+})
+
+export class WorkoutProgramComponent implements OnInit{
+    constructor(
+        private route: ActivatedRoute,
+        private router: Router, 
+        private wpService: WorkoutProgramService
+    ){}
+
+    workoutProgram$: Observable<any>;
+    
+    ngOnInit(){
+        this.workoutProgram$ = this.route.params.pipe(switchMap(param => this.wpService.getWorkoutProgram(param.id)));
+    }
+
+    createItem(event: any){
+        this.wpService.createWorkoutProgram(event);
+    }
+
+    async updateItem(event: any){
+        const docID = this.route.snapshot.params.id;
+        await this.wpService.updateWorkoutProgram(docID, event);
+        this.router.navigate(['/admin/workout-program/list']);
+    }
+
+}

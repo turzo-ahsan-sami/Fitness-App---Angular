@@ -1,4 +1,4 @@
-import { Component, OnChanges, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnChanges, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'; 
 
 @Component({
@@ -100,9 +100,10 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                 </div>
 
                 <div class="workout-guide-form__row">
-                    <button class="button button--create" type="button" [disabled]="form.invalid" (click)="dispatchWorkout()">
+                    <button class="button button--create"  *ngIf="!exists" type="button" [disabled]="form.invalid" (click)="dispatchWorkout()">
                         Create 
                     </button>
+                    <button class="button button--create" type="button" *ngIf="exists" (click)="updateWorkout()">Update</button>
                     <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
                 </div>
 
@@ -113,6 +114,8 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
 
 export class WorkoutGuideFormComponent implements OnChanges{
     constructor(private fb: FormBuilder) {}
+    @Input() doc;
+    exists = false;
 
     form = this.fb.group({
         name: ['', Validators.required],
@@ -124,7 +127,19 @@ export class WorkoutGuideFormComponent implements OnChanges{
     });
 
     ngOnChanges(){
-
+        if (this.doc && this.doc.name) {
+            this.exists = true;
+            this.emptyInstructions();
+        
+            const value = this.doc;
+            this.form.patchValue(value);
+      
+            if (value.instructions) {
+                for (const item of value.instructions) {
+                    this.instructions.push(new FormControl(item));
+                }
+            }
+        }
     }
     
 
@@ -141,6 +156,19 @@ export class WorkoutGuideFormComponent implements OnChanges{
 
     dispatchWorkout(){
         this.create.emit(this.form.value);
+    }
+
+    emptyInstructions() {
+        while(this.instructions.controls.length) {
+          this.instructions.removeAt(0);
+        }
+    }
+
+    @Output() update = new EventEmitter<any>();
+    updateWorkout(){
+        if (this.form.valid) {
+            this.update.emit(this.form.value);
+        }
     }
 
 }

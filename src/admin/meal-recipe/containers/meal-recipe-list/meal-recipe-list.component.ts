@@ -5,64 +5,45 @@ import { Component, OnInit } from "@angular/core";
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable, Subscription, BehaviorSubject, combineLatest } from 'rxjs';
 import { forEach } from '@angular/router/src/utils/collection';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'meal-recipe-list',
+    styleUrls: ['meal-recipe-list.component.scss'],
     template: `
-        <ul>
-            <a [routerLink]="['../meal-recipe/create']">Create</a>
-
-            <list-items *ngFor="let item of items | async" [item]="item" (remove)="RemoveRecipe($event)">
-            </list-items>
-        </ul>
-        <button (click)="filterByIngredients('app')">Red</button>
+        <a [routerLink]="['../create']">Create</a>
+        <div *ngIf="items | async as meals; else fetching;">
+            <list-items [items]="meals" (remove)="RemoveRecipe($event)"></list-items>
+        </div>
+        <ng-template #fetching>
+            <div class="message">
+                <spinning-icon></spinning-icon>
+            </div>
+        </ng-template>
+                      
+        
     `
 })
 
 export class MealRecipeListComponent implements OnInit{ 
     
     subscription: Subscription;
-    items: Observable<any[]>;
     // items: Array<any>;
     favMealList:Observable<any[]>;
     size$: BehaviorSubject<string|null>;
 
-    items$: Observable<any[]>;
-    sizeFilter$: BehaviorSubject<string|null>;
-    sizee = ['app', 'potato']
+    items: Observable<any[]>;
+    
     constructor(
-        public mealRecipeService: MealRecipeService,
-        public db: AngularFireDatabase,
-        afs: AngularFirestore){
-
-            this.sizeFilter$ = new BehaviorSubject(null);    
-           
-            this.items = 
-                afs.collection('meal-recipes', ref => {
-                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;      
-                   
-                    query = query.where('ingredients', 'array-contains', 'potato')
-                    query = query.where('calorie', '==', '200')
-                    query.get().then(snapshot => {
-                        snapshot.forEach(res => console.log(res.data()))
-                    })
-                return query;
-                }).valueChanges()
-                
-            
-            ;
-        //const col = afs.collection('meal-recipes', ref => ref.where('ingredients', 'array-contains', 'potato'));
-    }
+        public mealRecipeService: MealRecipeService
+    ){}
 
     ngOnInit(){
-      //  this.items = this.mealRecipeService.getRecipes().subscribe();
+        this.items = this.mealRecipeService.getRecipes();
     }
 
     RemoveRecipe(key: any){
         this.mealRecipeService.deleteRecipes(key);
     }
 
-    filterByIngredients(size: string|null) {
-        this.sizeFilter$.next(size); 
-    }
 }

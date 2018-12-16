@@ -1,3 +1,4 @@
+
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
@@ -5,43 +6,73 @@ import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from 
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['list-items.component.scss'],
     template: `
-    <div class="container-fluid" style="margin-top: 10px">
-    
-  
-    <div class="table-row">
-      <div class="wrapper attributes">
-        <div class="wrapper title-comment-module-reporter">
-          <div class="wrapper title-comment">
-            <div class="column title">App crashes when dragged by title bar</div>
-            <div class="column comment">Eddie, can you please take a look. We want this fixed pretty soon.</div>
-          </div>
-          
-       
-     </div>
-       
-        <div class="wrapper dates">
-            <div class="column date">Feb-1, 2016</div>
-            <div class="column date">Mar-13, 2016</div>
-            <div class="column date">Apr-4, 2016</div>
-        </div>
-    </div>
-  
-    
-  
-  </div>
-        <li>
-            {{ item | json }}
-           
+        <table>
+            <thead>
+                <tr>
+                    <td>Index</td>
+                    <th>Title</th>
+                    <th>Ingredients</th>
+                    <th>Calorie</th>
+                    <th>Aim For</th>
+                    <th colspan="2">Actions</th>
+                </tr>
+            </thead>
             
-            <button type="button" (click)="removeItem(item.key)">Remove</button>
-            <a [routerLink]="getRouteType(item)">Edit</a>
-        </li>
+            <tbody *ngFor="let item of items; let i = index;">
+            
+                <tr *ngIf="item.ingredients;">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item?.name }}</td>
+                    <td>{{ item?.ingredients | verticalBar }}</td>
+                    <td>{{ item?.calorie }}</td>
+                    <td>{{ item?.targetedBody }}</td>
+                    <td>
+                        <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
+                    </td>
+                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                </tr>
+
+                
+                <tr *ngIf="item.instructions;">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item?.name }}</td>
+                    <td>{{ item?.type }}</td>
+                    <td>{{ item?.calorie }}</td>
+                    <td>{{ item?.targetedBody }}</td>
+                    <td>
+                        <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
+                    </td>
+                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                </tr>
+
+                <tr *ngIf="item.foodProducts;">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item?.title }}</td>
+                    <td>{{ item?.bodyType }}</td>
+                    <td>
+                        <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
+                    </td>
+                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                </tr>
+
+                <tr *ngIf="item.days;">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ item?.title }}</td>
+                    <td>{{ item?.bodyType }}</td>
+                    <td>
+                        <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
+                    </td>
+                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                </tr>
+                
+            </tbody>
+        </table>    
     `
 })
 
 export class ListItemsComponent{
     @Input()
-    item: any;
+    items: any;
 
     @Output()
     remove = new EventEmitter<any>();
@@ -51,6 +82,6 @@ export class ListItemsComponent{
     }
 
     getRouteType(item: any){
-        return [`../${item.ingredients? 'workout-guide': 'meal-recipe'}`, item.key];
+        return [`../`, item.id];
     }
 }

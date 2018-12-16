@@ -2,7 +2,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from '@angular/fire/database';
 import { map, switchMap } from 'rxjs/operators';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
+import { Observable, BehaviorSubject, combineLatest, of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -39,20 +39,31 @@ export class WorkoutGuideService{
     }
 
     getWorkouts(){
-        return this.af.list('workout-guides').valueChanges(); 
+        return this.afs.collection('workout-guides').snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            }))
+        );
     }
 
     getWorkout(key: string) {
-        return this.af.list(`workout-guides/${key}`).snapshotChanges().pipe(map(items => {
-            return items.map(item => {
-                const data = item.payload.val();
-                const key = item.payload.key;
-                return { data, key };
-            })
-        }))
+        if (!key) return of({});
+
+        var doc =  this.afs.collection('workout-guides').doc(key).ref;
+        return doc.get().then(function(doc) {
+            return doc.data();
+        }).catch(function(error) {
+            console.log("Error getting cached document:", error);
+        });
+    }
+
+    updateWorkout(key, value){
+        return this.afs.collection('workout-guides').doc(key).set(value);
     }
 
     deleteWorkout(key: any){
-        return this.af.list('workout-guides').remove(key);
+        return this.afs.collection('workout-guides').doc(key).delete();
     }
 }

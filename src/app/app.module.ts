@@ -1,3 +1,5 @@
+import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
+import { SharedUIModule } from './../shared-UI/sharedUI.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MealRecipeModule } from 'src/admin/meal-recipe/meal-recipe.module';
 import { Routes, RouterModule } from '@angular/router';
@@ -11,6 +13,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { ClientModule } from 'src/client/client.module';
 import { AppSidebar } from './components/app-sidebar/app-sidebar.component';
 
+
 export const ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'meal-recipe' }
 ];
@@ -20,13 +23,15 @@ export const ROUTES: Routes = [
   declarations: [
     AppComponent,
     AppHeaderComponent,
-    AppSidebar
+    AppSidebar,
+    AdminSidebarComponent
   ],
   imports: [
     BrowserModule,
+    AuthModule,
     AdminModule,
     RouterModule.forRoot(ROUTES),
-    AuthModule,
+    SharedUIModule,
     ClientModule,
     StoreDevtoolsModule.instrument({
      

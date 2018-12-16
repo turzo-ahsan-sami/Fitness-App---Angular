@@ -1,8 +1,8 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from "@angular/core";
 import { AngularFireDatabase } from '@angular/fire/database';
-import { Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { map, filter, scan, withLatestFrom, switchMap } from 'rxjs/operators';
+import { Observable, BehaviorSubject, combineLatest, of } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 
 
 
@@ -42,13 +42,14 @@ export class MealRecipeService{
     }
 
     getRecipe(key: string) {
-        return this.af.list(`meal-recipes/${key}`).snapshotChanges().pipe(map(items => {
-            return items.map(item => {
-                const data = item.payload.val();
-                const key = item.payload.key;
-                return { data, key };
-            })
-        }))
+        if (!key) return of({});
+
+        var doc =  this.afs.collection('meal-recipes').doc(key).ref;
+        return doc.get().then(function(doc) {
+            return doc.data();
+        }).catch(function(error) {
+            console.log("Error getting cached document:", error);
+        });
        
         // return this.af.list('meal-recipes/'+key).snapshotChanges()
         //     .pipe(map(items => {
@@ -61,18 +62,26 @@ export class MealRecipeService{
     }
 
     getRecipes(){
-          //  return this.af.list('meal-recipes', ref => ref.orderByChild('ingredients').equalTo('')).valueChanges();
-        return this.af.list('meal-recipes').valueChanges(); 
+        return this.afs.collection('meal-recipes').snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            }))
+        );
     }
 
     deleteRecipes(key: any){
-        return this.af.list('meal-recipes').remove(key);
+        return this.afs.collection('meal-recipes').doc(key).delete();
     }
 
     //filter$: BehaviorSubject<string|null>;
 
     private filter$ = new BehaviorSubject(null);
     
+    updateRecipe(key, value){
+        return this.afs.collection('meal-recipes').doc(key).set(value);
+    }
     
 
     filterByItem(item: string|null){

@@ -1,3 +1,4 @@
+import { NutritionInfoService } from './../../../../admin/nutrition-info/services/nutrition-info.service';
 import { WorkoutGuideService } from './../../../../admin/workout-guide/services/workoutguide.service';
 import { UserInfoService } from './../../../user-info/services/user-info.service';
 import { map, tap } from 'rxjs/operators';
@@ -19,7 +20,7 @@ import { Component } from '@angular/core';
     styleUrls: ['schedule-plan.component.scss'],
     template: `
         <div class="schedule-plan" *ngIf="date$ | async as date">
-            <calendar (changeDate)="changeDate($event)" (open)="openSection($event)" [date]="date" [items]="schedule$"></calendar>
+            <calendar (changeDate)="changeDate($event)" [calorieInfo]="nutrientsInfoForWeightGain$ | async" (open)="openSection($event)" [date]="date" [items]="schedule$"></calendar>
             <assign-plan *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" [suggestMeals]="suggestMeals$" (add)="createScheduleData($event)" (ownMeal)="createScheduleData($event)" [type]="type$" (close)="closeModal()" (filter)="filterBy($event)"></assign-plan>
             <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" (add)="createScheduleData($event)" (close)="closeModal()" (filter)="filterBy($event)" [type]="type$" ></assign-workout>
             
@@ -41,12 +42,12 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     constructor(
         public spService: SchedulePlanService,
         private mpService: MealPlanService,
-        private af: AngularFireDatabase,
         private store: Store<AppState>,
         private mrService: MealRecipeService,
         private wgService: WorkoutGuideService,
         public afs: AngularFirestore,
-        private uiService: UserInfoService
+        private uiService: UserInfoService,
+        private niService: NutritionInfoService
     ){
        // const test = afs.collection('meal-recipes').doc('ingredients');
         this.depositCollection = afs.collection('meal-recipes');
@@ -78,13 +79,15 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     usersCollection:AngularFirestoreCollection<any>;;
 
     schedule$: any[];
+    //schedule$: Observable<any>;
     suggestMeals$;
+    nutrientsInfoForWeightGain$;
 
     ngOnInit(){
        this.date$ = this.spService.date$;
        // this.type$ = this.spService.type$;
       // this.schedule$ = this.store.select('schedule');
-      
+        this.nutrientsInfoForWeightGain$ = this.niService.bodyType$;
         this.sub = [
             this.spService.type$.subscribe(x => {this.type$= x;console.log(this.type$) }),
             this.spService.scheuleItems$.subscribe(z => this.schedule$ = z),

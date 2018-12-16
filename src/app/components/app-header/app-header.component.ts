@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output } from '@angular/core';
 
 @Component({
     selector: 'app-header',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['app-header.component.scss'],
     template: `
         <div class="header">
@@ -12,10 +14,21 @@ import { Component } from '@angular/core';
                     
                 </button>
             </form>
+            <nav class="user-nav">
+                <div class="user-nav__icon-box">
+                    <img class="user-nav__icon" src="/assets/logout.svg" (click)="signOut()">
+                </div>
+            </nav>
         </div>
     `
 })
 
 export class AppHeaderComponent{
+
+    @Output() logOutUser = new EventEmitter<any>();
+  
+    signOut() {
+        this.logOutUser.emit();
+    }
 
 }

@@ -1,13 +1,13 @@
+import { AuthenticationService } from './../../../auth/shared/services/authentication.service';
+import { of, BehaviorSubject, combineLatest } from 'rxjs';
 //import { switchMap, map } from 'rxjs/operators';
 import { forEach } from '@angular/router/src/utils/collection';
 //import { Observable } from 'rxjs';
 //import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from "@angular/core";
-
-import { Component } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { map, flatMap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -15,76 +15,61 @@ import { map, flatMap } from 'rxjs/operators';
 
 export class NutritionInfoService{
 
-    feedCollection : AngularFirestoreCollection<any>;
-    feedItem : Observable<any[]>;
+    get user() {
+        return this.as.loggedInUser.uid;
+    }
 
     bodyType;
-    test;
+   
     constructor(
-        public afs: AngularFirestore
-    ){
+        private as: AuthenticationService,
+        public afs: AngularFirestore,
+    ){}
 
-    
-        // const test = afs.collection('nutrition-info').doc('weight-gain').valueChanges();
-        // console.log(test);
-
-        this.bodyType = this.afs.collection('user-info').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1')
-            .ref
-            .get()
-            .then( doc => {
-                const data = this.afs.collection('nutrition-info').doc(doc.data().bodyType).ref.get()
-                .then(results => {
-                    const a = results.data()
-                    return a;
-                });
-                return data;
+    bodyType$ = this.afs.collection('user-info').doc(`${this.user}`)
+        .ref
+        .get()
+        .then( doc => {
+            const data = this.afs.collection('nutrition-info').doc(doc.data().bodyType).ref.get()
+            .then(results => {
+                const query = results.data()
+                return query;
             });
-             //doc.data().bodyType
-
-
-        // let result = afs.collection('user-info').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').get()
-        //     result.forEach(doc => {
-        //         const data = {
-        //             'bodyType': doc.data().bodyType
-        //         }
-        //         return this.bodyType = data;
-        //     })    
-;
-    }
+        return data;
+    });
 
     async createNutritionInfo(value){
         await this.afs.collection('nutrition-info').doc(value.bodyType).set(value);
     }
 
-    private accountLogCollection: AngularFirestoreCollection<any>;
-    accountLogs: Observable<any[]>;
-    getData(){
-       
-       
-           
+    deleteNutrition(key: any){
+        return this.afs.collection('nutrition-info').doc(key).delete();
     }
 
-    nutrientsInfoForWeightGain$: Observable<any> = this.afs.collection('nutrition-info').doc('weight-gain').valueChanges();
-    nutrientsInfo$ =
-        this.afs.collection('user-info').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1')
-        .ref
-        .get()
-        .then( doc => {
-            this.afs.collection('nutrition-info').doc(doc.data().bodyType).valueChanges();
-        })
+    getNutritionList(){
+        return this.afs.collection('nutrition-info').snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return { id, ...data };
+            }))
+        );
+    }
+
+    getNutrition(key: string) {
+        if (!key) return of({});
+
+        var doc =  this.afs.collection('nutrition-info').doc(key).ref;
+        return doc.get().then(function(doc) {
+            return doc.data();
+        }).catch(function(error) {
+            console.log("Error getting cached document:", error);
+        });
+    }
+    
+    updateNutrition(key, value){
+        return this.afs.collection('nutrition-info').doc(key).set(value);
+    }
 
     
-    testing$ = this.afs.collection('user-info').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1')
-    .ref
-    .get()
-    .then( doc => {
-        const data = this.afs.collection('nutrition-info').doc('weight-gain').ref.get()
-        .then(results => {
-            const a = results.data()
-            console.log(a);
-            return a;
-        });
-       // console.log(doc.data().bodyType)
-       // return data;
-    });
 }

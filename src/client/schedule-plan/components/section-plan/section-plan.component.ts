@@ -1,4 +1,4 @@
-import { EventEmitter, OnInit } from '@angular/core';
+import { EventEmitter, OnInit, AfterContentInit, AfterViewInit } from '@angular/core';
 import { Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,11 +7,14 @@ import { Component } from '@angular/core';
     selector: 'section-plan',
     styleUrls: ['section-plan.component.scss'],
     template: `
-        <div *ngIf="section?.Breakfast || section?.Lunch || section?.Supper || section?.Dinner">
-            {{  totalCalorieForBreakfast + totalCalorieForLunch + totalCalorieForDinner + totalCalorieForSupper }}
-        </div>
 
         <div class="section-plan">
+            <div class="section-plan__calorie" *ngFor="let a of calories"
+                [style.backgroundColor]="(a.calories < this.sumCalories ? '#abf88d' : '#ff9a9a')">
+                <span>Target goal = {{ a.calories }}</span>
+                <span id="current-calorie">Remaining calorie = {{  a.calories - this.sumCalories }}</span>
+            </div>
+            
             <div class="section-plan__bar">Breakfast</div>
             <div class="section-plan__list" *ngIf="section?.Breakfast; else existingBreakfast" (click)="selectSection('Breakfast', 'edit', section?.Breakfast.Breakfast)">
                 {{ section?.Breakfast.Breakfast }}
@@ -73,7 +76,7 @@ import { Component } from '@angular/core';
     `
 })
 
-export class SectionPlanComponent implements OnInit{
+export class SectionPlanComponent implements OnInit, AfterViewInit{
 
     @Output() selected = new EventEmitter<any>();
 
@@ -85,16 +88,24 @@ export class SectionPlanComponent implements OnInit{
         this.selected.emit({ type, checkEdit, selection, data})
     }
 
-
+    @Input() calories: any;
     @Input() sections: any;
 
     
     sec;
     @Input() items: any;
+    @Output() caloriesTotal = new EventEmitter<any>();
    
     ngOnInit(){
         this.sec = this.items || {};
         console.log(this.items);
+
+        
+        
+    }
+
+    ngAfterViewInit(){
+       
     }
 
     get totalCalorieForDinner(){
@@ -127,6 +138,11 @@ export class SectionPlanComponent implements OnInit{
             return sum; 
         }
         return 0;
+    }
+    
+    get sumCalories(){
+        let sum = this.totalCalorieForBreakfast + this.totalCalorieForLunch + this.totalCalorieForDinner + this.totalCalorieForSupper
+        return sum;
     }
 
 

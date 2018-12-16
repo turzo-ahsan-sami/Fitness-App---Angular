@@ -1,5 +1,5 @@
 import { FormGroup } from '@angular/forms';
-import { Component, OnChanges, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
+import { Component, Input, OnChanges, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
 import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -46,11 +46,11 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                     </div>
                 </div>
 
-                <div class="meal-recipe-form__row">
-                    <div class="col-25">
-                        <label>Calorie Amount</label>
-                    </div>
-                    <div class="col-75">
+                <div class="meal-recipe-form__row"> 
+                    <div class="col-25"> 
+                        <label>Calorie Amount</label>  
+                    </div> 
+                    <div class="col-75"> 
                         <input type="text" formControlName="calorie">
                         <div class="error" *ngIf="form.get('calorie').hasError('required') && form.get('calorie').touched"> 
                             Required Field. 
@@ -62,10 +62,18 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                     <div class="col-25">
                         <label>Food Type</label>
                     </div>
+                    <div formArrayName="foodType" class="col-75">
+                       <!-- <label *ngFor="let order of form.controls.foodType.controls; let a = index">
+                            <div  *ngFor="let type of foodTypes; let i = index">
+                            <input type="checkbox" class="instructions" [value]="type.key" [checked]=" a == i"> 
+                            </div>
+                        </label> -->
+                        
+                    </div>
                     <div class="col-75" *ngFor="let type of foodTypes; let i = index">
                         <label>
-                            <input type="checkbox" [value]="type.value" (change)="onFoodCheck($event)">
-                            {{ type.key }}
+                            <input type="checkbox" [value]="type.key" (change)="onFoodCheck($event)" >
+                            {{ type.value }}
                         </label>
                     </div>
                 </div>
@@ -76,14 +84,15 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                     </div>
                     <div class="col-75" *ngFor="let type of bodyTypes; let i = index" >
                         <label>
-                            <input type="checkbox" [value]="type.value" (change)="onbodyTypeCheck($event)">
-                            {{ type.key }}
+                            <input type="checkbox" [value]="type.key" (change)="onbodyTypeCheck($event)">
+                            {{ type.value }}
                         </label>
                     </div>
                 </div>
 
                 <div class="meal-recipe-form__row">
-                    <button class="button button--create" [disabled]="form.invalid" (click)="dispatchMeal()">Create</button>
+                    <button class="button button--create" *ngIf="!exists" type="button" [disabled]="form.invalid" (click)="dispatchMeal()">Create</button>
+                    <button class="button button--create" type="button" *ngIf="exists" (click)="updateMeal()">Update</button>
                     <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
                 </div>
                 
@@ -129,10 +138,34 @@ export class MealRecipeFormComponent implements OnChanges{
        { key: 'curry', value: 'Curry' },
      ];
 
+    @Input() doc;
     
+    exists = false;
 
     ngOnChanges(){
+        if (this.doc && this.doc.name) {
+            this.exists = true;
+            this.emptyIngredients();
+        
+            const value = this.doc;
+            this.form.patchValue(value);
+      
+            if (value.ingredients) {
+                for (const item of value.ingredients) {
+                    this.ingredients.push(new FormControl(item));
+                }
+            }
 
+            // this.emptyFoodTypes();
+            // if(value.foodType){
+            //     for (const item of value.foodType) {
+            //         if(item){
+            //             this.foodType.push(new FormControl(item));
+            //         }
+            //     }
+            // }
+      
+        }
     }
     
     get ingredients() {
@@ -151,8 +184,7 @@ export class MealRecipeFormComponent implements OnChanges{
         this.instructions.push(new FormControl(''));
     }
 
-    @Output()
-    create = new EventEmitter<any>();
+    @Output() create = new EventEmitter<any>();
 
     dispatchMeal(){
         if(this.form.valid){
@@ -160,6 +192,17 @@ export class MealRecipeFormComponent implements OnChanges{
             //console.log(this.form.value)
         }
       
+    }
+
+    @Output() update = new EventEmitter<any>();
+    updateMeal(){
+        if (this.form.valid) {
+            this.update.emit(this.form.value);
+        }
+    }
+
+    get foodType(){
+        return this.form.get('foodType') as FormArray;
     }
 
     onFoodCheck(event) {
@@ -197,6 +240,18 @@ export class MealRecipeFormComponent implements OnChanges{
             }
             i++;
           });
+        }
+    }
+
+    emptyIngredients() {
+        while(this.ingredients.controls.length) {
+          this.ingredients.removeAt(0);
+        }
+    }
+
+    emptyFoodTypes() {
+        while(this.foodType.controls.length) {
+            this.foodType.removeAt(0);
         }
     }
 }

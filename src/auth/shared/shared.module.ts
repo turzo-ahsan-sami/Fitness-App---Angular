@@ -1,3 +1,4 @@
+import { AdminGuard } from './guards/admin.guard';
 import { RouterGuard } from './guards/router.guard';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthFormComponent } from './components/auth-form/auth-form.component';
@@ -26,6 +27,7 @@ export class SharedModule{
             providers: [
                 RouterGuard,
                 AuthenticationService,
+                AdminGuard
             ]
         };
     }

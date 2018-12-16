@@ -4,8 +4,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MealRecipeService } from '../../services/meal-recipe.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
-import { map, filter, scan } from 'rxjs/operators';
-import { PARAMETERS } from '@angular/core/src/util/decorators';
 
 
 @Component({
@@ -13,29 +11,32 @@ import { PARAMETERS } from '@angular/core/src/util/decorators';
     template: `
         <div>
             Meal Recipe
-            <meal-recipe-form (create)="createRecipe($event)" (update)="updateRecipe($event)"></meal-recipe-form>
+            <div *ngIf="recipe$ | async as recipe">
+                <meal-recipe-form (create)="createRecipe($event)" [doc]="recipe" (update)="updateRecipe($event)"></meal-recipe-form>
+            </div>
             <div *ngIf="err">{{ err }}</div>
-            <div *ngIf="recipe$ | async as recipe"> {{ recipe | json }}</div>
+           
         </div>
     `
 })
 
 export class MealRecipeComponent implements OnInit, OnDestroy{
 
-    err; 
-    sub: Subscription;
+    err;
 
     constructor(
-        private fs: MealRecipeService,
+        private mrService: MealRecipeService,
         private route: ActivatedRoute,
         private router: Router, 
-        public af:AngularFireDatabase
+        public af:AngularFireDatabase,
     ){}
 
     recipe$: Observable<any>;
+    subscription: Subscription;
 
     ngOnInit(){
-     
+        this.subscription = this.mrService.filterItems$.subscribe();
+        this.recipe$ = this.route.params.pipe(switchMap(param => this.mrService.getRecipe(param.id)));
         // this.recipe$ = this.route.params.subscribe(params => this.fs.getRecipe(params.id));
         
         // this.recipe$ = this.route.paramMap.pipe(switchMap(params => {
@@ -45,15 +46,17 @@ export class MealRecipeComponent implements OnInit, OnDestroy{
     }
 
     ngOnDestroy(){
-
+        this.subscription.unsubscribe();
     }
 
     async createRecipe(event: any){
-        await this.fs.createMealRecipe(event);      
+        await this.mrService.createMealRecipe(event);      
        // this.router.navigate(['/home']);
     }
 
     async updateRecipe(event: any){
-       // await this.fs.updateMealRecipe(event);
+        const docID = this.route.snapshot.params.id;
+        await this.mrService.updateRecipe(docID, event);
+        this.router.navigate(['/meal-recipe']);
     }
 }

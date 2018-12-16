@@ -1,4 +1,5 @@
-import { Output, EventEmitter } from '@angular/core';
+import { OnChanges } from '@angular/core';
+import { Output, EventEmitter, Input } from '@angular/core';
 import { Validators, FormControl, FormArray } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
@@ -76,7 +77,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
                                         <label>Calories</label>
                                     </div>
                                     <div class="col-75">
-                                        <input type="text" formControlName="calories">
+                                        <input type="number" formControlName="calories">
                                     </div>
                                 </div>    
                             </div>
@@ -130,7 +131,8 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
                 </div>
                 
                 <div class="nutrition-info-form__row">
-                    <button class="button button--create" type="button" (click)="dispatchSupplements()">Create</button>
+                    <button class="button button--create" type="button" *ngIf="!exists" (click)="dispatchNutritionInfo()">Create</button>
+                    <button class="button button--create" type="button" *ngIf="exists" (click)="updateNutritionInfo()">Update</button>
                     <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
                 </div>
             </form>
@@ -139,7 +141,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     `
 })
 
-export class NutritionInfoFormComponent{
+export class NutritionInfoFormComponent implements OnChanges{
     form: FormGroup;
 
     constructor(
@@ -160,12 +162,38 @@ export class NutritionInfoFormComponent{
         })
     }
 
+    @Input() doc;
+    exists = false;
+
+    ngOnChanges(){
+        if (this.doc && this.doc.title) {
+            this.exists = true;
+            this.emptyFoodProducts();
+            this.emptySupplements();
+
+            const value = this.doc;
+            this.form.patchValue(value);
+            
+            if (value.foodProducts) {
+                for (const item of value.foodProducts) {
+                    this.foodProducts.push(new FormControl(item));
+                }
+            }
+            if (value.supplements) {
+                for (const item of value.supplements) {
+                   
+                    this.supplements.push(this.reAddSupplements(item.supplementsName, item.supplementsDescription));
+                }
+            }
+        }
+    }
+
     createItem(): FormGroup {
         return this.fb.group({
             protein: '',
             carbs: '',
             fats: '',
-            calories: ''
+            calories: ['', Validators.required]
         });
     }
 
@@ -200,8 +228,32 @@ export class NutritionInfoFormComponent{
     }
 
     @Output() create = new EventEmitter<any>();
-    dispatchSupplements(){
+    dispatchNutritionInfo(){
         this.create.emit(this.form.value);
         console.log(this.form.value);
+    }
+
+    emptyFoodProducts() {
+        while(this.foodProducts.controls.length) {
+          this.foodProducts.removeAt(0);
+        }
+    }
+
+    emptySupplements() {
+        while(this.supplements.controls.length) {
+          this.supplements.removeAt(0);
+        }
+    }
+
+    reAddSupplements(name, description) {
+        return this.fb.group({
+            supplementsName: [name],
+            supplementsDescription: [description]
+        })
+    }
+
+    @Output() update = new EventEmitter<any>();
+    updateNutritionInfo(){
+        this.update.emit(this.form.value);
     }
 }

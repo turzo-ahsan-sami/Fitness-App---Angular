@@ -27,7 +27,7 @@ export class MealPlanService{
             map(changes => 
               changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
             )
-        );; 
+        ); 
     }
 
     get user() {

@@ -19,4 +19,17 @@
     font-weight: 400;
     height: 18px;
   }
+  &__calorie{
+    color: hsl(0, 1%, 25%);
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid #d3cfcf;
+    border-radius: 2px;
+    margin: 10px 0 10px;
+    padding: 4px;
+  }
+}
+
+#current-calorie{
+  float: right;
 }

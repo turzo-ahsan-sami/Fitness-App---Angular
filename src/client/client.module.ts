@@ -19,7 +19,7 @@ export const ROUTES: Routes = [
             path: 'info', canActivate: [RouterGuard], loadChildren: () => UserInfoModule
         },
         {
-            path: 'suggestion', loadChildren: () => UserInfoModule
+            path: 'suggestion', canActivate: [RouterGuard], loadChildren: () => UserInfoModule
         }
     ]}
 ]

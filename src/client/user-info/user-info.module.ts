@@ -1,3 +1,4 @@
+import { WorkoutProgrammeComponent } from './containers/workout-programme/workout-programme.component';
 import { UserInfoService } from './services/user-info.service';
 import { UserInfoFormComponent } from './components/userInfo-form/userInfo-form.component';
 import { CommonModule } from '@angular/common';
@@ -5,11 +6,13 @@ import { UserInfoComponent } from './containers/user-info/user-info.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SuggestionPlanComponent } from './containers/suggestion-plan/suggestion-plan.component';
+import { MealProgrammeComponent } from './containers/meal-programme/meal-programme.component';
+import { TrainingProgramService } from './services/training-program.service';
 
 export const ROUTES : Routes = [
     { path: '', component: UserInfoComponent },
-    { path: 'plan', component: SuggestionPlanComponent }
+    { path: 'meal-programme', component: MealProgrammeComponent },
+    { path: 'workout-programme', component: WorkoutProgrammeComponent }
 ]
 
 @NgModule({
@@ -21,10 +24,12 @@ export const ROUTES : Routes = [
    declarations:[
         UserInfoComponent,
         UserInfoFormComponent,
-        SuggestionPlanComponent
+        MealProgrammeComponent,
+        WorkoutProgrammeComponent
    ],
    providers: [
-       UserInfoService
+       UserInfoService,
+       TrainingProgramService
    ]
 })
 

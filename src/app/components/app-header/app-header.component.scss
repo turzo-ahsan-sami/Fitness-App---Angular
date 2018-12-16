@@ -75,3 +75,28 @@
     }
 
 }
+
+.user-nav {
+    align-self: stretch; 
+    align-items: center;
+    display: flex;
+
+    &__icon {
+        width: 2.25rem;
+        height: 2.25rem;
+        fill: var(--color-grey-dark-2);
+    }
+
+    & > * {
+        cursor: pointer;
+        align-items: center;
+        height: 100%;
+        padding: 0 2rem;
+        display: flex;
+    }
+
+    &__icon-box {
+        position: relative;
+    }
+
+}

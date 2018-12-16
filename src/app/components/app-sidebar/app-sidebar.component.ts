@@ -1,19 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-sidebar',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['app-sidebar.component.scss'],
     template: `
         <nav class="sidebar">
-            <ul class="side-nav">
-                <li class="side-nav__item side-nav__item--active">
-                    <a href="#" class="side-nav__link">
-                        <span>Workout</span>
-                    </a>
-                </li>
-                <li class="side-nav__item">
-                    <a href="#" class="side-nav__link">        
-                       <span>Meal</span>
+            <ul class="side-nav" >
+                <li class="side-nav__item side-nav__item" *ngFor="let route of routes">
+                    <a [routerLink]="route.link" class="side-nav__link" routerLinkActive="active">
+                        <span>{{ route.name }}</span>
                     </a>
                 </li>
             </ul>
@@ -21,4 +17,16 @@ import { Component } from '@angular/core';
     `
 })
 
-export class AppSidebar{}
+export class AppSidebar{
+    routes = [
+        {
+            link: 'user/suggestion/meal-programme', name: 'Meal Programme'
+        },
+        { 
+            link: 'workouts', name: 'Training Programme' 
+        },
+        {
+            link: 'user/schedule-plan', name: 'Schedule'
+        }
+    ]
+}

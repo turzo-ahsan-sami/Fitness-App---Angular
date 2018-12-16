@@ -1,11 +1,12 @@
 import { AppState } from './../../../app/app.state';
 import { Store } from '@ngrx/store';
 import { User } from './../models/auth.model';
-import { tap } from 'rxjs/operators';
+import { tap, switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from "@angular/core";
 
 import * as userAction from './../store/actions/auth.action';
+
 export type Action = userAction.AuthAction;
 
 @Injectable()
@@ -40,7 +41,13 @@ export class AuthenticationService{
 
 
     registerUser(email: string, password: string){
-        return this.af.auth.createUserWithEmailAndPassword(email, password);
+        return this.af.auth.createUserWithEmailAndPassword(email, password)
+            .then(value => {
+                console.log('Success');
+            })
+            .catch(err => {
+                console.log('Something went wrong:',err.message);
+            }); 
     }   
 
     loginUser(email: string, password: string){

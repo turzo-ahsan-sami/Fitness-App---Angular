@@ -1,21 +1,35 @@
+import { switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
 import { NutritionInfoService } from './../../services/nutrition-info.service';
-import { Component } from "@angular/core";
+import { Component, OnInit, OnDestroy} from "@angular/core";
 
 @Component({
     selector: 'nutrition-info',
     styleUrls: ['nutrition-info.component.scss'],
     template: `
-        <div>
-            <nutrition-info-form (create)="createItem($event)" (update)="update($event)"></nutrition-info-form>
+        <div *ngIf="nutrition$ | async as nutrition">
+            <nutrition-info-form (create)="createItem($event)" [doc]="nutrition"  (update)="updateNutrition($event)"></nutrition-info-form>
         </div>
-    
+        <div *ngIf="err">{{ err }}</div>
     `
 })
 
-export class NutritionInfoComponent{
+export class NutritionInfoComponent implements OnInit, OnDestroy{
     constructor(
-        private nutritionInfoService: NutritionInfoService
+        private nutritionInfoService: NutritionInfoService,
+        private route: ActivatedRoute,
+        private router: Router, 
     ){
+
+    }
+    nutrition$: Observable<any>;
+    
+    ngOnInit(){
+        this.nutrition$ = this.route.params.pipe(switchMap(param => this.nutritionInfoService.getNutrition(param.id)));
+    }
+
+    ngOnDestroy(){
 
     }
 
@@ -23,7 +37,9 @@ export class NutritionInfoComponent{
         this.nutritionInfoService.createNutritionInfo(event);
     }
 
-    update(event: any){
-        console.log(event);
+    async updateNutrition(event: any){
+        const docID = this.route.snapshot.params.id;
+        await this.nutritionInfoService.updateNutrition(docID, event);
+        this.router.navigate(['/admin/nutrition-info/list']);
     }
 }

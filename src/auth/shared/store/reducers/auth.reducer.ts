@@ -5,7 +5,7 @@ import * as fromAuth from './../actions/auth.action';
 
 //export type Action = fromAuth.AuthAction;
 
-const defaultUser = new User('ttytty', 'GUEST');
+const defaultUser = new User(null, 'GUEST');
 
 export function authReducer(state: User = defaultUser, action: fromAuth.AuthAction) {
   switch (action.type) {

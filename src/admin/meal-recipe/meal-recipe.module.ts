@@ -1,3 +1,5 @@
+import { SharedModule } from './../shared/shared.module';
+import { SharedUIModule } from './../../shared-UI/sharedUI.module';
 import { MealRecipeListComponent } from './containers/meal-recipe-list/meal-recipe-list.component';
 import { MealRecipeFormComponent } from './components/meal-recipe-form/meal-recipe-form.component';
 import { MealRecipeComponent } from './containers/meal-recipe/meal-recipe.component';
@@ -18,19 +20,21 @@ export const ROUTES: Routes = [
     imports:[
         ReactiveFormsModule,
         CommonModule,
-        RouterModule.forChild(ROUTES)
+        RouterModule.forChild(ROUTES),
+        SharedUIModule,
+        SharedModule
     ],
     declarations:[
         MealRecipeComponent,
         MealRecipeFormComponent,
         MealRecipeListComponent,
-        ListItemsComponent
+        
     ],
     exports: [
         MealRecipeComponent,
         MealRecipeFormComponent,
         MealRecipeListComponent,
-        ListItemsComponent
+        
     ]
 
 })

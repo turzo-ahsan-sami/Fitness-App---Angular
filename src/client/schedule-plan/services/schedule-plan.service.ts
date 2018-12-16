@@ -1,4 +1,4 @@
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as FromScheduleActions from './../store/actions/schedule-plan.action';
 import { AppState } from './../../../app/app.state';
 import { Store } from '@ngrx/store';
@@ -23,7 +23,6 @@ export class SchedulePlanService{
 
     constructor(
         private as: AuthenticationService,
-        private af: AngularFireDatabase,
         private store: Store<AppState>,
         private afs: AngularFirestore
     ){}
@@ -62,20 +61,22 @@ export class SchedulePlanService{
             };
 
             const assignedSchedule = { ...(checkEdit == 'edit' ? section.data.Dinner : defaults), ...items };
-
+            
+            const test = { ...section.data.Dinner, ...items}
             //////
             
-            console.log(section.data.Dinner)
-           // const key = section.data.Dinner.id;
+            console.log(assignedSchedule)
+            //const key = section.data.Dinner.id;
 
-            if (checkEdit == 'new') {
+           if (checkEdit == 'new') {
                 return this.createPlan(assignedSchedule);
-            } else {
+            } else{
                 if(section.type == 'Dinner'){
-                    const key = section.data.Dinner.id;
-                    return this.updatePlan(key, assignedSchedule);
+                    const key = assignedSchedule.id;
+                    return this.updatePlan(key, test);
                 }
             }
+    
         })
     );
 
@@ -117,7 +118,7 @@ export class SchedulePlanService{
     //
     //
     private getSchedule(start: number, end: number) {
-        return this.afs.collection('schedule').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).snapshotChanges()
+        return this.afs.collection('schedule').doc(`${this.user}`).collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).snapshotChanges()
         .pipe(map(actions => {
             return actions.map(a => {
               const data = a.payload.doc.data();
@@ -144,9 +145,8 @@ export class SchedulePlanService{
     }
     
     //
-    private updatePlan(key: string, assignedSchedule: any) {
-        console.log(key);
-        
+    private updatePlan(key: string, assignedSchedule: any) { 
+        console.log(key);   
         return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(key).set(assignedSchedule);
         //return this.af.object(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3/${key}`).update(assignedSchedule);
     }
@@ -169,7 +169,7 @@ export class SchedulePlanService{
     //       tap(next => next)
     //     );
 
-    userInfo$ = this.afs.doc('user-info/5I8TTANA98Zt4SPo4gKi1J2tdru1').valueChanges();
+    userInfo$ = this.afs.doc(`user-info/${this.user}`).valueChanges();
     
 
     

@@ -22,8 +22,8 @@ export class UserInfoService{
     }
 
     get user() {
-       // return this.as.loggedInUser.uid;
-       return this.as.currentUser;
+       return this.as.loggedInUser.uid;
+       //return this.as.currentUser;
     }
 
     
@@ -35,7 +35,7 @@ export class UserInfoService{
         });
     }
 
-    userInfo$: Observable<any> = this.afs.collection('user-info').doc('5I8TTANA98Zt4SPo4gKi1J2tdru1').valueChanges();
+    userInfo$: Observable<any> = this.afs.collection('user-info').doc(`${this.user}`).valueChanges();
     // getUserInfo(){
     //     console.log(this.userId);
     //     return this.afs.collection('user-info').doc(`${this.userId}`).valueChanges();

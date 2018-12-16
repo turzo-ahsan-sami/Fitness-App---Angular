@@ -12,6 +12,8 @@
     align-items: center;
     background: rgba(0,0,0,.2);
     display: flex;
+    overflow-y: scroll;
+    max-height: 100vh;
     
     &__list {
         display: flex;

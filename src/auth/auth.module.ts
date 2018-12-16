@@ -1,3 +1,4 @@
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SharedModule } from './shared/shared.module';
 import { RegisterModule } from './register/register.module';
 import { LoginModule } from './login/login.module';
@@ -28,6 +29,7 @@ export const ROUTES: Routes = [
         RouterModule.forChild(ROUTES),
         CommonModule,
         AngularFireModule.initializeApp(environment.firebase),
+        AngularFirestoreModule,
         AngularFireDatabaseModule,
         AngularFireAuthModule,   
         SharedModule.forRoot(),
