@@ -10,14 +10,14 @@ import { Observable, BehaviorSubject, combineLatest, of } from 'rxjs';
 
 export class WorkoutGuideService{
 
-    filterItems$: Observable<any[]>;
+    items$: Observable<any[]>;
     private filter$ = new BehaviorSubject(null);
 
     constructor(
         public af:AngularFireDatabase,
         private afs: AngularFirestore
     ){
-        this.filterItems$ = combineLatest(
+        this.items$ = combineLatest(
             this.filter$
             ).pipe(
             switchMap(([item]) => 
@@ -34,8 +34,6 @@ export class WorkoutGuideService{
 
     async createWorkout(value){
         await this.afs.collection('workout-guides').add(value);
-       // await this.af.list('workout-guides').push(value);
-        console.log('Done');
     }
 
     getWorkouts(){

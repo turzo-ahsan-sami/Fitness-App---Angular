@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
                 </button>
             </div>
             <div class="sections">
-                <section-plan [sections]="sections" [section]="getType()" [calories]="calorieInfo?.marcos" (selected)="addSection($event)" (caloriesTotal)="totalCalories($event)" [items]="items"></section-plan>
+                <section-plan [section]="getType()" [calories]="calorieInfo?.marcos" (selected)="addSection($event)" (caloriesTotal)="totalCalories($event)" [items]="items"></section-plan>
             </div> 
         </div>
         

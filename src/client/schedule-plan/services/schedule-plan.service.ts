@@ -2,12 +2,11 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as FromScheduleActions from './../store/actions/schedule-plan.action';
 import { AppState } from './../../../app/app.state';
 import { Store } from '@ngrx/store';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { tap, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { AuthenticationService } from 'src/auth/shared/services/authentication.service';
-
+import { from } from 'rxjs';
 
 export interface ScheduleItem {
     Supper: any[],
@@ -29,16 +28,7 @@ export class SchedulePlanService{
 
     date$ = new BehaviorSubject(new Date());
     private category$ = new Subject();
-    
-    //
-    // this.userInfo = this.usersCollection.snapshotChanges().pipe(
-    //     map(actions => actions.map(a => {
-    //       const data = a.payload.doc.data();
-    //       const id = a.payload.doc.id;
-    //       return { id, ...data };
-    //      // return a;
-    //     }))
-    //   );
+
     type$ = this.category$.pipe(
         tap((next: any) => next));
 
@@ -63,6 +53,7 @@ export class SchedulePlanService{
             const assignedSchedule = { ...(checkEdit == 'edit' ? section.data.Dinner : defaults), ...items };
             
             const test = { ...section.data.Dinner, ...items}
+            
             //////
             
             console.log(assignedSchedule)
@@ -72,9 +63,26 @@ export class SchedulePlanService{
                 return this.createPlan(assignedSchedule);
             } else{
                 if(section.type == 'Dinner'){
-                    const key = assignedSchedule.id;
-                    return this.updatePlan(key, test);
+                    const key = section.data.Dinner.id;
+                    return this.updatePlan(key, { ...section.data.Dinner, ...items});
                 }
+                else if(section.type == 'Breakfast'){
+                    const key = section.data.Breakfast.id;
+                    return this.updatePlan(key, { ...section.data.Breakfast, ...items});
+                }
+                else if(section.type == 'Lunch'){
+                    const key = section.data.Lunch.id;
+                    return this.updatePlan(key, { ...section.data.Lunch, ...items})
+                }
+                else if(section.type == 'Supper'){
+                    const key = section.data.Supper.id;
+                    return this.updatePlan(key, { ...section.data.Supper, ...items})
+                }
+                else{
+                    const key = section.data.Workout.id;
+                    return this.updatePlan(key, { ...section.data.Workout, ...items})
+                }
+                
             }
     
         })
@@ -114,9 +122,6 @@ export class SchedulePlanService{
         return this.as.loggedInUser.uid;
     }
 
-    
-    //
-    //
     private getSchedule(start: number, end: number) {
         return this.afs.collection('schedule').doc(`${this.user}`).collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).snapshotChanges()
         .pipe(map(actions => {
@@ -127,50 +132,51 @@ export class SchedulePlanService{
               
             });
         }));
-          
-     //   return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`, ref => ref.orderByChild('timestamp').startAt(start).endAt(end)).valueChanges();
     }
 
     getType(event) {
         this.category$.next(event);
     }
 
-    //
     private createPlan(assignedSchedule: any) {
           const id = this.afs.createId();
           return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(id).set(assignedSchedule);
-        //return this.afs.collection('schedule').doc(`${this.user}`).set(assignedSchedule);
-        //return this.af.list(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3`).push(assignedSchedule);
-        //console.log(payload);
     }
-    
-    //
+   
     private updatePlan(key: string, assignedSchedule: any) { 
-        console.log(key);   
         return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(key).set(assignedSchedule);
-        //return this.af.object(`schedule/XrEd4vW6fLXr00iaNBsEw3PDlTA3/${key}`).update(assignedSchedule);
     }
 
     addScheduleItem(items: string[]) {
-       // console.log(items);
         this.dataList$.next(items);
     }
 
-    //list$ = this.category$.pipe(map((value: any) => console.log(value)));
-
-    // userInfo$ = this.afs.collection('user-info').snapshotChanges().pipe(
-    //       map(actions => actions.map(a => {
-    //         const data = a.payload.doc.data();
-    //         const id = a.payload.doc.id;
-            
-    //         return { id, ...data };
-    //         //return a;
-    //       })),
-    //       tap(next => next)
-    //     );
-
     userInfo$ = this.afs.doc(`user-info/${this.user}`).valueChanges();
-    
 
-    
+    mealSuggestion$ = from(this.afs.collection('user-info').doc(`${this.user}`)
+        .ref
+        .get()
+        .then( doc => {
+            return this.afs.collection('meal-recipes', ref => {
+                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+                query = query.where('ingredients', 'array-contains', doc.data().favFoodGroup[1])
+                console.log(doc.data().favFoodGroup)
+                return query;
+            }).valueChanges();
+        })
+    )
+
+    workoutSuggestion$ = from(this.afs.collection('user-info').doc(`${this.user}`)
+        .ref
+        .get()
+        .then( doc => {
+            return this.afs.collection('workout-guides', ref => {
+                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+                query = query.where('targetBody', 'array-contains', doc.data().bodyType)
+                console.log(doc.data().bodyType)
+                return query;
+            }).valueChanges();
+        })
+    )
+       
 }

@@ -32,13 +32,15 @@
     margin-top: 6px;
 }
 
-input[type=text], select {
+input[type=text], input[type=number], select {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
 }
+
+
 textarea{
     width: 100%;
     padding: 12px;
@@ -106,4 +108,3 @@ input[type=submit]:hover {
     font-weight: 400;
     margin: 10px 0 0;
 }
-

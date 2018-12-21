@@ -7,12 +7,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
     selector: 'client-login',
+    styleUrls: ['client-login.component.scss'],
     template: `
-        <div *ngIf="afAuth.user | async as user">Login Successful{{ user.email }}</div>
-        <button (click)="userLogout()">Logout</button>
         <auth-form (submitted)="userLogin($event)">
             <p>Login</p>
             <button type="submit">Login</button>
+            <div *ngIf="err" class="err">{{ err }}</div>
         </auth-form>
     `
 })
@@ -23,7 +23,7 @@ export class ClientLoginComponent{
         public afAuth: AngularFireAuth,
         private router: Router){}
     
-    err;
+    err: string;
 
     async userLogin(event: FormGroup){ 
         try{

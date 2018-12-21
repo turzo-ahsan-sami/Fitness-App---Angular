@@ -1,7 +1,6 @@
 import { EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Output } from '@angular/core';
 import { Component } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { Validators, FormArray, FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -108,10 +107,10 @@ export class UserInfoFormComponent{
     ];
 
     days = [
-        { key: '1', value: '1 day a week'},
-        { key: '2-3', value: '2-3 days a week'},
-        { key: '4-5', value: '4-5 days a week'},
-        { key: '6-7', value: '6-7 days a week'}
+        { key: '1-2', value: '1-2 times a week'},
+        { key: '3-4', value: '3-4 times a week'},
+        { key: '5-6', value: '5-6 days a week'},
+        { key: '7', value: '7 days a week'}
     ];
 
     age = ['Teens', '20s', '30s', '40s', '50s', '60s'];

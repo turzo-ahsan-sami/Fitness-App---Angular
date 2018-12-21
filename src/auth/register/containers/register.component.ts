@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
             <auth-form (submitted)="createUser($event)">
                 <p>Create Account</p>
                 <button class="button" type="submit">Register</button>
+                <div *ngIf="err" class="err">{{ error }}</div>
             </auth-form>
         </div>
     `
@@ -22,8 +23,14 @@ export class RegisterComponent{
         private router: Router
     ){}
 
+    err: string;
+
     async createUser(event: FormGroup){
-        await this.as.registerUser(event.value.email, event.value.password);
-        this.router.navigate(['user/info']);
+        try{
+            await this.as.registerUser(event.value.email, event.value.password);
+            this.router.navigate(['user/info']);
+        }catch(error){
+            this.err = error.message;
+        }
     }  
 }

@@ -1,7 +1,7 @@
+import { FilterTypeComponent } from './filter-type/filter-type.component';
 import { DataListComponent } from './data-list/data-list.component';
 import { SchedulePlanService } from './../schedule-plan/services/schedule-plan.service';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { MealPlanService } from './../meal-plan/services/meal-plan.service';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgModule, ModuleWithProviders } from "@angular/core";
@@ -14,10 +14,12 @@ import { UserInfoService } from '../user-info/services/user-info.service';
         AngularFireDatabaseModule,
     ],
     declarations: [
-        DataListComponent
+        DataListComponent,
+        FilterTypeComponent
     ],
     exports: [
-        DataListComponent
+        DataListComponent,
+        FilterTypeComponent
     ]
 })
 
@@ -26,7 +28,6 @@ export class SharedModule{
         return{
             ngModule: SharedModule,
             providers: [
-                MealPlanService,
                 SchedulePlanService,
                 UserInfoService
             ]

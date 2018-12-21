@@ -23,10 +23,13 @@ export class AppSidebar{
             link: 'user/suggestion/meal-programme', name: 'Meal Programme'
         },
         { 
-            link: 'workouts', name: 'Training Programme' 
+            link: 'user/suggestion/workout-programme', name: 'Training Programme' 
         },
         {
             link: 'user/schedule-plan', name: 'Schedule'
+        },
+        {
+            link: 'user/info', name: 'Profile'
         }
     ]
 }

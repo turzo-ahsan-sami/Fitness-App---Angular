@@ -8,9 +8,14 @@ import { Component, OnInit, OnDestroy} from "@angular/core";
     selector: 'nutrition-info',
     styleUrls: ['nutrition-info.component.scss'],
     template: `
-        <div *ngIf="nutrition$ | async as nutrition">
+        <div *ngIf="nutrition$ | async as nutrition; else fetching;">
             <nutrition-info-form (create)="createItem($event)" [doc]="nutrition"  (update)="updateNutrition($event)"></nutrition-info-form>
         </div>
+        <ng-template #fetching>
+            <div class="message">
+                <spinning-icon></spinning-icon>
+            </div>
+        </ng-template>
         <div *ngIf="err">{{ err }}</div>
     `
 })
@@ -33,8 +38,9 @@ export class NutritionInfoComponent implements OnInit, OnDestroy{
 
     }
 
-    createItem(event: any){
-        this.nutritionInfoService.createNutritionInfo(event);
+    async createItem(event: any){
+        await this.nutritionInfoService.createNutritionInfo(event);
+        this.router.navigate(['/admin/nutrition-info/list']);
     }
 
     async updateNutrition(event: any){

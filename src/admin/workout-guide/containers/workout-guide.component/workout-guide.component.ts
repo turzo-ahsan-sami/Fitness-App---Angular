@@ -8,9 +8,14 @@ import { Component, OnInit } from "@angular/core";
     selector: 'workout-guide',
     template: `
         <div>
-            <div *ngIf="workout$ | async as workout">
+            <div *ngIf="workout$ | async as workout; else fetching;">
                 <workout-guide-form [doc]="workout" (create)="createWorkout($event)" (update)="updateWorkout($event)"></workout-guide-form>
             </div>
+            <ng-template #fetching>
+                <div class="message">
+                    <spinning-icon></spinning-icon>
+                </div>
+            </ng-template>
         </div>
     `
 })
@@ -22,15 +27,14 @@ export class WorkoutGuideComponent implements OnInit{
         private route: ActivatedRoute,
         private router: Router){}
 
-    createWorkout(event: any){
-        this.wgService.createWorkout(event);
+    async createWorkout(event: any){
+        await this.wgService.createWorkout(event);
+        this.router.navigate(['/admin/workout-guide/list']);
     }
 
     workout$: Observable<any>;
-    subscription: Subscription;
-
+   
     ngOnInit(){
-        this.subscription = this.wgService.filterItems$.subscribe();
         this.workout$ = this.route.params.pipe(switchMap(param => this.wgService.getWorkout(param.id)));
     }
 

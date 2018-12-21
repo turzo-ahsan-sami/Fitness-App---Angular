@@ -22,6 +22,18 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
 
                 <div class="workout-guide-form__row">
                     <div class="col-25">
+                        <label>Target body </label>
+                    </div>
+                    <div class="col-75" *ngFor="let type of bodyTypes; let i = index" >
+                        <label>
+                            <input type="checkbox" [value]="type.key" (change)="onbodyTypeCheck($event)">
+                            {{ type.value }}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="workout-guide-form__row">
+                    <div class="col-25">
                         <label>Instructions</label>
                     </div>
                     <div formArrayName="instructions" class="col-75">
@@ -117,13 +129,21 @@ export class WorkoutGuideFormComponent implements OnChanges{
     @Input() doc;
     exists = false;
 
+    bodyTypes = [
+        {key: 'weight-gain', value: 'Hard gainers'},
+        {key: 'skinny-fat', value: 'Building body mass'},
+        {key: 'getting-tone', value: 'Calorie watcher'},
+        {key: 'fat-loss', value: 'Weight loss'}
+    ];
+
     form = this.fb.group({
         name: ['', Validators.required],
         type: 'cardio',
         cardio: this.fb.group({ duration: 0 , distance: 0 }),
         weight: this.fb.group({ weight: 0, reps: 0, sets: 0 }),
         instructions: this.fb.array(['']),
-        calorie: ['', Validators.required]
+        calorie: ['', Validators.required],
+        targetBody: this.fb.array(['']),
     });
 
     ngOnChanges(){
@@ -168,6 +188,25 @@ export class WorkoutGuideFormComponent implements OnChanges{
     updateWorkout(){
         if (this.form.valid) {
             this.update.emit(this.form.value);
+        }
+    }
+
+    onbodyTypeCheck(event) {
+        const tb: FormArray = this.form.get('targetBody') as FormArray;
+        
+        if(event.target.checked){
+            tb.push(new FormControl(event.target.value));
+        }
+        else{
+          let i: number = 0;
+      
+          tb.controls.forEach((ctrl: FormControl) => {
+            if(ctrl.value == event.target.value) { 
+                tb.removeAt(i);
+              return;
+            }
+            i++;
+          });
         }
     }
 

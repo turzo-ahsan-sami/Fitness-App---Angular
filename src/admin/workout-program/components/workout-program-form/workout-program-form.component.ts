@@ -93,7 +93,7 @@ export class WorkoutProgramFormComponent implements OnChanges{
     @Input() doc;
     exists = false;
 
-    days = ['1-2', '2-3', '3-4','5-6', '7'];
+    days = ['1-2', '3-4', '5-6','7'];
 
     bodyType = [
         {key: 'weight-gain', value: 'Weight Gain'},

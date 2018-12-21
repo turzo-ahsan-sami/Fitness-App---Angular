@@ -30,6 +30,11 @@ import { Component } from '@angular/core';
                 </div>
             </div>
         </div>
+        <!--
+        <div *ngIf="userinfo == workoutProgram.bodyType && userInfo !== days">
+            // call there
+        </div>
+         -->
       
     `
 })

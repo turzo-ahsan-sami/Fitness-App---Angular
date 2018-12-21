@@ -25,7 +25,9 @@ export class TrainingProgramService{
             .then(results => {
                 if(results.data().days == doc.data().exerciseDaysAWeek){
                     const query = results.data()
+                    console.log(query)
                     return query;
+                    
                 }      
             });
         return data;

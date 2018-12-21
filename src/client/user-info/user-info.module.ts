@@ -1,3 +1,5 @@
+import { WorkoutProgressService } from './services/workout-progress.service';
+import { WorkoutProgressComponent } from './containers/workout-progress/containers/workout-progress.component';
 import { WorkoutProgrammeComponent } from './containers/workout-programme/workout-programme.component';
 import { UserInfoService } from './services/user-info.service';
 import { UserInfoFormComponent } from './components/userInfo-form/userInfo-form.component';
@@ -12,7 +14,8 @@ import { TrainingProgramService } from './services/training-program.service';
 export const ROUTES : Routes = [
     { path: '', component: UserInfoComponent },
     { path: 'meal-programme', component: MealProgrammeComponent },
-    { path: 'workout-programme', component: WorkoutProgrammeComponent }
+    { path: 'workout-programme', component: WorkoutProgrammeComponent },
+    { path: 'workout-progress', component: WorkoutProgressComponent }
 ]
 
 @NgModule({
@@ -25,11 +28,13 @@ export const ROUTES : Routes = [
         UserInfoComponent,
         UserInfoFormComponent,
         MealProgrammeComponent,
-        WorkoutProgrammeComponent
+        WorkoutProgrammeComponent,
+        WorkoutProgressComponent
    ],
    providers: [
        UserInfoService,
-       TrainingProgramService
+       TrainingProgramService,
+       WorkoutProgressService
    ]
 })
 

@@ -1,13 +1,8 @@
 import { AuthenticationService } from './../../../auth/shared/services/authentication.service';
-import { of, BehaviorSubject, combineLatest } from 'rxjs';
-//import { switchMap, map } from 'rxjs/operators';
-import { forEach } from '@angular/router/src/utils/collection';
-//import { Observable } from 'rxjs';
-//import { AngularFirestore } from '@angular/fire/firestore';
+import { of } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'

@@ -32,8 +32,7 @@ import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from 
                     <td><a [routerLink]="getRouteType(item)">Edit</a></td>
                 </tr>
 
-                
-                <tr *ngIf="item.instructions;">
+                <tr *ngIf="item.cardio || item.weight;">
                     <td>{{ i + 1 }}</td>
                     <td>{{ item?.name }}</td>
                     <td>{{ item?.type }}</td>

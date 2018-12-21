@@ -1,29 +1,19 @@
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireDatabase } from '@angular/fire/database';
 import { AuthenticationService } from './../../../auth/shared/services/authentication.service';
 import { Injectable } from "@angular/core";
 
 @Injectable()
 
 export class UserInfoService{
-    userId: any;
+   
     constructor(
-        public af:AngularFireDatabase,
         private as: AuthenticationService,
         private afs: AngularFirestore
-    ){
-        this.as.authState.subscribe(user => {
-            if(user){
-                this.userId = user.uid;
-            }
-            console.log(this.userId);
-        });
-    }
+    ){}
 
     get user() {
        return this.as.loggedInUser.uid;
-       //return this.as.currentUser;
     }
 
     
@@ -42,7 +32,6 @@ export class UserInfoService{
     // }
 
     async createUserInfo(value){
-       // await this.af.list(`user-info/${this.user}`).push(value);
         await this.afs.collection('user-info').doc(`${this.user}`).set(value);
     }
 

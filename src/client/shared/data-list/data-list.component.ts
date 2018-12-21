@@ -12,10 +12,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
         <h2 class="heading-secondary u-margin-bottom-small"></h2>
         <h3 class="heading-tertiary u-margin-bottom-small"></h3>
         <p class="assign-plan__text">
-            <button class="btn-0" (click)="filterBy('chicken')">Curry</button>
-            <button class="btn-0" (click)="filterBy('salad')">Salad</button>
-            <button class="btn-0" (click)="filterBy('snacks')">Snacks</button>
-            <button class="btn-0" (click)="filterBy('cusine')">Cusine</button>
+            
         </p>
 
         <div *ngIf="type.type == 'Workout'; else showMeal">
@@ -41,7 +38,9 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
         <ng-template #showMeal>
             <div class="list-item" *ngFor="let meal of meals; let i = index" (click)="toggleItem(meal, i)" [class.active]="existingItem(meal.name)">
                 <p class="list-item__name">{{ meal.name }}</p>
-                <p> {{ meal.calorie }}</p>
+                <span class="list-item__fact"> Calorie: {{ meal.calorie }}</span> | 
+                <span class="list-item__fact"> Protein: {{ meal.protein }}</span> | 
+                <span class="list-item__fact"> Fat: {{ meal.fat }}</span>
                 <p class="list-item__list">Ingredients: <span>{{ meal.ingredients }}</span></p>
                 <span id="more" (click)="expanded[i] =! expanded[i];$event.stopPropagation()">more</span>
                 <span *ngIf="expanded[i]">
@@ -64,12 +63,12 @@ export class DataListComponent implements OnInit{
 
     chosenItem = [];
     ngOnInit(){
+        console.log(this.type);
         this.chosenItem = [
             ...this.type.selection
         ]
     }
 
-    //expanded: boolean = false;
     expanded = [];
 
     toggleExpand(i){
@@ -95,9 +94,6 @@ export class DataListComponent implements OnInit{
             })
         }
 
-        ////// FIX
-        
-    
         if (this.existingItem(item.name)) {
             this.chosenItem = this.chosenItem.filter(x => x !== item.name);
             this.calculateCalorie = this.calculateCalorie.filter(x => x!== item.calorie)
@@ -120,11 +116,6 @@ export class DataListComponent implements OnInit{
     @Output() ownMeal = new EventEmitter<any>();
     addMealPlan(event){
         this.ownMeal.emit({ [this.type.type]: event });
-    }
-
-    @Output() filter = new EventEmitter<any>();
-    filterBy(item: string|null){
-        this.filter.emit(item);
     }
 
     @Output() close = new EventEmitter<any>();

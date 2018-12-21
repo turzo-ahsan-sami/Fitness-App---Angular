@@ -1,69 +1,67 @@
 .auth-form{
-    background: #fff;
-    box-shadow: 0 3px 4px rgba(0,0,0,.1);
-    border-radius: 3px;
-    border: 1px solid #c1cedb;
+    box-shadow: rgba(0,0,0,.2);
+    padding: 35px;
     width: 500px;
+    border-radius: 5px;
+    border: 1px solid #c1cedb;
     margin: 50px auto;
-    padding: 30px;
     &__btn{
         margin: 10px 0 30px;
     }
-    &__link{
-        border-radius: 0 0 3px 3px;
-        border-top: 1px solid #c1cedb;
-        background: #f8fafc;
-        padding: 10px;
-        margin: 0 -30px -30px;
-    }
     input{
-        outline: 0;
+        margin: 0 0 10px;
         font-size: 16px;
-        padding: 10px 15px;
-        margin: 0;
-        padding-right: 25px;
-        width: 90%;
-        background: #fafcfd;
-        color: #5777a8;
-        border: 1px solid #d1deeb;
         text-align: center;
-        &::-webkit-input-placeholder {
-            color: #5777a8;
-        }
-        &[type=email] {
-            border-radius: 3px 3px 0 0;
-        }
-        &[type=password] {
-            border-radius: 0 0 3px 3px;
-            margin: -1px 0 0;
-        }
+        padding: 10px 12px;
+        background: #fafcfd;
+        color: #4988e6;
+        width: 94%;
+        border: 1px solid #d1deeb;
+        outline: 0;
     }
     label{
         margin: 0;
         display: block;
     }
+    
 }
 
 :host ::ng-deep {
-button {
-    cursor: pointer;
-    outline: 0;
-    width: 98%;
-    border-radius: 2px;
-    border: 1px solid #1c79b8;
-    background: #39a1e7;
-    color: #fff;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-    &:hover {
-        background: darken(#39a1e7, 5%);
-        border-color: darken(#1c79b8, 5%);
-    }
-    &:disabled {
-        opacity: .4;
-        cursor: not-allowed;
+    button {
+        cursor: pointer;
+        outline: 0;
+        width: 100%;
+        border-radius: 2px;
+        border: 1px solid #f8ae91;
+        background: #e2b8a5;
+        color: #fff;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.4s ease-in-out;
+        &:hover {
+            background: #5bf3c0;
+            border-color: darken(#39fa90, 5%);
+        }
     }
 }
+
+.err {
+    color: #a94442;
+    background: #f2dede;
+    border: 1px solid #e4b3b3;
+    border-radius: 2px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 10px 0 0;
+}
+
+.logo {
+    font-size: 18px;
+    font-weight: 500;
+    color: #d4acab;
+    text-align: center;
+    margin: 0 0 15px;
+    border-bottom: 1px solid #e9ddcc;
 }

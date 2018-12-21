@@ -1,30 +1,32 @@
-import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
-import { SharedUIModule } from './../shared-UI/sharedUI.module';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { MealRecipeModule } from 'src/admin/meal-recipe/meal-recipe.module';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminModule } from './../admin/admin.module';
-import { AppHeaderComponent } from './components/app-header/app-header.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+//Containers
 import { AppComponent } from './app.component';
-import { AuthModule } from 'src/auth/auth.module';
-import { ClientModule } from 'src/client/client.module';
-import { AppSidebar } from './components/app-sidebar/app-sidebar.component';
 
+//Feature Modules
+import { SharedUIModule } from './../shared-UI/sharedUI.module';
+import { AuthModule } from 'src/auth/auth.module';
+import { AdminModule } from './../admin/admin.module';
+import { ClientModule } from 'src/client/client.module';
+
+//Components
+import { AppSidebar } from './components/app-sidebar/app-sidebar.component';
+import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.component';
+import { AppHeaderComponent } from './components/app-header/app-header.component';
 
 export const ROUTES: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'meal-recipe' }
 ];
-
 
 @NgModule({
   declarations: [
     AppComponent,
     AppHeaderComponent,
     AppSidebar,
-    AdminSidebarComponent
+    AdminSidebarComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NutritionInfoComponent } from './containers/nutrition-info/nutrition-info.component';
 
 export const ROUTES: Routes = [
-   // { path: '', redirectTo: '/list', pathMatch: 'full' },
+    { path: '', redirectTo: '/list', pathMatch: 'full' },
     { path: 'list', component: NutritionInfoListComponent },
     { path: 'create', component: NutritionInfoComponent },
     { path: ':id', component: NutritionInfoComponent }

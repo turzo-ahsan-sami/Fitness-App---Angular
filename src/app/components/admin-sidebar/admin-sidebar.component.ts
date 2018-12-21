@@ -26,10 +26,10 @@ export class AdminSidebarComponent{
             link: 'admin/workout-guide/list', name: 'Workout List' 
         },
         {
-            link: 'admin/nutrition-info/create', name: 'Meal Programmes'
+            link: 'admin/nutrition-info/list', name: 'Meal Programmes'
         },
         {
-            link: 'admin/training-info/list', name: 'Workout Programmes'
+            link: 'admin/workout-program/list', name: 'Workout Programmes'
         }
     ]
 }

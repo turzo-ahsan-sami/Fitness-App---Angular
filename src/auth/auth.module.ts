@@ -11,15 +11,14 @@ import { RouterModule, Routes } from "@angular/router";
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { StoreModule } from '@ngrx/store';
 import { authReducer } from './shared/store/reducers/auth.reducer';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { schedulePlanReducer } from 'src/client/schedule-plan/store/reducers/schedule-plan.reducer';
 
 export const ROUTES: Routes = [
     {
         path: 'secure', children: [
             { path: '', pathMatch: 'full', redirectTo: 'login' },
-            { path: 'login', loadChildren: () => LoginModule },
-            { path: 'register', loadChildren: () => RegisterModule }
+            { path: 'login', loadChildren: './login/login.module#LoginModule' },
+            { path: 'register', loadChildren: './register/register.module#RegisterModule' }
         ]
     }
     

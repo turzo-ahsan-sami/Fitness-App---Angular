@@ -12,11 +12,16 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
         <div class="nutrition-info-form">
             <form [formGroup]="form" novalidate>
 
-                <div class="input-wrap select-box">
-                    <select formControlName="bodyType">
-                        <option value="">Select</option>
-                        <option *ngFor="let type of bodyType" [value]="type.key">{{ type.value }}</option>
-                    </select>
+                <div class="nutrition-info-form__row">
+                    <div class="col-25">
+                        <label>Program For</label>
+                    </div>
+                    <div class="col-75">
+                        <select class="select" formControlName="bodyType">
+                            <option value="">Select</option>
+                            <option *ngFor="let type of bodyType" [value]="type.key">{{ type.value }}</option>
+                        </select>
+                    </div>
                 </div>
 
                 <!-- NUTRITION INFO BLOCK -->
@@ -42,7 +47,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
                 <!-- Macro -->
                 <div>
                     <div formArrayName="marcos">
-                        <h3>Macros</h3>
+                        <h2>Macros</h2>
                         <div *ngFor="let marco of form.get('marcos').controls; let i=index">
                             <div [formGroupName]="i">
                                 <div class="nutrition-info-form__row">
@@ -103,7 +108,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 
                 <div>
                     <div formArrayName="supplements">
-                        <h3>Supplements</h3>
+                        <h2>Supplements</h2>
                         <div *ngFor="let supplement of form.get('supplements').controls; let i=index">
                             <div [formGroupName]="i">
                                 <div class="nutrition-info-form__row">
@@ -122,16 +127,15 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
                                     <div class="col-75">
                                         <textarea formControlName="supplementsDescription"></textarea>
                                     </div>
-                                    <button class="array" type="button" (click)="addSupplements()">+</button>
                                 </div>
-
                             </div>
                         </div>
+                        <button class="array" type="button" (click)="addSupplements()">+</button>
                     </div>
                 </div>
                 
                 <div class="nutrition-info-form__row">
-                    <button class="button button--create" type="button" *ngIf="!exists" (click)="dispatchNutritionInfo()">Create</button>
+                    <button class="button button--create" type="button" [disabled]="form.invalid" *ngIf="!exists" (click)="dispatchNutritionInfo()">Create</button>
                     <button class="button button--create" type="button" *ngIf="exists" (click)="updateNutritionInfo()">Update</button>
                     <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
                 </div>

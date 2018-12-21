@@ -24,11 +24,13 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
                         </section>
                 
                         <section id="content2">
-                            
+                            <div *ngIf="suggestWorkouts | async as workouts">
+                                <data-list [type]="type" [userInfo]="user" [meals]="workouts" (add)="createPlan($event)" (close)="closeModal()"></data-list>
+                            </div>
                         </section>
 
                         <section id="content3">
-                            <create-workout></create-workout>
+                            <create-workout (workout)="createPlan($event)"></create-workout>
                         </section>
                     </main>
 
@@ -65,9 +67,12 @@ export class AssignWorkoutComponent{
         this.close.emit();
     }
 
+    @Input() suggestWorkouts;
+
     //// FIX /////
     @Output() ownWorkout = new EventEmitter<any>();
     addMealPlan(event){
+        console.log(event);
         this.ownWorkout.emit({ [this.type.type]: event });
     }
 

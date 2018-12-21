@@ -1,3 +1,4 @@
+import { SharedUIModule } from 'src/shared-UI/sharedUI.module';
 import { AssignWorkoutComponent } from './components/assign-workout/assign-workout.component';
 import { WorkoutGuideModule } from './../../admin/workout-guide/workout-guide.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +26,8 @@ export const ROUTES: Routes = [
         SharedModule,
         RouterModule.forChild(ROUTES),
         ReactiveFormsModule,
-        WorkoutGuideModule
+        WorkoutGuideModule,
+        SharedUIModule
     ],
     declarations: [
         SchedulePlanComponent,

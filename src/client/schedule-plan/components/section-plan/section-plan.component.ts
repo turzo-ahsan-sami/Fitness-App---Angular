@@ -17,7 +17,7 @@ import { Component } from '@angular/core';
             
             <div class="section-plan__bar">Breakfast</div>
             <div class="section-plan__list" *ngIf="section?.Breakfast; else existingBreakfast" (click)="selectSection('Breakfast', 'edit', section?.Breakfast.Breakfast)">
-                {{ section?.Breakfast.Breakfast }}
+                {{ section?.Breakfast.Breakfast  }}
             </div>
             <ng-template #existingBreakfast>
                 <div class="section-plan__list" (click)="selectSection('Breakfast','new')">Add Breakfast</div>
@@ -57,26 +57,16 @@ import { Component } from '@angular/core';
         <div class="section-plan">
             <div class="section-plan__bar">Workout</div>
             <div class="section-plan__list" *ngIf="section?.Workout; else existingWorkout" (click)="selectSection('Workout', 'edit', section?.Workout.Workout)">
-                {{ section?.Workout.Workout }}
+                {{ section?.Workout.Workout | splitString }}{{ section.Workout.name | splitString }}
             </div>
             <ng-template #existingWorkout>
                 <div class="section-plan__list" (click)="selectSection('Workout','new')">Add Workout</div>
             </ng-template>
         </div> 
-           
-<!--
-        <div *ngIf="sec.Workout; else existingWorkout">{{ sec.Workout.Workout }}</div> 
-        <ng-template #existingWorkout>
-            <div class="section-plan" (click)="selectSection(type)">Add {{ type }}
-                
-            </div>
-        </ng-template> !-->
-        
-        
     `
 })
 
-export class SectionPlanComponent implements OnInit, AfterViewInit{
+export class SectionPlanComponent implements OnInit{
 
     @Output() selected = new EventEmitter<any>();
 
@@ -89,7 +79,7 @@ export class SectionPlanComponent implements OnInit, AfterViewInit{
     }
 
     @Input() calories: any;
-    @Input() sections: any;
+    
 
     
     sec;
@@ -98,14 +88,8 @@ export class SectionPlanComponent implements OnInit, AfterViewInit{
    
     ngOnInit(){
         this.sec = this.items || {};
-        console.log(this.items);
-
+        console.log(this.section);
         
-        
-    }
-
-    ngAfterViewInit(){
-       
     }
 
     get totalCalorieForDinner(){

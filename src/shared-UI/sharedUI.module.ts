@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { SpinningIconComponent } from './UI/spinning-icon/spinning-icon.component';
 import { NgModule } from '@angular/core';
 import { VerticalBarPipe } from './pipes/vertical-bar/vertical-bar.pipe';
+import { SplitStringPipe } from './pipes/split-string/split-string.pipe';
 
 @NgModule({
     imports: [
@@ -9,11 +10,13 @@ import { VerticalBarPipe } from './pipes/vertical-bar/vertical-bar.pipe';
     ],
     declarations: [
         SpinningIconComponent,
-        VerticalBarPipe
+        VerticalBarPipe,
+        SplitStringPipe
     ],
     exports: [
         SpinningIconComponent,
-        VerticalBarPipe
+        VerticalBarPipe,
+        SplitStringPipe
     ]
 })
 

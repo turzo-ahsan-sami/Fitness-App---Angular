@@ -21,6 +21,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
                         <label for="tab3">Create your own</label>
                 
                         <section id="content1">
+                            <filter-type *ngFor="let type of types" [item]="type" (filter)="filterBy($event)"></filter-type>
                             <data-list [type]="type" [userInfo]="user" [meals]="meals" (filter)="filterBy($event)" (add)="createPlan($event)" (close)="closeModal()"></data-list>
                         </section>
                 
@@ -43,6 +44,15 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
 })
 
 export class AssignPlanComponent implements OnInit{
+
+    types = [
+        { key: 'curry', value: 'Curry' },
+        { key: 'salad', value: 'Salad' },
+        { key: 'dairy', value: 'Dairy' },
+        { key: 'fruits', value: 'Fruits' },
+        { key: 'vegetables', value: 'Vegetables'}
+    ];
+    
     @Input() open: boolean;
 
     @Input() type: any;
@@ -57,31 +67,18 @@ export class AssignPlanComponent implements OnInit{
 
     @Input() suggestMeals: any;
 
-    constructor(){
-        
-        console.log(this.type);
-    }
+    constructor(){}
 
     ngOnInit(){
         console.log(this.user);
     }
 
     createPlan(event){
-        console.log(event);
         this.add.emit(event);
     }
 
     closeModal() {
         this.close.emit();
-    }
-
-    ////// FIX THIS ////////////
-    @Output() ownMeal = new EventEmitter<any>();
-    addMealPlan(event){
-        this.ownMeal.emit(
-            { [this.type.type]: event.target.value.name, ['calorie']: event.target.value.calorie }
-        );
-        console.log(event);
     }
 
     @Output() filter = new EventEmitter<any>();

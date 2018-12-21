@@ -8,9 +8,14 @@ import { Router, ActivatedRoute } from '@angular/router';
     selector: 'workout-program',
     styleUrls: ['workout-program.component.scss'],
     template:  `
-        <div *ngIf="workoutProgram$ | async as workoutProgram">
+        <div *ngIf="workoutProgram$ | async as workoutProgram; else fetching;">
             <workout-program-form [doc]="workoutProgram" (create)="createItem($event)" (update)="updateItem($event)"></workout-program-form>
         </div>
+        <ng-template #fetching>
+            <div class="message">
+                <spinning-icon></spinning-icon>
+            </div>
+        </ng-template>
         <div *ngIf="err">{{ err }}</div>
     `
 })

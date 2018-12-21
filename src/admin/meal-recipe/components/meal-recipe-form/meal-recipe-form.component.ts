@@ -51,8 +51,32 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                         <label>Calorie Amount</label>  
                     </div> 
                     <div class="col-75"> 
-                        <input type="text" formControlName="calorie">
+                        <input type="number" formControlName="calorie">
                         <div class="error" *ngIf="form.get('calorie').hasError('required') && form.get('calorie').touched"> 
+                            Required Field. 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="meal-recipe-form__row"> 
+                    <div class="col-25"> 
+                        <label>Fat Amount</label>  
+                    </div> 
+                    <div class="col-75"> 
+                        <input type="text" formControlName="fat">
+                        <div class="error" *ngIf="form.get('fat').hasError('required') && form.get('fat').touched"> 
+                            Required Field. 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="meal-recipe-form__row"> 
+                    <div class="col-25"> 
+                        <label>Protein Amount</label>  
+                    </div> 
+                    <div class="col-75"> 
+                        <input type="text" formControlName="protein">
+                        <div class="error" *ngIf="form.get('protein').hasError('required') && form.get('protein').touched"> 
                             Required Field. 
                         </div>
                     </div>
@@ -104,10 +128,12 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
 export class MealRecipeFormComponent implements OnChanges{
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({
-            name: ['', Validators.required],
+            name: ['', [Validators.required, Validators.minLength(2)]],
             ingredients: this.fb.array(['']),
             instructions: this.fb.array(['']),
-            calorie: ['', Validators.pattern('[0-9]+')],
+            calorie: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+            fat: ['', Validators.required],
+            protein: ['', Validators.required],
             targetedBody: new FormArray([]),
             foodType: new FormArray([]),
         });
