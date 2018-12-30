@@ -14,7 +14,7 @@ export class WorkoutProgressService{
         private as: AuthenticationService,
         private afs: AngularFirestore
     ){
-        const start = ( new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate())).getTime();
+        const start = ( new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() - 20)).getTime();
         const end = ( new Date(this.day.getFullYear(), this.day.getMonth(), this.day.getDate() + 10)).getTime();
         this.query = this.workoutHistory(start, end);
     }

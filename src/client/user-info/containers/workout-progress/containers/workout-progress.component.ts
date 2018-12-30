@@ -6,7 +6,12 @@ import { Component } from '@angular/core';
    // styleUrls: ['workout-progress.component.scss'],
     template: `
     <div *ngIf="workoutProgress$ | async as workoutProgress">
-        {{ workoutProgress | json  }}
+        <input type="text" [(ngModel)]="searchText" 
+        class="form-control" placeholder="Search By Category" />
+        <div *ngFor="let wp of workoutProgress | searchFilter: searchText ">
+            {{ wp | json }}
+        </div>
+       
     </div>
     `
 })

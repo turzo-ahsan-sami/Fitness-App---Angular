@@ -30,8 +30,8 @@ export class MealRecipeService{
         );
     }
 
-    async createMealRecipe(value){
-        await this.afs.collection('meal-recipes').add(value);
+    createMealRecipe(value){
+        return this.afs.collection('meal-recipes').add(value);
     }
 
     getRecipe(key: string) {

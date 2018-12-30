@@ -15,6 +15,12 @@ export const ROUTES: Routes = [
         },
         {
             path: 'suggestion', canActivate: [RouterGuard], loadChildren: './user-info/user-info.module#UserInfoModule'
+        },
+        {
+            path: 'meal-program', canActivate: [RouterGuard], loadChildren: './meal-program/meal-program.module#MealProgramModule'
+        },
+        {
+            path: 'workout-program', canActivate: [RouterGuard], loadChildren: './workout-program/workout-program.module#TrainingProgramModule'
         }
     ]}
 ]

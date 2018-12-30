@@ -3,6 +3,7 @@ import { SpinningIconComponent } from './UI/spinning-icon/spinning-icon.componen
 import { NgModule } from '@angular/core';
 import { VerticalBarPipe } from './pipes/vertical-bar/vertical-bar.pipe';
 import { SplitStringPipe } from './pipes/split-string/split-string.pipe';
+import { SearchFilterPipe } from './pipes/search-filter/search-filter.pipe';
 
 @NgModule({
     imports: [
@@ -11,12 +12,14 @@ import { SplitStringPipe } from './pipes/split-string/split-string.pipe';
     declarations: [
         SpinningIconComponent,
         VerticalBarPipe,
-        SplitStringPipe
+        SplitStringPipe,
+        SearchFilterPipe
     ],
     exports: [
         SpinningIconComponent,
         VerticalBarPipe,
-        SplitStringPipe
+        SplitStringPipe,
+        SearchFilterPipe
     ]
 })
 

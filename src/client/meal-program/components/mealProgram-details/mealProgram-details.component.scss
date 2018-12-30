@@ -1,0 +1,27 @@
+
+
+// table
+// css styles from w3c
+#meal-plan {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+#meal-plan td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+#meal-plan tr:nth-child(even){background-color: #f2f2f2;}
+  
+#meal-plan tr:hover {background-color: #ddd;}
+  
+#meal-plan th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+

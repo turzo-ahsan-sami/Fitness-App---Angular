@@ -11,11 +11,7 @@ import { Component } from '@angular/core';
     template: `
         <control-days (switch)="changeWeek($event)" [currentDate]="chosenDay"></control-days>
         <div class="wrap">
-            <div class="days">
-                <button class="day" *ngFor="let day of days; let i = index;" (click)="selectDay(i)" type="button">
-                    <span class="point-btn" [class.active]="i === selectedIndexDay">{{ day }}</span>
-                </button>
-            </div>
+            <days [days]="days" [selectedIndex]="selectedIndexDay" (switch)="selectDay($event)"></days>
             <div class="sections">
                 <section-plan [section]="getType()" [calories]="calorieInfo?.marcos" (selected)="addSection($event)" (caloriesTotal)="totalCalories($event)" [items]="items"></section-plan>
             </div> 

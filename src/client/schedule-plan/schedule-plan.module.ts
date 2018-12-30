@@ -1,3 +1,4 @@
+import { DaysComponent } from './components/days/days.component';
 import { SharedUIModule } from 'src/shared-UI/sharedUI.module';
 import { AssignWorkoutComponent } from './components/assign-workout/assign-workout.component';
 import { WorkoutGuideModule } from './../../admin/workout-guide/workout-guide.module';
@@ -37,7 +38,8 @@ export const ROUTES: Routes = [
         AssignPlanComponent,
         CreateMealComponent,
         CreateWorkoutComponent,
-        AssignWorkoutComponent
+        AssignWorkoutComponent,
+        DaysComponent
     ],
     providers: [
         

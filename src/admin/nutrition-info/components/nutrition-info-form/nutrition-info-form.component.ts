@@ -156,7 +156,7 @@ export class NutritionInfoFormComponent implements OnChanges{
             bodyType: ['', Validators.required],
             nutritionDescription: ['', Validators.required],
             foodProducts: this.fb.array(['']),
-            marcos: this.fb.array([
+            marcos: this.fb.array([ //macros
                 this.createItem()
             ]),
             supplements: this.fb.array([

@@ -1,3 +1,4 @@
+import { SharedUIModule } from './../../shared-UI/sharedUI.module';
 import { WorkoutProgressService } from './services/workout-progress.service';
 import { WorkoutProgressComponent } from './containers/workout-progress/containers/workout-progress.component';
 import { WorkoutProgrammeComponent } from './containers/workout-programme/workout-programme.component';
@@ -10,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MealProgrammeComponent } from './containers/meal-programme/meal-programme.component';
 import { TrainingProgramService } from './services/training-program.service';
+import { FormsModule } from '@angular/forms'; 
 
 export const ROUTES : Routes = [
     { path: '', component: UserInfoComponent },
@@ -23,6 +25,8 @@ export const ROUTES : Routes = [
         RouterModule.forChild(ROUTES),
         ReactiveFormsModule,
         CommonModule,
+        SharedUIModule,
+        FormsModule
    ],
    declarations:[
         UserInfoComponent,

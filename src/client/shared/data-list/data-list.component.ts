@@ -104,6 +104,15 @@ export class DataListComponent implements OnInit{
         console.log(this.calculateCalorie);
     }
 
+    toggleWorkout(item){
+        if(this.chosenItem.filter(x => x !== item.name)){
+            this.chosenItem = item;
+        }else{
+            this.chosenItem = [...this.chosenItem, item];
+        }
+        console.log(this.chosenItem);
+    }
+
     @Output() add = new EventEmitter<any>();
     createPlan(){
         this.add.emit({ [this.type.type]: this.chosenItem, ['calorie']: this.calculateCalorie });

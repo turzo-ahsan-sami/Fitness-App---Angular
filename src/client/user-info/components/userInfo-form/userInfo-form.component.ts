@@ -133,11 +133,11 @@ export class UserInfoFormComponent{
       
       this.form = this.fb.group({
         gender: ['', Validators.required],
-        age: ['', Validators.required],
+        age: ['', Validators.required], //check number
         weight: ['', Validators.required],
         exerciseDaysAWeek: ['', Validators.required],
         bodyType: ['', Validators.required],
-        allergries: new FormArray([]),
+        allergries: new FormArray([]), // allergies spelling
         favFoodGroup: new FormArray([]),
       });
     }

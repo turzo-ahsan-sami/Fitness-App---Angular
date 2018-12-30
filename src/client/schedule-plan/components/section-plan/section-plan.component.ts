@@ -84,7 +84,7 @@ export class SectionPlanComponent implements OnInit{
     
     sec;
     @Input() items: any;
-    @Output() caloriesTotal = new EventEmitter<any>();
+    @Output() caloriesTotal = new EventEmitter<any>(); //?
    
     ngOnInit(){
         this.sec = this.items || {};
