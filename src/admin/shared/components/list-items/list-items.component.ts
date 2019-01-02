@@ -9,10 +9,9 @@ import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from 
         <table>
             <thead>
                 <tr>
-                    <td>Index</td>
+                    <th>Index</th>
                     <th>Title</th>
-                    <th>Ingredients</th>
-                    <th>Calorie</th>
+                    <th>Items list</th>
                     <th>Aim For</th>
                     <th colspan="2">Actions</th>
                 </tr>
@@ -24,48 +23,49 @@ import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from 
                     <td>{{ i + 1 }}</td>
                     <td>{{ item?.name }}</td>
                     <td>{{ item?.ingredients | verticalBar }}</td>
-                    <td>{{ item?.calorie }}</td>
                     <td>{{ item?.targetedBody }}</td>
                     <td>
                         <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
                     </td>
-                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                    <td><a [routerLink]="getRouteType(item)"><img src="/assets/edit.svg"></a></td>
                 </tr>
 
                 <tr *ngIf="item.cardio || item.weight;">
                     <td>{{ i + 1 }}</td>
                     <td>{{ item?.name }}</td>
                     <td>{{ item?.type }}</td>
-                    <td>{{ item?.calorie }}</td>
-                    <td>{{ item?.targetedBody }}</td>
+                    <td>{{ item?.targetBody }}</td>
                     <td>
                         <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
                     </td>
-                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                    <td><a [routerLink]="getRouteType(item)"><img src="/assets/edit.svg"></a></td>
                 </tr>
 
+            
                 <tr *ngIf="item.foodProducts;">
                     <td>{{ i + 1 }}</td>
                     <td>{{ item?.title }}</td>
+                    <td>{{ item?.foodProducts | verticalBar }}</td>
                     <td>{{ item?.bodyType }}</td>
                     <td>
                         <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
                     </td>
-                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                    <td><a [routerLink]="getRouteType(item)"><img src="/assets/edit.svg"></a></td>
                 </tr>
 
                 <tr *ngIf="item.days;">
                     <td>{{ i + 1 }}</td>
                     <td>{{ item?.title }}</td>
+                    <td>{{ item?.description }}</td>
                     <td>{{ item?.bodyType }}</td>
                     <td>
                         <a (click)="removeItem(item.id)"><img src="/assets/trash.svg"></a>
                     </td>
-                    <td><a [routerLink]="getRouteType(item)">Edit</a></td>
+                    <td><a [routerLink]="getRouteType(item)"><img src="/assets/edit.svg"></a></td>
                 </tr>
-                
             </tbody>
         </table>    
+
     `
 })
 

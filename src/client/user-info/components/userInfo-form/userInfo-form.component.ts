@@ -11,9 +11,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     template: `
         <form [formGroup]="form">
 
-            <label for="explain">What is your gender?</label>
+            <label for="explain">Select gender?</label>
             <div class="input-wrap">
-                <input type="radio" value="male" name="gender" required formControlName="gender"> Male
+                <input type="radio" value="male" name="gender" required formControlName="gender"> Male <br />
                 <input type="radio" value="female" name="gender" required formControlName="gender"> Female
             </div>
 
@@ -21,7 +21,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
                 Please select gender. 
             </div> 
 
-            <label for="explain">What is your age range?</label>
+            <label for="explain">Select your age range?</label>
             <div class="input-wrap select-box">
                 <select formControlName="age">
                     <option value="">Select</option>
@@ -90,7 +90,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
                 </label>
             </div>
         
-            <button type="button" (click)="submitData()">submit</button>
+            <button class="button button--create" type="button" (click)="submitData()">submit</button>
         </form>
     `
 })
@@ -133,11 +133,11 @@ export class UserInfoFormComponent{
       
       this.form = this.fb.group({
         gender: ['', Validators.required],
-        age: ['', Validators.required], //check number
-        weight: ['', Validators.required],
+        age: ['', Validators.required], 
+        weight: [120, Validators.required],
         exerciseDaysAWeek: ['', Validators.required],
         bodyType: ['', Validators.required],
-        allergries: new FormArray([]), // allergies spelling
+        allergries: new FormArray([]), 
         favFoodGroup: new FormArray([]),
       });
     }

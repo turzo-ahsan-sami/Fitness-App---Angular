@@ -6,9 +6,14 @@ import { Component } from "@angular/core";
     selector: 'workout-program-list',
     styleUrls: ['workout-program-list.component.scss'],
     template:  `
-        <a [routerLink]="['../create']">Create</a>
-        <div *ngIf="items | async as items; else fetching;">
-            <list-items [items]="items" (remove)="RemoveItem($event)"></list-items>
+        <div class="workout-program-list">
+            <div class="workout-program-list__link">
+                <a [routerLink]="['../create']">Create + </a>
+            </div>
+        
+            <div class="workout-program-list__items" *ngIf="items | async as items; else fetching;">
+                <list-items [items]="items" (remove)="RemoveItem($event)"></list-items>
+            </div>
         </div>
         <ng-template #fetching>
             <div class="message">

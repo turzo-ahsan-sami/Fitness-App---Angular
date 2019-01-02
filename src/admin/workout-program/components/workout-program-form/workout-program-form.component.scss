@@ -1,6 +1,9 @@
-// CSS designs from Jonathan Harrell
 * {
     box-sizing: border-box;
+}
+
+h1{
+    margin-left: 10px;
 }
 
 .workout-program-form {
@@ -32,7 +35,7 @@
     margin-top: 6px;
 }
 
-input[type=text], select {
+input[type=text] {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
@@ -107,3 +110,12 @@ input[type=submit]:hover {
     margin: 10px 0 0;
 }
 
+
+select{
+    width: 95%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    height: 30px;
+}

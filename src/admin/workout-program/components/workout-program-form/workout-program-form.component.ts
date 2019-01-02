@@ -9,7 +9,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrat
         <div class="workout-program-form">
             <form [formGroup]="form" novalidate>
 
-                <div class="input-wrap select-box">
+                <div class="workout-program-form__row">
                     <div class="col-25">
                         <label>Program For</label>
                     </div>
@@ -19,7 +19,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrat
                     </select>
                 </div>
 
-                <div class="input-wrap select-box">
+                <div class="workout-program-form__row">
                     <div class="col-25">
                         <label>Select Day Range</label>
                     </div>
@@ -51,7 +51,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrat
 
                 <div>
                     <div formArrayName="workouts">
-                        <h3>Workout List</h3>
+                        <h1>Workout List</h1>
                         <div *ngFor="let workout of form.get('workouts').controls; let i=index">
                             <div [formGroupName]="i">
                                 <div class="workout-program-form__row">
@@ -70,6 +70,9 @@ import { Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrat
                                     <div class="col-75">
                                         <input type="text" formControlName="workoutTitle">
                                     </div>
+                                </div>
+
+                                <div class="workout-program-form__row">
                                     <button class="array" type="button" (click)="addWorkout()">+</button>
                                 </div>
 
@@ -81,7 +84,7 @@ import { Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrat
                 <div class="workout-program-form__row">
                     <button class="button button--create" type="button" *ngIf="!exists" (click)="createInfo()">Create</button>
                     <button class="button button--create" type="button" *ngIf="exists" (click)="updateInfo()">Update</button>
-                    <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
+                    <a class="button button--cancel" [routerLink]="['../list']">Cancel</a>
                 </div>
             </form>
         </div>

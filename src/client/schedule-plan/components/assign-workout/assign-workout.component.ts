@@ -3,7 +3,7 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
 @Component({
     selector: 'assign-workout',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['./../assign-plan/assign-plan.component.scss'],
+    styleUrls: ['./../assign-meal/assign-meal.component.scss'],
     template: `
         <div class="assign-plan">
             <div class="assign-plan__content">

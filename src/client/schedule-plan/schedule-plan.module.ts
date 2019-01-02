@@ -4,7 +4,7 @@ import { AssignWorkoutComponent } from './components/assign-workout/assign-worko
 import { WorkoutGuideModule } from './../../admin/workout-guide/workout-guide.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './../shared/shared.module';
-import { AssignPlanComponent } from './components/assign-plan/assign-plan.component';
+import { AssignMealComponent } from './components/assign-meal/assign-meal.component';
 import { SectionPlanComponent } from './components/section-plan/section-plan.component';
 import { ControlDaysComponent } from './components/control-days/control-days.component';
 import { SchedulePlanService } from './services/schedule-plan.service';
@@ -35,7 +35,7 @@ export const ROUTES: Routes = [
         CalendarComponent,
         ControlDaysComponent,
         SectionPlanComponent,
-        AssignPlanComponent,
+        AssignMealComponent,
         CreateMealComponent,
         CreateWorkoutComponent,
         AssignWorkoutComponent,

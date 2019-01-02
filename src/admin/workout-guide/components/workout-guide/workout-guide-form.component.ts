@@ -116,7 +116,7 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                         Create 
                     </button>
                     <button class="button button--create" type="button" *ngIf="exists" (click)="updateWorkout()">Update</button>
-                    <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
+                    <a class="button button--cancel" [routerLink]="['../list']">Cancel</a>
                 </div>
 
             </form>
@@ -143,7 +143,7 @@ export class WorkoutGuideFormComponent implements OnChanges{
         weight: this.fb.group({ weight: 0, reps: 0, sets: 0 }),
         instructions: this.fb.array(['']),
         calorie: ['', Validators.required],
-        targetBody: this.fb.array(['']),
+        targetBody: this.fb.array([]),
     });
 
     ngOnChanges(){

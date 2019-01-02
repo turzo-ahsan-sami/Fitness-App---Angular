@@ -137,7 +137,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
                 <div class="nutrition-info-form__row">
                     <button class="button button--create" type="button" [disabled]="form.invalid" *ngIf="!exists" (click)="dispatchNutritionInfo()">Create</button>
                     <button class="button button--create" type="button" *ngIf="exists" (click)="updateNutritionInfo()">Update</button>
-                    <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
+                    <a class="button button--cancel" [routerLink]="['../list']">Cancel</a>
                 </div>
             </form>
         </div>
@@ -234,7 +234,7 @@ export class NutritionInfoFormComponent implements OnChanges{
     @Output() create = new EventEmitter<any>();
     dispatchNutritionInfo(){
         this.create.emit(this.form.value);
-        console.log(this.form.value);
+        //console.log(this.form.value);
     }
 
     emptyFoodProducts() {

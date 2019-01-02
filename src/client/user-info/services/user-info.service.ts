@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthenticationService } from './../../../auth/shared/services/authentication.service';
@@ -25,14 +26,18 @@ export class UserInfoService{
         });
     }
 
-    userInfo$: Observable<any> = this.afs.collection('user-info').doc(`${this.user}`).valueChanges();
+    userInfo$: Observable<any> = this.afs.collection('user-info').doc(`${this.user}`).snapshotChanges();
     // getUserInfo(){
     //     console.log(this.userId);
     //     return this.afs.collection('user-info').doc(`${this.userId}`).valueChanges();
     // }
 
-    async createUserInfo(value){
-        await this.afs.collection('user-info').doc(`${this.user}`).set(value);
+    createUserInfo(value){
+        this.afs.collection('user-info').doc(`${this.user}`).set(value);
+    }
+
+    updateUserInfo(value){
+        return this.afs.collection('user-info').doc(`${this.user}`).update(value);
     }
 
 

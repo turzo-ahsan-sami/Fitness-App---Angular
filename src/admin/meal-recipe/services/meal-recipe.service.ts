@@ -1,6 +1,5 @@
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from '@angular/fire/database';
 import { Observable, BehaviorSubject, combineLatest, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 

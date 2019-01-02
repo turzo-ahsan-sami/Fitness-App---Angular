@@ -6,16 +6,24 @@ body {
 
 table {
   width: 100%;
+  table-layout: fixed;
+  max-width: 100%;
   border-top: 1px solid #ccc;
   border-left: 1px solid #ccc;
   border-collapse: collapse;
   margin-bottom:1em;
   
+  
   th, td {
+    min-width: 100%;
+    
     padding: 0.5em 1em;
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;
     white-space: pre;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
     a{
       img{
         width: 24px;
@@ -29,6 +37,7 @@ table {
   
   tbody td {
     text-align: center;
+    
   }
   
   thead {

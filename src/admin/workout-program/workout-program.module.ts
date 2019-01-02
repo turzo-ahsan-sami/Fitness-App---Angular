@@ -35,6 +35,6 @@ export const ROUTES: Routes = [
     ],
 })
 
-export class WorkoutProgramModule{
+export class WorkoutProgramModule1{
 
 }

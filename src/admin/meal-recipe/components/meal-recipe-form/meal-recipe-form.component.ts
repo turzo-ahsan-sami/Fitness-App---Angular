@@ -115,9 +115,15 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
                 </div>
 
                 <div class="meal-recipe-form__row">
-                    <button class="button button--create" *ngIf="!exists" type="button" [disabled]="form.invalid" (click)="dispatchMeal()">Create</button>
-                    <button class="button button--create" type="button" *ngIf="exists" (click)="updateMeal()">Update</button>
-                    <a class="button button--cancel" [routerLink]="['../']">Cancel</a>
+                    <button class="button button--create" *ngIf="!exists" 
+                        type="button" [disabled]="form.invalid" (click)="dispatchMeal()">
+                        Create
+                    </button>
+                    <button class="button button--create" type="button" 
+                        *ngIf="exists" (click)="updateMeal()">
+                        Update
+                    </button>
+                    <a class="button button--cancel" [routerLink]="['../list']">Cancel</a>
                 </div>
                 
             </form>
@@ -128,7 +134,7 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
 export class MealRecipeFormComponent implements OnChanges{
     constructor(private fb: FormBuilder) {
         this.form = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(2)]],
+            name: ['', Validators.required],
             ingredients: this.fb.array(['']),
             instructions: this.fb.array(['']),
             calorie: ['', [Validators.required, Validators.pattern('[0-9]+')]],

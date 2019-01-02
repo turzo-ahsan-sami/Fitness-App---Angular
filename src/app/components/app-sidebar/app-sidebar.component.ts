@@ -29,7 +29,10 @@ export class AppSidebar{
             link: 'user/schedule-plan', name: 'Schedule'
         },
         {
-            link: 'user/info', name: 'Profile'
+            link: 'user/workout-progress', name: 'Progress Report'
+        },
+        {
+            link: 'user/info/edit', name: 'Switch Plan'
         }
     ]
 }

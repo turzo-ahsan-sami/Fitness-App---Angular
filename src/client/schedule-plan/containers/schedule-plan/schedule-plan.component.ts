@@ -1,16 +1,14 @@
 import { NutritionInfoService } from './../../../../admin/nutrition-info/services/nutrition-info.service';
 import { WorkoutGuideService } from './../../../../admin/workout-guide/services/workoutguide.service';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { MealRecipeService } from './../../../../admin/meal-recipe/services/meal-recipe.service';
 import { AppState } from './../../../../app/app.state';
 import { Store } from '@ngrx/store';
 
 import { Subscription, Observable } from 'rxjs';
 import { OnInit, OnDestroy } from '@angular/core';
-import { SchedulePlanService, ScheduleItem } from './../../services/schedule-plan.service';
+import { SchedulePlanService } from './../../services/schedule-plan.service';
 import { Component } from '@angular/core';
-
-
 
 @Component({
     selector: 'schedule-plan',
@@ -18,13 +16,8 @@ import { Component } from '@angular/core';
     template: `
         <div class="schedule-plan" *ngIf="date$ | async as date">
             <calendar (changeDate)="changeDate($event)" [calorieInfo]="nutrientsInfoForWeightGain$ | async" (open)="openSection($event)" [date]="date" [items]="schedule$"></calendar>
-            <assign-plan *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" [suggestMeals]="suggestMeals$" (add)="createScheduleData($event)" [type]="type$" (close)="closeModal()" (filter)="filterBy($event)"></assign-plan>
-            <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" [suggestWorkouts]="suggestWorkouts$" (add)="createScheduleData($event)" (close)="closeModal()" (filter)="filterBy($event)" [type]="type$" ></assign-workout>
-            
-          <!--  <div *ngFor="let schedule of type$ | async">{{ schedule$ | json }}</div>-->
-            
-          <!--  {{ schedule$ | json }} -->
-           
+            <assign-meal *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" [suggestMeals]="suggestMeals$" (add)="createScheduleData($event)" [type]="type$" (close)="closeModal()" (filter)="filterBy($event)"></assign-meal>
+            <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" [suggestWorkouts]="suggestWorkouts$" (add)="createScheduleData($event)" (close)="closeModal()" (filter)="filterBy($event)" [type]="type$" ></assign-workout>     
         </div>
     `
 })

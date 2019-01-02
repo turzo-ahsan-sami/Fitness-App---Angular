@@ -1,9 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
-    selector: 'assign-plan',
+    selector: 'assign-meal',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['assign-plan.component.scss'],
+    styleUrls: ['assign-meal.component.scss'],
     template: `
         <div class="assign-plan">
             <div class="assign-plan__content">
@@ -43,7 +43,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy
     `
 })
 
-export class AssignPlanComponent implements OnInit{
+export class AssignMealComponent implements OnInit{
 
     types = [
         { key: 'curry', value: 'Curry' },

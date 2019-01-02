@@ -33,8 +33,9 @@ export class WorkoutProgramComponent implements OnInit{
         this.workoutProgram$ = this.route.params.pipe(switchMap(param => this.wpService.getWorkoutProgram(param.id)));
     }
 
-    createItem(event: any){
-        this.wpService.createWorkoutProgram(event);
+    async createItem(event: any){
+        await this.wpService.createWorkoutProgram(event);
+        this.router.navigate(['/admin/workout-program/list']);
     }
 
     async updateItem(event: any){

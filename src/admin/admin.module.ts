@@ -1,4 +1,4 @@
-import { WorkoutProgramModule } from './workout-program/workout-program.module';
+import { WorkoutProgramModule1 } from './workout-program/workout-program.module';
 import { SharedModule } from './shared/shared.module';
 import { AdminGuard } from './../auth/shared/guards/admin.guard';
 import { MealRecipeListComponent } from './meal-recipe/containers/meal-recipe-list/meal-recipe-list.component';
@@ -17,10 +17,14 @@ import { WorkoutGuideModule } from './workout-guide/workout-guide.module';
 import { NutritionInfoModule } from './nutrition-info/nutrition-info.module';
 
 export const ROUTES: Routes = [
-  { path: 'admin/meal-recipe', canActivate: [AdminGuard], loadChildren: './meal-recipe/meal-recipe.module#MealRecipeModule' },
-  { path: 'admin/workout-guide', canActivate: [AdminGuard], loadChildren: './workout-guide/workout-guide.module#WorkoutGuideModule' },
-  { path: 'admin/nutrition-info', canActivate: [AdminGuard], loadChildren: './nutrition-info/nutrition-info.module#NutritionInfoModule' },
-  { path: 'admin/workout-program', canActivate: [AdminGuard], loadChildren: './workout-program/workout-program.module#WorkoutProgramModule' }   
+  {
+    path: 'admin', children: [
+      { path: 'meal-recipe', canActivate: [AdminGuard], loadChildren: './meal-recipe/meal-recipe.module#MealRecipeModule' },
+      { path: 'workout-guide', canActivate: [AdminGuard], loadChildren: './workout-guide/workout-guide.module#WorkoutGuideModule' },
+      { path: 'nutrition-info', canActivate: [AdminGuard], loadChildren: './nutrition-info/nutrition-info.module#NutritionInfoModule' },
+      { path: 'workout-program', canActivate: [AdminGuard], loadChildren: './workout-program/workout-program.module#WorkoutProgramModule1' }  
+    ]
+  }
 ]
 
 @NgModule({
@@ -32,7 +36,7 @@ export const ROUTES: Routes = [
     WorkoutGuideModule,
     NutritionInfoModule,
     SharedModule,
-    WorkoutProgramModule
+    WorkoutProgramModule1
   ],
   declarations: [
     

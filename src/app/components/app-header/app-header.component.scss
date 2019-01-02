@@ -1,4 +1,4 @@
-.header {
+.app-header {
     font-size: 1.4rem;
     height: 7rem;
     background-color: #fff;
@@ -13,90 +13,36 @@
         align-content: space-around;
         height: 11rem;
     }
-}
 
-.logo {
-    height: 3.25rem;
-    margin-left: 2rem;
-}
-
-.search {
-    flex: 0 0 40%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-right: 40rem;
-
-    @media only screen and (max-width: 31.25em) {
-        order: 1;
-        flex: 0 0 100%;
-        background-color: #f4f2f2;
+    &__logo{
+        height: 3.25rem;
+        margin-left: 3rem;
     }
 
-    &__input {
-        font-size: 14px;
-        color: inherit;
-        background-color: #f4f2f2;
-        border: none;
-        padding: .7rem 2rem;
-        border-radius: 100px;
-        width: 90%;
-        transition: all .2s;
-        margin-right: -3.25rem;
-
-        &:focus {
-            outline: none;
-            width: 100%;
-            background-color: #f0eeee;
-        }
-
-        &::-webkit-input-placeholder {
-            font-weight: 100;
-            color: #ccc;
-        }
-    }
-
-    &__input:focus + &__button {
-        background-color: #f0eeee;
-    }
-
-    &__button {
-        border: none;
-        background-color: #f4f2f2;
-
-        &:focus {
-            outline: none;
-        }
-
-        &:active {
-            transform: translateY(2px);
-        }
-    }
-
-}
-
-.user-nav {
-    align-self: stretch; 
-    align-items: center;
-    display: flex;
-
-    &__icon {
-        width: 2.25rem;
-        height: 2.25rem;
-        fill: var(--color-grey-dark-2);
-    }
-
-    & > * {
-        cursor: pointer;
+    &__user-nav {
         align-items: center;
-        height: 100%;
-        padding: 0 2rem;
         display: flex;
-    }
-
-    &__icon-box {
-        position: relative;
-    }
-
+    
+        &__icon {
+            width: 2.25rem;
+            height: 2.25rem;
+            margin-right: 20px;
+        }
+    
+        &__icon-box {
+            position: relative;
+        }
+    
+    } 
 }
+
+span{
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 14px;
+    margin-right: 920px;
+    @media only screen and (max-width: 31.25rem) {
+        display: none;
+    }
+}
+

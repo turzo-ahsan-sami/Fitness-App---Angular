@@ -6,17 +6,12 @@ import { Component, Output } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     styleUrls: ['app-header.component.scss'],
     template: `
-        <div class="header">
-            <img src="" alt="logo" class="logo">
-            <form class="search">
-                <input class="search__input" type="text" placeholder="Search..">
-                <button class="search__button">
-                    
-                </button>
-            </form>
-            <nav class="user-nav">
-                <div class="user-nav__icon-box">
-                    <img class="user-nav__icon" src="/assets/logout.svg" (click)="signOut()">
+        <div class="app-header">
+            <img src="/assets/logo.svg" alt="logo" class="app-header__logo"><span>Fitnezz</span>
+    
+            <nav class="app-header__user-nav">
+                <div class="app-header__user-nav__icon-box">
+                    <img class="app-header__user-nav__icon" src="/assets/logout.svg" (click)="signOut()">
                 </div>
             </nav>
         </div>

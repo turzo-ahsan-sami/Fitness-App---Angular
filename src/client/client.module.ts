@@ -20,7 +20,10 @@ export const ROUTES: Routes = [
             path: 'meal-program', canActivate: [RouterGuard], loadChildren: './meal-program/meal-program.module#MealProgramModule'
         },
         {
-            path: 'workout-program', canActivate: [RouterGuard], loadChildren: './workout-program/workout-program.module#TrainingProgramModule'
+            path: 'workout-program', canActivate: [RouterGuard], loadChildren: './training-program/training-program.module#TrainingProgramModule'
+        },
+        {
+            path: 'workout-progress', canActivate: [RouterGuard], loadChildren: './workout-progress/workout-progress.module#WorkoutProgressModule'
         }
     ]}
 ]

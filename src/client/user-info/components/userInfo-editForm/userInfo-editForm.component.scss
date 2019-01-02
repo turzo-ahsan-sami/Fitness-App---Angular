@@ -1,0 +1,53 @@
+.userInfo-editForm {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    &__row{
+        padding: 10px;
+    }
+    
+    &__row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+
+.col-25 {
+    float: left;
+    width: 25%;
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.col-75 {
+    float: left;
+    width: 95%;
+    margin-top: 6px;
+} 
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    height: 30px;
+}
+
+.button{
+    color: white;
+    padding: 12px 21px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    float: right;
+    font-size: 13px;
+    display: flex;
+    margin-right: 40px;
+    &--update{
+        background-color: rgb(94, 116, 214);
+    }
+}

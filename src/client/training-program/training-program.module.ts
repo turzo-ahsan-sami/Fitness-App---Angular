@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { SharedUIModule } from 'src/shared-UI/sharedUI.module';
 import { WorkoutDetailsProgramComponent } from './components/workoutDetails-program/workoutDetails-program.component';
+import { TrainingProgramService } from './services/training-program.service';
 
 export const ROUTES: Routes = [
     {
@@ -19,6 +20,9 @@ export const ROUTES: Routes = [
     declarations: [
         WorkoutProgramComponent,
         WorkoutDetailsProgramComponent
+    ],
+    providers: [
+        TrainingProgramService
     ]
 })
 

@@ -6,9 +6,14 @@ import { Observable } from 'rxjs';
     selector: 'nutrition-info-list',
     styleUrls: ['nutrition-info-list.component.scss'],
     template: `
-        <a [routerLink]="['../create']">Create</a>
-        <div *ngIf="items | async as items; else fetching;">
-            <list-items [items]="items" (remove)="RemoveRecipe($event)"></list-items>
+        <div class="nutrition-info-list">
+            <div class="nutrition-info-list__link">
+                <a [routerLink]="['../create']">Create + </a>
+            </div>
+        
+            <div class="nutrition-info-list__items" *ngIf="items | async as items; else fetching;">
+                <list-items [items]="items" (remove)="RemoveRecipe($event)"></list-items>
+            </div>
         </div>
         <ng-template #fetching>
             <div class="message">

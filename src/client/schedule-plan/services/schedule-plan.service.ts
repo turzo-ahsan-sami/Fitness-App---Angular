@@ -30,11 +30,18 @@ export class SchedulePlanService{
     private category$ = new Subject();
 
     type$ = this.category$.pipe(
-        tap((next: any) => next));
+        tap((next: any) => 
+            next
+            //this.store.dispatch(next)
+        ));
 
     //
-    list$ = this.category$.pipe(map((value: any) => value), tap((next: any) => next));
+    list$ = this.category$.pipe(map((value: any) => value));
 
+    get user() {
+        return this.as.loggedInUser.uid;
+    }
+    
     //
     private dataList$ = new Subject();
     items$ = this.dataList$.pipe(
@@ -88,6 +95,19 @@ export class SchedulePlanService{
         })
     );
 
+    workoutSuggestion$ = from(this.afs.collection('user-info').doc(`${this.user}`)
+        .ref
+        .get()
+        .then( doc => {
+            return this.afs.collection('workout-guides', ref => {
+                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+                query = query.where('targetBody', 'array-contains', doc.data().bodyType)
+                console.log(doc.data().bodyType)
+                return query;
+            }).valueChanges();
+        })
+    )
+
     scheuleItems$: Observable<any[]> = this.date$.pipe(
         tap((next: any) => next),
         map((day: any )=> {
@@ -118,9 +138,7 @@ export class SchedulePlanService{
         this.date$.next(date);
     }
 
-    get user() {
-        return this.as.loggedInUser.uid;
-    }
+    
 
     private getSchedule(start: number, end: number) {
         return this.afs.collection('schedule').doc(`${this.user}`).collection('assign', ref => ref.orderBy('timestamp').startAt(start).endAt(end)).snapshotChanges()
@@ -133,6 +151,8 @@ export class SchedulePlanService{
             });
         }));
     }
+
+    userInfo$ = this.afs.doc(`user-info/${this.user}`).valueChanges();
 
     getType(event) {
         this.category$.next(event);
@@ -151,8 +171,6 @@ export class SchedulePlanService{
         this.dataList$.next(items);
     }
 
-    userInfo$ = this.afs.doc(`user-info/${this.user}`).valueChanges();
-
     mealSuggestion$ = from(this.afs.collection('user-info').doc(`${this.user}`)
         .ref
         .get()
@@ -166,17 +184,6 @@ export class SchedulePlanService{
         })
     )
 
-    workoutSuggestion$ = from(this.afs.collection('user-info').doc(`${this.user}`)
-        .ref
-        .get()
-        .then( doc => {
-            return this.afs.collection('workout-guides', ref => {
-                let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-                query = query.where('targetBody', 'array-contains', doc.data().bodyType)
-                console.log(doc.data().bodyType)
-                return query;
-            }).valueChanges();
-        })
-    )
+    
        
 }

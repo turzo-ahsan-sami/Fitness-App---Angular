@@ -15,8 +15,8 @@ export const TYPE_CONTROL_ACCESSOR = {
     providers: [TYPE_CONTROL_ACCESSOR],
     template: `
         <div class="workout-type">
-            <div *ngFor="let type of types" (click)="onSelect(type)" [class.active]="type === selection">
-                <div class="workout-type__section">
+            <div *ngFor="let type of types" (click)="onSelect(type)">
+                <div class="workout-type__section" [class.active]="type === selection">
                     <img src="/assets/{{ type }}.svg">
                     <h3>{{ type }}</h3>
                 </div>
