@@ -48,7 +48,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
                 <div>
                     <div formArrayName="marcos">
                         <h2>Macros</h2>
-                        <div *ngFor="let marco of form.get('marcos').controls; let i=index">
+                        <div *ngFor="let marco of form.get('marcos')['controls']; let i=index">
                             <div [formGroupName]="i">
                                 <div class="nutrition-info-form__row">
                                     <div class="col-25">
@@ -109,7 +109,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
                 <div>
                     <div formArrayName="supplements">
                         <h2>Supplements</h2>
-                        <div *ngFor="let supplement of form.get('supplements').controls; let i=index">
+                        <div *ngFor="let supplement of form.get('supplements')['controls']; let i=index">
                             <div [formGroupName]="i">
                                 <div class="nutrition-info-form__row">
                                     <div class="col-25">
@@ -260,4 +260,5 @@ export class NutritionInfoFormComponent implements OnChanges{
     updateNutritionInfo(){
         this.update.emit(this.form.value);
     }
+    
 }

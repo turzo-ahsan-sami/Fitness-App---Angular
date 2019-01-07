@@ -18,7 +18,7 @@ import { AdminSidebarComponent } from './components/admin-sidebar/admin-sidebar.
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 
 export const ROUTES: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'meal-recipe' }
+  { path: '', pathMatch: 'full', redirectTo: 'user/schedule-plan' },
 ];
 
 @NgModule({

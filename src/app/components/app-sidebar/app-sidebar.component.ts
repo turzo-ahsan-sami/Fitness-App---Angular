@@ -20,10 +20,10 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 export class AppSidebar{
     routes = [
         {
-            link: 'user/suggestion/meal-programme', name: 'Meal Programme'
+            link: 'user/meal-program', name: 'Meal Programme'
         },
         { 
-            link: 'user/suggestion/workout-programme', name: 'Training Programme' 
+            link: 'user/workout-program', name: 'Training Programme' 
         },
         {
             link: 'user/schedule-plan', name: 'Schedule'

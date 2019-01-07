@@ -14,9 +14,6 @@ export const ROUTES: Routes = [
             path: 'info', canActivate: [RouterGuard], loadChildren: './user-info/user-info.module#UserInfoModule'
         },
         {
-            path: 'suggestion', canActivate: [RouterGuard], loadChildren: './user-info/user-info.module#UserInfoModule'
-        },
-        {
             path: 'meal-program', canActivate: [RouterGuard], loadChildren: './meal-program/meal-program.module#MealProgramModule'
         },
         {
@@ -31,8 +28,8 @@ export const ROUTES: Routes = [
 @NgModule({
     imports: [
         RouterModule.forChild(ROUTES),
-        SchedulePlanModule,
-        CommonModule,
+       // SchedulePlanModule,
+        
         SharedModule.forRoot()
     ],
     declarations: [

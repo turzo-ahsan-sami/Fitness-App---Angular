@@ -23,13 +23,17 @@ export class WorkoutGuideService{
             switchMap(([item]) => 
                 this.afs.collection('workout-guides', ref => {
                 let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-               // if (item) { query = query.where('ingredients', 'array-contains', item) };
+                if (item) { query = query.where('targetArea', '==', item) };
                
-                console.log(query);
+                // console.log(query);
                 return query;
                 }).valueChanges()
             )
         );
+    }
+
+    filterByItem(item: string|null){
+        this.filter$.next(item); 
     }
 
     async createWorkout(value){

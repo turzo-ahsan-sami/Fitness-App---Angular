@@ -1,3 +1,5 @@
+import { WorkoutProgressService } from './../workout-progress/services/workout-progress.service';
+import { TrainingProgramService } from './../training-program/services/training-program.service';
 import { FilterTypeComponent } from './filter-type/filter-type.component';
 import { DataListComponent } from './data-list/data-list.component';
 import { SchedulePlanService } from './../schedule-plan/services/schedule-plan.service';
@@ -28,8 +30,10 @@ export class SharedModule{
         return{
             ngModule: SharedModule,
             providers: [
-                SchedulePlanService,
-                UserInfoService
+               SchedulePlanService,
+               UserInfoService,
+               TrainingProgramService,
+               WorkoutProgressService
             ]
         }
     }

@@ -153,14 +153,14 @@ export class CreateWorkoutComponent{
         name: ['', Validators.required],
         type: 'cardio',
         cardio: this.fb.group({ 
-            duration: 0 , 
+            duration: 0, 
             distance: 0,
             calorie: [0, [Validators.required, Validators.pattern(this.numberPatern)]],
         }), 
         weight: this.fb.group({ 
             weight: 0, 
             reps: 0, 
-            sets: 0 , 
+            sets: 0, 
             duration: [ 0, [Validators.required, Validators.pattern(this.numberPatern)]], 
             intensityValue: [ 0, Validators.required],
             calorie: [0, [Validators.required, Validators.pattern(this.numberPatern)]],
@@ -170,7 +170,7 @@ export class CreateWorkoutComponent{
     @Output() workout = new EventEmitter<any>();
     dispatchWorkout(){
         if(this.form.valid){
-            this.workout.emit(this.form.value);
+            this.workout.emit({ ['Workout']: [this.form.value] });
         }
     }
 

@@ -15,9 +15,17 @@ import { Component } from '@angular/core';
     styleUrls: ['schedule-plan.component.scss'],
     template: `
         <div class="schedule-plan" *ngIf="date$ | async as date">
-            <calendar (changeDate)="changeDate($event)" [calorieInfo]="nutrientsInfoForWeightGain$ | async" (open)="openSection($event)" [date]="date" [items]="schedule$"></calendar>
-            <assign-meal *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" [suggestMeals]="suggestMeals$" (add)="createScheduleData($event)" [type]="type$" (close)="closeModal()" (filter)="filterBy($event)"></assign-meal>
-            <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" [suggestWorkouts]="suggestWorkouts$" (add)="createScheduleData($event)" (close)="closeModal()" (filter)="filterBy($event)" [type]="type$" ></assign-workout>     
+            <calendar (changeDate)="changeDate($event)" [calorieInfo]="nutrientsInfoForWeightGain$ | async" 
+                (open)="openSection($event)" [date]="date" [items]="schedule$">
+            </calendar>
+            <assign-meal *ngIf="openModalForMeal" [user]="userInfo" [meals]="items$" 
+                [suggestMeals]="suggestMeals$" (add)="createScheduleData($event)" [type]="type$" 
+                (close)="closeModal()" (filter)="filterMeal($event)">
+            </assign-meal>
+            <assign-workout *ngIf="openModalForWorkout" [user]="userInfo" [workouts]="workouts$" 
+                [suggestWorkouts]="suggestWorkouts$" (add)="createScheduleData($event)" 
+                (close)="closeModal()" (filter)="filterWorkout($event)" [type]="type$" >
+            </assign-workout>     
         </div>
     `
 })
@@ -51,10 +59,10 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     ngOnInit(){
        this.date$ = this.spService.date$;
        // this.type$ = this.spService.type$;
-      // this.schedule$ = this.store.select('schedule');
+       // this.schedule$ = this.store.select('schedule');
         this.nutrientsInfoForWeightGain$ = this.niService.bodyType$;
         this.sub = [
-            this.spService.type$.subscribe(x => {this.type$= x;console.log(this.type$) }),
+            this.spService.type$.subscribe(x => {this.type$= x; }),
             this.spService.scheuleItems$.subscribe(z => this.schedule$ = z),
             this.spService.list$.subscribe(),
             this.spService.items$.subscribe(),
@@ -96,11 +104,15 @@ export class SchedulePlanComponent implements OnInit, OnDestroy{
     createScheduleData(items: string[]) {
         this.spService.addScheduleItem(items);
         this.closeModal();
-        console.log(items);
+        //console.log(items);
     }
 
-    filterBy(event){
+    filterMeal(event){
         return this.mrService.filterByItem(event);
+    }
+
+    filterWorkout(event){
+        return this.wgService.filterByItem(event);
     }
 
 } 

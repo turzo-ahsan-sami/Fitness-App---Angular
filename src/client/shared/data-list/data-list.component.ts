@@ -16,7 +16,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
         </p>
 
         <div *ngIf="type.type == 'Workout'; else showMeal">
-            <div class="list-item" *ngFor="let meal of meals; let i = index" (click)="toggleItem(meal, i)" [class.active]="existingItem(meal.name)">
+            <div class="list-item" *ngFor="let meal of meals; let i = index" (click)="toggleWorkout(meal)" [class.active]="existingWorkout(meal.name)">
                 <p class="list-item__name">{{ meal.name }}</p>
                 <p *ngIf="meal.weight.reps" class="list-item__list">
                     Reps: <span>{{ meal.weight.reps }}</span>
@@ -33,6 +33,7 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
                     </ul>
                 </span>
             </div>
+            <button class="button button--create" (click)="createWorkout()" type="button">Add</button>
         </div>
 
         <ng-template #showMeal>
@@ -50,9 +51,10 @@ import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
                 </span> 
                 <p *ngIf="checkAllergy[i]" class="error">Warning! This recipe contains an ingredient that is allergic to you!</p>
             </div>
+            <button class="button button--create" (click)="createPlan()" type="button">Add</button>
         </ng-template>
 
-        <button class="button button--create" (click)="createPlan()" type="button">Add</button>
+        
 
         
     `
@@ -63,8 +65,11 @@ export class DataListComponent implements OnInit{
 
     chosenItem = [];
     ngOnInit(){
-        console.log(this.type);
+        //console.log(this.type);
         this.chosenItem = [
+            ...this.type.selection
+        ];
+        this.chosenWorkout = [
             ...this.type.selection
         ]
     }
@@ -101,21 +106,42 @@ export class DataListComponent implements OnInit{
             this.chosenItem = [...this.chosenItem, item.name];
             this.calculateCalorie = [...this.calculateCalorie, item.calorie]
         }
-        console.log(this.calculateCalorie);
+        // console.log(this.calculateCalorie);
     }
 
+    // toggleWorkout(item){
+    //     if(this.chosenItem.filter(x => x !== item.name)){
+    //         this.chosenItem = item;
+    //     }else{
+    //         this.chosenItem = [...this.chosenItem, item];
+    //     }
+    //     console.log(this.chosenItem);
+    // }
+    chosenWorkout = [];
+
     toggleWorkout(item){
-        if(this.chosenItem.filter(x => x !== item.name)){
-            this.chosenItem = item;
+        if(this.existingWorkout(item.name)) {
+            this.chosenWorkout = this.chosenWorkout.filter(e => e.name !== item.name);  
         }else{
-            this.chosenItem = [...this.chosenItem, item];
+            this.chosenWorkout = [...this.chosenWorkout, item];
         }
-        console.log(this.chosenItem);
     }
+
+    existingWorkout(item: string){
+        return !!~this.chosenWorkout.findIndex(i => i.name === item);
+    }
+
+    @Output() addWorkout = new EventEmitter<any>();
+    createWorkout(){
+        this.addWorkout.emit({ [this.type.type]: this.chosenWorkout });
+    }
+
 
     @Output() add = new EventEmitter<any>();
     createPlan(){
-        this.add.emit({ [this.type.type]: this.chosenItem, ['calorie']: this.calculateCalorie });
+        this.add.emit({ 
+            [this.type.type]: this.chosenItem, ['calorie']: this.calculateCalorie 
+        });
     }
 
     existingItem(item: string) {

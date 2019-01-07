@@ -1,7 +1,5 @@
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { SharedModule } from './shared/shared.module';
-import { RegisterModule } from './register/register.module';
-import { LoginModule } from './login/login.module';
 import { CommonModule } from '@angular/common';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { AngularFireModule } from '@angular/fire';

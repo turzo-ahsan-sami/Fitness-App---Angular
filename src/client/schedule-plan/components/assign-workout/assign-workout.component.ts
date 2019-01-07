@@ -20,13 +20,19 @@ import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from 
                         <label for="tab3">Add your own workout</label>
                 
                         <section id="content1">
-                            <data-list [type]="type" [userInfo]="user" [meals]="workouts" (filter)="filterBy($event)" (add)="createPlan($event)" (close)="closeModal()"></data-list>
+                        <filter-type *ngFor="let type of types" [item]="type" (filter)="filterBy($event)"></filter-type>
+                            <data-list [type]="type" [userInfo]="user" [meals]="workouts" (filter)="filterBy($event)" (addWorkout)="createPlan($event)" (close)="closeModal()"></data-list>
                         </section>
                 
                         <section id="content2">
-                            <div *ngIf="suggestWorkouts | async as workouts">
+                            <div *ngIf="suggestWorkouts | async as workouts; else fetching;">
                                 <data-list [type]="type" [userInfo]="user" [meals]="workouts" (add)="createPlan($event)" (close)="closeModal()"></data-list>
                             </div>
+                            <ng-template #fetching>
+                                <div class="message">
+                                    <spinning-icon></spinning-icon>
+                                </div>
+                            </ng-template>
                         </section>
 
                         <section id="content3">
@@ -56,7 +62,7 @@ export class AssignWorkoutComponent{
     constructor(){}
 
     ngOnInit(){
-        console.log(this.user);
+        //console.log(this.user);
     }
 
     createPlan(event){
@@ -68,6 +74,14 @@ export class AssignWorkoutComponent{
     }
 
     @Input() suggestWorkouts;
+
+    types = [
+        { key: 'shoulder', value: 'Shoulder' },
+        { key: 'biceps', value: 'Biceps' },
+        { key: 'leg', value: 'Leg' },
+        { key: 'chest', value: 'Chest' },
+        { key: 'cardio', value: 'Cardio' },
+    ];
 
     //// FIX /////
     @Output() ownWorkout = new EventEmitter<any>();

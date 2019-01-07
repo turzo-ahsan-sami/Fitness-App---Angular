@@ -22,7 +22,7 @@ export const ROUTES: Routes = [
         WorkoutProgressComponent
     ],
     providers: [
-        WorkoutProgressService
+       // WorkoutProgressService
     ]
 })
 

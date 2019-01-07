@@ -9,10 +9,11 @@ export class SearchFilterPipe implements PipeTransform {
         if(searchText == null) return items;
 
         return items.filter(function(item){
-            const workouts = item.Workout;
+            const workouts = [item.name];
+            
             for(let workout of workouts){
                 return workout.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
-            }  
+            }       
         })
     }
 }

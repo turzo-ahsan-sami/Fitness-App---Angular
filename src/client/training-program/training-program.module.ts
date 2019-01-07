@@ -22,7 +22,7 @@ export const ROUTES: Routes = [
         WorkoutDetailsProgramComponent
     ],
     providers: [
-        TrainingProgramService
+        //TrainingProgramService,
     ]
 })
 

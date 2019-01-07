@@ -1,0 +1,28 @@
+[debug] [2019-01-02T03:59:46.296Z] ----------------------------------------------------------------------
+[debug] [2019-01-02T03:59:46.302Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2019-01-02T03:59:46.303Z] CLI Version:   3.9.2
+[debug] [2019-01-02T03:59:46.303Z] Platform:      darwin
+[debug] [2019-01-02T03:59:46.303Z] Node Version:  v10.13.0
+[debug] [2019-01-02T03:59:46.320Z] Time:          Wed Jan 02 2019 03:59:46 GMT+0000 (Greenwich Mean Time)
+[debug] [2019-01-02T03:59:46.320Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-01-02T03:59:46.351Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-01-02T03:59:46.351Z] > authorizing via signed-in user
+[debug] [2019-01-02T03:59:46.354Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-01-02T03:59:46.354Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token { refresh_token:
+   '1/Ra0bAGDKG_sfoSHx0wUZzDHcskqbiHbUVE-Q8fDEf1E5fnGO6TAz9Uq_wzX8_LgW',
+  client_id:
+   '563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com',
+  client_secret: 'j9iVZfS8kkCEFUPaAeJV0sAi',
+  grant_type: 'refresh_token',
+  scope:
+   'email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase openid' } 
+ Wed Jan 02 2019 03:59:46 GMT+0000 (Greenwich Mean Time)
+[debug] [2019-01-02T03:59:47.631Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-02T03:59:47.659Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/fitness-app-860ee  
+ Wed Jan 02 2019 03:59:47 GMT+0000 (Greenwich Mean Time)
+[debug] [2019-01-02T03:59:48.243Z] <<< HTTP RESPONSE 200
+[debug] [2019-01-02T03:59:48.245Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/fitness-app-860ee/tokens  
+ Wed Jan 02 2019 03:59:48 GMT+0000 (Greenwich Mean Time)
+[debug] [2019-01-02T03:59:48.810Z] <<< HTTP RESPONSE 200
+[info] 

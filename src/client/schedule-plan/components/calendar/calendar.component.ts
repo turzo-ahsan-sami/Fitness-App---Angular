@@ -46,12 +46,6 @@ export class CalendarComponent implements OnChanges{
         this.selectedIndexDay = this.getCurrentDay(this.chosenDay);
     }
 
-    getFirstDayOfWeek(date: Date){
-        let day = date.getDay();
-        let x = date.getDate() - day;
-        return new Date(date.setDate(x));
-    }
-
     @Output() changeDate = new EventEmitter<Date>();
 
     selectDay(i){
@@ -60,12 +54,17 @@ export class CalendarComponent implements OnChanges{
         this.changeDate.emit(day);
     }
 
+    getFirstDayOfWeek(date: Date){
+        let day = date.getDay();
+        let x = date.getDate() - day;
+        return new Date(date.setDate(x));
+    }
+
     changeWeek(event){
         const firstDayOfWeek = this.getFirstDayOfWeek(new Date());
         const firstdate = (new Date(firstDayOfWeek.getFullYear(), firstDayOfWeek.getMonth(), firstDayOfWeek.getDate()));
         firstdate.setDate(firstdate.getDate() + (7 * event));
         this.changeDate.emit(firstdate);
-        console.log(firstdate);
     }
 
     @Output() open = new EventEmitter<any>();
@@ -73,21 +72,19 @@ export class CalendarComponent implements OnChanges{
     addSection({type, checkEdit, selection, data}){
         const selectedDay = this.chosenDay;
         this.open.emit({type, checkEdit, selection, data, selectedDay});  
-        console.log(checkEdit)
+        // console.log(checkEdit)
     }
 
     @Input() items: any;
 
-    ///
     getType(): any {
-        console.log(this.items);
-        return this.items || {};
-        
+        // console.log(this.items);
+        return this.items || {};    
     }
 
     currentCalories: number;
     totalCalories(event){
-        console.log(event);
+        // console.log(event);
         this.currentCalories = event;
     }
 

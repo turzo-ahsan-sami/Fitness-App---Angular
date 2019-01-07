@@ -34,6 +34,16 @@ import { FormArray, FormControl, FormBuilder, Validators } from '@angular/forms'
 
                 <div class="workout-guide-form__row">
                     <div class="col-25">
+                        <label>Target Area</label>
+                    </div>
+                    <select formControlName="targetArea">
+                        <option value="">Select</option>
+                        <option *ngFor="let type of targetArea" [value]="type">{{ type }}</option>
+                    </select>
+                </div>
+
+                <div class="workout-guide-form__row">
+                    <div class="col-25">
                         <label>Instructions</label>
                     </div>
                     <div formArrayName="instructions" class="col-75">
@@ -136,6 +146,8 @@ export class WorkoutGuideFormComponent implements OnChanges{
         {key: 'fat-loss', value: 'Weight loss'}
     ];
 
+    targetArea = [ 'Biceps', 'Shoulder', 'Chest', 'Leg', 'Cardio' ];
+
     form = this.fb.group({
         name: ['', Validators.required],
         type: 'cardio',
@@ -144,6 +156,7 @@ export class WorkoutGuideFormComponent implements OnChanges{
         instructions: this.fb.array(['']),
         calorie: ['', Validators.required],
         targetBody: this.fb.array([]),
+        targetArea: ['', Validators.required]
     });
 
     ngOnChanges(){

@@ -5,12 +5,14 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'register',
+    styleUrls: ['register.component.scss'],
     template: `
         <div>
             <auth-form (submitted)="createUser($event)">
                 <p>Create Account</p>
                 <button class="button" type="submit">Register</button>
-                <div *ngIf="err" class="err">{{ error }}</div>
+                <div *ngIf="err" class="err">{{ err }}</div>
+                <a class="link" routerLink="/secure/login">Already signed up?</a>
             </auth-form>
         </div>
     `

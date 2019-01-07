@@ -57,12 +57,12 @@ export class MealRecipeService{
     deleteRecipes(key: any){
         return this.afs.collection('meal-recipes').doc(key).delete();
     }
-
-    private filter$ = new BehaviorSubject(null);
     
     updateRecipe(key, value){
         return this.afs.collection('meal-recipes').doc(key).set(value);
     }
+    
+    private filter$ = new BehaviorSubject(null);
     
     filterByItem(item: string|null){
         this.filter$.next(item); 

@@ -35,14 +35,12 @@ export class SchedulePlanService{
             //this.store.dispatch(next)
         ));
 
-    //
     list$ = this.category$.pipe(map((value: any) => value));
 
     get user() {
         return this.as.loggedInUser.uid;
     }
     
-    //
     private dataList$ = new Subject();
     items$ = this.dataList$.pipe(
         withLatestFrom(this.category$),
@@ -50,7 +48,7 @@ export class SchedulePlanService{
 
             const checkEdit = section.checkEdit;
 
-            console.log(items);
+      //    console.log(items);
             const defaults: any = {
                 section: section.type,
                
@@ -58,14 +56,7 @@ export class SchedulePlanService{
             };
 
             const assignedSchedule = { ...(checkEdit == 'edit' ? section.data.Dinner : defaults), ...items };
-            
-            const test = { ...section.data.Dinner, ...items}
-            
-            //////
-            
-            console.log(assignedSchedule)
-            //const key = section.data.Dinner.id;
-
+        
            if (checkEdit == 'new') {
                 return this.createPlan(assignedSchedule);
             } else{
@@ -87,6 +78,8 @@ export class SchedulePlanService{
                 }
                 else{
                     const key = section.data.Workout.id;
+                    console.log(items);
+                    console.log(section.data.Workout)
                     return this.updatePlan(key, { ...section.data.Workout, ...items})
                 }
                 
@@ -95,14 +88,15 @@ export class SchedulePlanService{
         })
     );
 
+    // 'from' to turn the promise into observable.
     workoutSuggestion$ = from(this.afs.collection('user-info').doc(`${this.user}`)
         .ref
         .get()
-        .then( doc => {
+        .then( doc => { // Promise
             return this.afs.collection('workout-guides', ref => {
                 let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
                 query = query.where('targetBody', 'array-contains', doc.data().bodyType)
-                console.log(doc.data().bodyType)
+              //console.log(doc.data().bodyType)
                 return query;
             }).valueChanges();
         })
@@ -120,8 +114,7 @@ export class SchedulePlanService{
         map((data: any) => {
             
             const mapped: any = {};
-            //let mapped: any = {};
-    
+           
             for (const prop of data) {
                 if (!mapped[prop.section]) {
                     mapped[prop.section] = prop;
@@ -152,8 +145,9 @@ export class SchedulePlanService{
         }));
     }
 
+    
     userInfo$ = this.afs.doc(`user-info/${this.user}`).valueChanges();
-
+    
     getType(event) {
         this.category$.next(event);
     }
@@ -164,7 +158,7 @@ export class SchedulePlanService{
     }
    
     private updatePlan(key: string, assignedSchedule: any) { 
-        return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(key).set(assignedSchedule);
+        return this.afs.collection('schedule').doc(`${this.user}`).collection('assign').doc(key).update(assignedSchedule);
     }
 
     addScheduleItem(items: string[]) {
@@ -177,8 +171,8 @@ export class SchedulePlanService{
         .then( doc => {
             return this.afs.collection('meal-recipes', ref => {
                 let query : firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
-                query = query.where('ingredients', 'array-contains', doc.data().favFoodGroup[1])
-                console.log(doc.data().favFoodGroup)
+                query = query.where('targetedBody', 'array-contains', doc.data().bodyType)
+          //    console.log(doc.data().favFoodGroup)
                 return query;
             }).valueChanges();
         })

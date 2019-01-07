@@ -19,6 +19,8 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
                     <ng-content class="err" select=".err"></ng-content>
 
                     <div class="auth-form__btn"><ng-content select="button"></ng-content></div> 
+
+                    <ng-content class="link" select=".link"></ng-content>
                     
                 </form>
             </div>
@@ -33,15 +35,15 @@ export class AuthFormComponent{
     ){}
 
     form = this.fb.group({
-        email: ['', Validators.required, Validators.pattern("[^ @]*@[^ @]*")],
-        password: ['', Validators.required, Validators.minLength(8)]
+        email: ['', Validators.email],
+        password: ['', Validators.required]
     });
 
     @Output()
     submitted = new EventEmitter<FormGroup>();
 
     get checkEmail() {
-        return this.form.get('email').hasError('required') && this.form.get('email').touched;
+        return this.form.get('email').hasError('email') && this.form.get('email').touched;
     }
 
     get checkPassword() {

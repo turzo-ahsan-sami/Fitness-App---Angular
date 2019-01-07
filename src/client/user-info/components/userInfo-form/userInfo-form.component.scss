@@ -224,6 +224,10 @@ input[type="range"]::-webkit-slider-thumb:hover, input[type="range"]::-webkit-sl
   font-size: 13px;
   display: flex;
   margin: 15px;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: .5;
+  }
   
   &--create{
     background-color: #4CAF50;

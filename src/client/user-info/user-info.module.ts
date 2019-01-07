@@ -32,7 +32,7 @@ export const ROUTES : Routes = [
         UserInfoEditFormComponent
    ],
    providers: [
-       UserInfoService,
+      // UserInfoService,
    ]
 })
 

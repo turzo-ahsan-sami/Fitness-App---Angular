@@ -7,9 +7,14 @@ import { Router } from '@angular/router';
     selector: 'userInfo-edit',
     styleUrls: ['userInfo-edit.component.scss'],
     template: `
-        <div *ngIf="user$ | async as user">
-            <userInfo-editForm [user]="user"  (edit)="editInfo($event)"></userInfo-editForm>
+        <div *ngIf="user$ | async as user; else fetching;">
+            <userInfo-editForm [user]="user" (edit)="editInfo($event)"></userInfo-editForm>
         </div>
+        <ng-template #fetching>
+            <div class="message">
+                <spinning-icon></spinning-icon>
+            </div>
+        </ng-template>
 
     `
 })
@@ -29,6 +34,7 @@ export class UserInfoEditComponent implements OnInit{
 
     async editInfo(value){
         await this.uiService.updateUserInfo(value);
+        window.location.reload();
         this.router.navigate(['/user/schedule-plan']);
     }
 }

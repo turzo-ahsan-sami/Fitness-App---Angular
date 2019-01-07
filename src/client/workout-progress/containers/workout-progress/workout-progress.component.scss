@@ -32,7 +32,7 @@ input[type=text] {
             
             th, td {
                 min-width: 100%;
-                width: 125px;
+                width: 225px;
                 padding: 0.5em 1em;
                 border-bottom: 1px solid #ccc;
                 border-right: 1px solid #ccc;
@@ -40,6 +40,8 @@ input[type=text] {
                 word-wrap: break-word;
                 word-break: break-all;
                 white-space: normal;      
+                font-size: 14px;
+                font-color: rgb(112, 109, 109);
             }
             
             tbody td {

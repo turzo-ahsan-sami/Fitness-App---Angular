@@ -1,14 +1,15 @@
+import { Subscription } from 'rxjs';
 import { TrainingProgramService } from './../../services/training-program.service';
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy, OnChanges } from '@angular/core';
 
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 @Component({
     selector: 'training-program',
     styleUrls: ['workout-program.component.scss'],
     template: `
         <div class="workout-programme">
-            <div *ngIf="workoutProgram$ | async as workoutProgram; else fetching;">
+            <div *ngIf="workoutProgram$| async as workoutProgram; else fetching;">
                 <workoutDetails-program [workoutProgram]="workoutProgram"></workoutDetails-program>
             </div>
             <ng-template #fetching>
@@ -25,15 +26,36 @@ import { Component } from '@angular/core';
     `
 })
 
-export class WorkoutProgramComponent implements OnInit {
+export class WorkoutProgramComponent implements OnInit, OnChanges, OnDestroy {
     constructor(
-        private tpService: TrainingProgramService
+        private tpService: TrainingProgramService,
+        private zone:NgZone,
     ){}
 
     workoutProgram$;
+    subscription: Subscription;
 
     ngOnInit(){
-        this.workoutProgram$ = this.tpService.trainingType$;
+        this.workoutProgram$ = this.tpService.test$;
+        // this.subscription = this.tpService.test$.subscribe(x => {
+        //    // this.zone.run(() => {
+        //         this.workoutProgram$ = x;
+        //         console.log(x);
+        //     //});
+        // });
+    }
+
+    ngOnChanges(){
+        this.subscription = this.tpService.test$.subscribe(x => {
+            this.zone.run(() => {
+                this.workoutProgram$ = x;
+                console.log(x);
+            });
+        });
+    }
+
+    ngOnDestroy(){
+        //this.subscription.unsubscribe();
     }
 
 }

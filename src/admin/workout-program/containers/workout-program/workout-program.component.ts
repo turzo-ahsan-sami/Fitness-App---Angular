@@ -27,6 +27,8 @@ export class WorkoutProgramComponent implements OnInit{
         private wpService: WorkoutProgramService
     ){}
 
+    err: string;
+
     workoutProgram$: Observable<any>;
     
     ngOnInit(){

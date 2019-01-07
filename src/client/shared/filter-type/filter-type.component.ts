@@ -10,10 +10,7 @@ import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from 
 })
 
 export class FilterTypeComponent{
-    constructor(){
-        console.log(this.item);
-    }
-
+    
     @Input() item;
 
     @Output() filter = new EventEmitter<any>();

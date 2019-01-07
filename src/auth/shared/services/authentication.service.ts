@@ -1,7 +1,7 @@
 import { AppState } from './../../../app/app.state';
 import { Store } from '@ngrx/store';
 import { User } from './../models/auth.model';
-import { tap, switchMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from "@angular/core";
 
@@ -34,20 +34,14 @@ export class AuthenticationService{
                 loading: false,
                 error: null,
             };
-            console.log(user);
+      //    console.log(user);
             this.store.dispatch(new userAction.Authenticated(user));
         }
     }));
 
 
     registerUser(email: string, password: string){
-        return this.af.auth.createUserWithEmailAndPassword(email, password)
-            .then(value => {
-                console.log('Success');
-            })
-            .catch(err => {
-                console.log('Something went wrong:',err.message);
-            }); 
+        return this.af.auth.createUserWithEmailAndPassword(email, password);
     }   
 
     loginUser(email: string, password: string){

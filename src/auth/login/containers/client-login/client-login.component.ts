@@ -13,6 +13,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
             <p>Login</p>
             <button type="submit">Login</button>
             <div *ngIf="err" class="err">{{ err }}</div>
+            <a class="link" routerLink="/secure/register">Haven't signed up?</a>
         </auth-form>
     `
 })
@@ -20,7 +21,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class ClientLoginComponent{
     constructor(
         public as: AuthenticationService,
-        public afAuth: AngularFireAuth,
         private router: Router){}
     
     err: string;
@@ -28,7 +28,7 @@ export class ClientLoginComponent{
     async userLogin(event: FormGroup){ 
         try{
             await this.as.loginUser(event.value.email, event.value.password);
-            this.router.navigate(['/user/info']);
+            this.router.navigate(['/user/schedule-plan']);
         }catch(error){
             this.err = error.message;
         }

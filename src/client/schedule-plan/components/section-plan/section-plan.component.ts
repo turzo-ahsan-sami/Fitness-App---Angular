@@ -57,7 +57,9 @@ import { Component } from '@angular/core';
         <div class="section-plan">
             <div class="section-plan__bar">Workout</div>
             <div class="section-plan__list" *ngIf="section?.Workout; else existingWorkout" (click)="selectSection('Workout', 'edit', section?.Workout.Workout)">
-                {{ section?.Workout.Workout | splitString }}{{ section.Workout.name | splitString }}
+                <div *ngFor="let item of section?.Workout.Workout">
+                    {{ item.name }}
+                </div>
             </div>
             <ng-template #existingWorkout>
                 <div class="section-plan__list" (click)="selectSection('Workout','new')">Add Workout</div>

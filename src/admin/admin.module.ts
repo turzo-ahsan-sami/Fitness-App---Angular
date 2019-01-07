@@ -46,7 +46,6 @@ export const ROUTES: Routes = [
     MealRecipeComponent,
     MealRecipeListComponent,
     MealRecipeFormComponent,
-    
     WorkoutGuideFormComponent,
     WorkoutGuideComponent,
     WorkoutTypeComponent

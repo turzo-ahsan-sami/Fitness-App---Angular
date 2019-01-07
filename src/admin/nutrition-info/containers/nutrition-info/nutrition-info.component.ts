@@ -29,6 +29,7 @@ export class NutritionInfoComponent implements OnInit, OnDestroy{
 
     }
     nutrition$: Observable<any>;
+    err: string;
     
     ngOnInit(){
         this.nutrition$ = this.route.params.pipe(switchMap(param => this.nutritionInfoService.getNutrition(param.id)));

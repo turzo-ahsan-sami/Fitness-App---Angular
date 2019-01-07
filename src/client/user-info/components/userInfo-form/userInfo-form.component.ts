@@ -90,7 +90,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
                 </label>
             </div>
         
-            <button class="button button--create" type="button" (click)="submitData()">submit</button>
+            <button class="button button--create" [disabled]="form.invalid" type="button" (click)="submitData()">submit</button>
         </form>
     `
 })

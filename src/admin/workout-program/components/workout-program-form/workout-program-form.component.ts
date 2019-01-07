@@ -52,10 +52,10 @@ import { Component, Input, Output, EventEmitter, OnChanges, ChangeDetectionStrat
                 <div>
                     <div formArrayName="workouts">
                         <h1>Workout List</h1>
-                        <div *ngFor="let workout of form.get('workouts').controls; let i=index">
+                        <div *ngFor="let workout of form.get('workouts')['controls']; let i=index">
                             <div [formGroupName]="i">
                                 <div class="workout-program-form__row">
-                                    <div class="col-25">
+                                    <div class="col-25"> 
                                         <label>Workout Day</label>
                                     </div>
                                     <div class="col-75">
