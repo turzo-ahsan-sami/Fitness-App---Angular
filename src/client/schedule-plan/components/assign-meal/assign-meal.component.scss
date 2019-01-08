@@ -1,7 +1,6 @@
 
 .assign-plan {
     justify-content: center;
-    //height: 100vh;
     width: 100%;
     position: fixed;
     top: 0;
@@ -13,16 +12,11 @@
     background: rgba(0,0,0,.2);
     display: flex;
     overflow-y: scroll;
-    //max-height: 100vh;
-
-
     margin:auto;                        
     left:0px;
     right:0px;
     top:0px;
     bottom:0px;
-    
-    
     
     // @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
     //     -webkit-backdrop-filter: blur(10px);
@@ -31,14 +25,6 @@
     // }
 
     &__content {
-        // position: absolute;
-        // top: 50%;
-        // left: 50%;
-
-           
-        // transform: translate(-50%, -50%);
-
-        // width: 75%;
         background-color: #fff;
         box-shadow: 0 2rem 4rem rgba(#232323, .2);
         border-radius: 3px;
@@ -47,13 +33,6 @@
         transition: all .5s .2s;
         overflow-y: auto;
     }
-
-    // &__header {
-    //     width: 66.6666667%;
-    //     display: table-cell;
-    //     vertical-align: middle;
-    //     padding: 3rem 5rem;
-    // }
 
     &__text {
         font-size: 1.4rem;
@@ -72,16 +51,6 @@
         -webkit-hyphens: auto;
         hyphens: auto;
     }
-
-    // &:target {
-    //     opacity: 1;
-    //     visibility: visible;
-    // }
-
-    // &:target &__content {
-    //     opacity: 1;
-    //     transform: translate(-50%, -50%) scale(1);
-    // }
 
     &__close {
         color: #232323;
@@ -194,52 +163,12 @@ input:checked + label {
 }
 
 
-
-  
-//   .assign-plan {
-//       position:fixed;
-//       margin:auto;                        
-//       left:0px;
-//       right:0px;
-//       top:0px;
-//       bottom:0px;
-
-
-//   }
-  
-  
-// .assign-plan__content {
-//     display: none;
-//     height: 100%;
-//     left: 0;
-//     position: fixed;
-//     top: 0;
-//     width: 100%;
-
-
-//    display: flex;
-//    flex-direction: column;
-// }
-// .assign-plan__header,
-// .modal2__footer {
-//     height: 100px;
-// }
-// .assign-plan__body {
-//     height: 100%;
-//     overflow-y: auto;
-//     position: absolute;
-       
-// }
-
 .assign-plan__content {
     display: none;
     height: 100%;
-    
     position: fixed;
-    
-   
+    padding: 30px;
     width: 100%;
-
     display: grid;
     grid-template-rows: 100px auto 100px;
 }

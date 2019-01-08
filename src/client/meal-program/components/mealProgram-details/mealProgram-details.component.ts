@@ -14,18 +14,22 @@ import { Component } from '@angular/core';
         </div>
 
         <div>
-            Your Macro's
+            <h3>Your Macro's</h3>
             <table id="meal-plan" *ngFor="let marcos of nutrientsInfoForWeightGain.marcos">
                 <tr>
-                    <th>Protein</th>
-                    <th>Carbs</th>
-                    <th>Fats</th>
-                    <th>Calories</th>
+                    <td>Protein</td>
+                    <td>{{ marcos.protein }}</td>
                 </tr>
                 <tr>
-                    <td>{{ marcos.protein }}</td>
+                    <td>Carbs</td>
                     <td>{{ marcos.carbs }}</td>
+                </tr>
+                <tr>
+                    <td>Fats</td>
                     <td>{{ marcos.fats }}</td>
+                </tr>
+                <tr>
+                    <td>Calories</td>
                     <td>{{ marcos.calories }}</td>
                 </tr>
             </table>

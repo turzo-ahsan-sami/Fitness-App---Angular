@@ -8,19 +8,24 @@ import { SharedModule } from './shared/shared.module';
 export const ROUTES: Routes = [
     { path: 'user', children: [
         {
-            path: 'schedule-plan', canActivate: [RouterGuard], loadChildren: './schedule-plan/schedule-plan.module#SchedulePlanModule'
+            path: 'schedule-plan', canActivate: [RouterGuard], 
+            loadChildren: './schedule-plan/schedule-plan.module#SchedulePlanModule'
         },
         {
-            path: 'info', canActivate: [RouterGuard], loadChildren: './user-info/user-info.module#UserInfoModule'
+            path: 'info', canActivate: [RouterGuard], 
+            loadChildren: './user-info/user-info.module#UserInfoModule'
         },
         {
-            path: 'meal-program', canActivate: [RouterGuard], loadChildren: './meal-program/meal-program.module#MealProgramModule'
+            path: 'meal-program', canActivate: [RouterGuard], 
+            loadChildren: './meal-program/meal-program.module#MealProgramModule'
         },
         {
-            path: 'workout-program', canActivate: [RouterGuard], loadChildren: './training-program/training-program.module#TrainingProgramModule'
+            path: 'workout-program', canActivate: [RouterGuard], 
+            loadChildren: './training-program/training-program.module#TrainingProgramModule'
         },
         {
-            path: 'workout-progress', canActivate: [RouterGuard], loadChildren: './workout-progress/workout-progress.module#WorkoutProgressModule'
+            path: 'workout-progress', canActivate: [RouterGuard], 
+            loadChildren: './workout-progress/workout-progress.module#WorkoutProgressModule'
         }
     ]}
 ]

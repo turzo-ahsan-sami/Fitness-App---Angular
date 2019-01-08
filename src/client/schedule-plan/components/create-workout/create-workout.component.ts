@@ -85,7 +85,7 @@ import { Component, ChangeDetectionStrategy, Output, EventEmitter } from "@angul
                 
                     <div class="create-workout__row">
                         <div class="col-25">
-                            <label>Weight</label>
+                            <label>Weight (lbs)</label>
                         </div>
                         <div class="col-75">
                             <input formControlName="weight" type="number"/>
