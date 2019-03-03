@@ -1,3 +1,5 @@
+<img width="600" src='https://raw.githubusercontent.com/aktn/Fitness-App---Angular/master/public/demo.gif?raw=true' />
+
 # Fit
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
