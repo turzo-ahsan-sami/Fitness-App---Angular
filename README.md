@@ -1,5 +1,19 @@
 <img width="600" src='https://raw.githubusercontent.com/aktn/Fitness-App---Angular/master/public/demo.gif?raw=true' />
 
+<img width="600" src='https://raw.githubusercontent.com/aktn/Fitness-App---Angular/master/public/calendar.png?raw=true' />
+<h3>Calendar System for assigning meals and workouts</h3> <br/>
+
+<img width="600" src='https://raw.githubusercontent.com/aktn/Fitness-App---Angular/master/public/workout-structure.png?raw=true' />
+<h3>Training structure page</h3>
+<br/>
+
+<img width="600" src='https://raw.githubusercontent.com/aktn/Fitness-App---Angular/master/public/modal-list.png?raw=true' />
+<h3>Modal list when assigning meals</h3>
+<br/>
+
+<img width="600" src='https://raw.githubusercontent.com/aktn/Fitness-App---Angular/master/public/admin-form.png?raw=true' />
+<h3>Admin form for adding data</h3>
+
 # Fit
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.1.
